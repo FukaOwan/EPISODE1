@@ -39,4 +39,9 @@ public class ClientItemShowController {
 	
 		return "index";
 	}
+	
+	@RequestMapping(path = "/client/item/detail/{id}", method = {RequestMethod.GET})
+	public String detail() {
+		return "detail";
+	}
 }
