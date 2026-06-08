@@ -58,5 +58,9 @@ public class ClientItemShowController {
 		
 		return "client/item/detail";
 	}
-
+	
+	@RequestMapping(path = "/client/item/list/1",method = RequestMethod.POST)
+	public String itemList(){
+		return "/client/item/list";
+	}
 }
