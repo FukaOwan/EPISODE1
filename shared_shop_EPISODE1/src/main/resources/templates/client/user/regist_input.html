@@ -14,7 +14,7 @@
 	<div class="user_info_form_area">
 
 
-		<form th:action="@{/client/user/regist/check}" method="post" class="user_info_form" th:object="${userForm}">
+		<form th:action="@{/client/user/regist/check}" method="post" class="user_info_form" th:object="${session.userForm}">
 
 			<th:block th:if="${#fields.hasErrors()}">
 				<ul class="error_list">

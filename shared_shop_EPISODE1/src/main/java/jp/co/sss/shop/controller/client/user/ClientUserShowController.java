@@ -17,8 +17,14 @@ public class ClientUserShowController {
 	@Autowired
 	HttpSession session;
 	
+	/**
+	 * 会員詳細表示
+	 * @param userBean
+	 * @return
+	 */
 	@GetMapping("/client/user/detail")
 	public String show(@ModelAttribute UserBean userBean) {
+		// セッションスコープの会員データをリクエストスコープにコピー
 		BeanUtils.copyProperties(session.getAttribute("user"), userBean);
 		return "client/user/detail";
 	}
