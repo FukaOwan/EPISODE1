@@ -3,9 +3,12 @@ package jp.co.sss.shop.controller.client.item;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import jp.co.sss.shop.bean.ItemBean;
+import jp.co.sss.shop.entity.Item;
 import jp.co.sss.shop.repository.ItemRepository;
 import jp.co.sss.shop.service.BeanTools;
 
@@ -40,8 +43,20 @@ public class ClientItemShowController {
 		return "index";
 	}
 	
-	@RequestMapping(path = "/client/item/detail/{id}", method = {RequestMethod.GET})
-	public String detail() {
-		return "detail";
+	@RequestMapping(path = "/client/item/detail/{id}", method = { RequestMethod.GET, RequestMethod.POST })
+	public String itemDetail(@PathVariable Integer id,Model model) {
+		Item item = itemRepository.getReferenceById(id);
+		
+		ItemBean itemBean = new ItemBean();
+		itemBean.setImage(item.getImage());
+		itemBean.setName(item.getName());
+		itemBean.setPrice(item.getPrice());
+		itemBean.setStock(item.getStock());
+		itemBean.setCategoryName(item.getCategory().getName());
+		itemBean.setDescription(item.getDescription());
+		model.addAttribute("item",itemBean);
+		
+		return "client/item/detail";
 	}
+
 }

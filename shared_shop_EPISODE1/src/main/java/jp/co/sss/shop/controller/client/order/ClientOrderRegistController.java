@@ -16,6 +16,5 @@ public class ClientOrderRegistController {
 	public String showPaymentInput() {
 	 return "/client/order/check";
  }
-	@RequestMapping(path="",method=Requeset)
  
 }
