@@ -92,7 +92,7 @@ public class ClientOrderRegistController {
 	
 	//注文確認画面表示処理
 	@RequestMapping(path="/client/order/check", method=RequestMethod.GET)
-	public String showOrderCheck(HttpSession sessionForOrder, Model model) {
+	public String showOrderCheck(HttpSession sessionForOrder, Model model, OrderForm orderForm) {
 		
 		List<BasketBean> basketLists = (List<BasketBean>) session.getAttribute("basketBeans");
 		
@@ -113,11 +113,16 @@ public class ClientOrderRegistController {
 		}
 		session.setAttribute("basketInfo", basketLists);
 			
-		Integer sum = 0;
-		sum += basketLists.get(i).getStock() * item.getPrice();
-		model.addAttribute("orderSum", sum);
+		Integer itemSum = 0;
+		itemSum = basketLists.get(i).getStock() * item.getPrice();
+		model.addAttribute("itemSum", itemSum);
+		Integer allSum = 0;
+		allSum += basketLists.get(i).getStock() * item.getPrice();
+		model.addAttribute("allSum", allSum);
+
 		}
-		
+		model.addAttribute("basketlists",basketLists);
+		model.addAttribute("orderform", orderForm);
 		return "client/order/check";
 	}
 	
@@ -125,6 +130,16 @@ public class ClientOrderRegistController {
 	@RequestMapping(path="/client/order/payment/back", method = RequestMethod.POST)
 	public String returnAddressInput() {
 		return "redirect:/client/order/address/input";
+	}
+	
+	//ご注文の確定ボタン押下時処理
+	@RequestMapping(path="client/order/complete", method=RequestMethod.POST)
+	public String submitOrder() {
+		if() {
+			return "redirect:/client/order/check";
+		}else {
+			return "redirect:/client/order/complete";
+		}
 	}
 	
 	//注文完了画面表示
