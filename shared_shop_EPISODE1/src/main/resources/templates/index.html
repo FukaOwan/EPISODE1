@@ -8,12 +8,12 @@
 <body class="user index">
 	<div>
 		<h2 class="title">
-				<span th:if="${sortType==1}" th:text="#{sort.latest.title}"></span>
-				<span th:if="${sortType==2 || sortType==null}" th:text="#{sort.hotsell.title}"></span>
+				<span th:if="${sortType==1}" th:text="売れ筋商品"></span>
+				<span th:if="${sortType==2 || sortType==null}" th:text="新着商品"></span>
 		</h2>
 	</div>
 	<div th:if="${#lists.isEmpty(items)}">
-		<p th:text="#{msg.client.item.list.none}"></p>
+		<p th:text="閲覧できる商品情報がありません。"></p>
 	</div>
 	<div class="item_list">
 	<th:block th:each="item, status: ${items}" th:if="${status.count le 10}">
