@@ -16,9 +16,11 @@ import jakarta.validation.Valid;
 import jp.co.sss.shop.bean.BasketBean;
 import jp.co.sss.shop.bean.UserBean;
 import jp.co.sss.shop.entity.Item;
+import jp.co.sss.shop.entity.OrderItem;
 import jp.co.sss.shop.entity.User;
 import jp.co.sss.shop.form.OrderForm;
 import jp.co.sss.shop.repository.ItemRepository;
+import jp.co.sss.shop.repository.OrderItemRepository;
 import jp.co.sss.shop.repository.OrderRepository;
 import jp.co.sss.shop.repository.UserRepository;
 
@@ -32,6 +34,8 @@ public class ClientOrderRegistController {
 	ItemRepository itemRepository;
 	@Autowired
 	HttpSession session;
+	@Autowired
+	OrderItemRepository orderItemRepository;
 	//注文入力フォーム情報初期化処理（届け先入力前に）
 		@RequestMapping(path="/client/order/address/input", method=RequestMethod.POST)
 		public String resetForm(OrderForm orderForm) {
@@ -111,7 +115,7 @@ public class ClientOrderRegistController {
 			BeanUtils.copyProperties(item, basketbean);
 			basketLists.set(i, basketbean);
 		}
-		session.setAttribute("basketInfo", basketLists);
+		session.setAttribute("basketInfo", basketLists.get(i));
 			
 		Integer itemSum = 0;
 		itemSum = basketLists.get(i).getStock() * item.getPrice();
@@ -134,12 +138,20 @@ public class ClientOrderRegistController {
 	
 	//ご注文の確定ボタン押下時処理
 	@RequestMapping(path="client/order/complete", method=RequestMethod.POST)
-	public String submitOrder() {
-		if() {
+	public String submitOrder(HttpSession sessionForOrder) {
+		List<BasketBean> basketBean = (List<BasketBean>) session.getAttribute("basketInfo");
+		for (int i = 0; i <= basketBean.size() ;i++) {
+			Item item = itemRepository.findByIdAndDeleteFlag(basketBean.get(i).getId(), 0);
+		if(basketBean.get(i).getStock() >= item.getStock()) {
 			return "redirect:/client/order/check";
-		}else {
-			return "redirect:/client/order/complete";
 		}
+		}
+		OrderItem orderItem = new OrderItem();
+		orderItem = orderItemRepository.save(orderItem);
+		sessionForOrder.invalidate();
+		session.removeAttribute("basketInfo");
+		
+		return "redirect:/client/order/complete";
 	}
 	
 	//注文完了画面表示
