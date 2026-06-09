@@ -45,7 +45,8 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	
 	
 //	商品を売上順で検索
-//	@Query("SELECT i FROM Item i INNER JOIN i.category c WHERE i.deleteFlag =:deleteFlag ORDER BY i.insertDate DESC,i.id DESC")
-//	Page<Item>findByDeleteFlagOrderBy
+	@Query("SELECT i FROM Item i INNER JOIN i. item o WHERE i.deleteFlag =:deleteFlag ORDER BY o.quantity DESC,i.id DESC")
+	Page<Item>findByDeleteFlagOrderByQuantityDescPage(
+	        @Param(value = "deleteFlag") int deleteFlag, Pageable pageable);
 }
 

@@ -51,7 +51,7 @@ public class ClientItemShowController {
 //	商品一覧表示（売れ筋順）（追記：春山）
 //	@RequestMapping(path = "/client/item/list/{sortType}?categoryId={カテゴリID}", method = RequestMethod.GET)
 //	public String sortItem(@PathVariable Integer id ,Model model) {
-//		model.addAttribute("items",itemRepository.);
+//		model.addAttribute("items",itemRepository.findByDeleteFlagOrderByQuantityDescPage(Constant.NOT_DELETED,id));
 //		return "client/item/list";
 //	}
 }
