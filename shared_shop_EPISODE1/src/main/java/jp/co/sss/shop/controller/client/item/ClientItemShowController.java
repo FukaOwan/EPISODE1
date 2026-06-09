@@ -1,5 +1,6 @@
 package jp.co.sss.shop.controller.client.item;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -48,12 +49,10 @@ public class ClientItemShowController {
 		Item item = itemRepository.getReferenceById(id);
 		
 		ItemBean itemBean = new ItemBean();
-		itemBean.setImage(item.getImage());
-		itemBean.setName(item.getName());
-		itemBean.setPrice(item.getPrice());
-		itemBean.setStock(item.getStock());
+		BeanUtils.copyProperties(item, itemBean);
+		
 		itemBean.setCategoryName(item.getCategory().getName());
-		itemBean.setDescription(item.getDescription());
+		
 		model.addAttribute("item",itemBean);
 		
 		return "client/item/detail";
