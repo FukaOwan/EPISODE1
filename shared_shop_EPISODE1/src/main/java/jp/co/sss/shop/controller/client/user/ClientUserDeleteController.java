@@ -51,24 +51,54 @@ public class ClientUserDeleteController {
 	
 	
 //	削除確認画面表示処理
+	
 	@RequestMapping(path = "/client/user/delete/check", method = RequestMethod.GET)
 	public String updateInput(Model model) {
-    UserForm userForm =(UserForm) session.getAttribute("userForm");
 
-	    if (userForm == null) {
-	        return "redirect:/syserror";
-	    }
+		//セッションから入力フォーム取得
+		UserForm userForm = (UserForm) session.getAttribute("userForm");
+		if (userForm == null) {
+			// セッション情報がない場合、エラー
+			return "redirect:/syserror";
+		}
+		// 入力フォーム情報を画面表示設定
+		model.addAttribute("userForm", userForm);
 
-	    model.addAttribute("userForm", userForm);
-
-	    return "client/user/delete_check";
+		// 削除確認画面　表示
+		return "client/user/delete_check";
 	}
+
 
 	
 //	削除ボタン　押下処理
 	@RequestMapping(path = "/client/user/delete/complete", method = RequestMethod.POST)
-	public String l() {
-		return "redirect:/client/user/delete/check";
+	public String deleteComplete() {
+
+		// セッションから削除対象フォーム情報を取得
+		UserForm userForm = (UserForm) session.getAttribute("userForm");
+		if (userForm == null) {
+			// セッション情報がない場合、エラー
+			return "redirect:/syserror";
+		}
+		// 削除対象の会員情報を取得
+		User user = userRepository.findByIdAndDeleteFlag(userForm.getId(), Constant.NOT_DELETED);
+
+		if (user == null) {
+			// 対象が無い場合、エラー
+			return "redirect:/syserror";
+		}
+
+		// 削除フラグを立てる
+		user.setDeleteFlag(Constant.DELETED);
+
+		// 会員情報を保存
+		userRepository.save(user);
+
+		// ログインユーザの会員退会の場合、セッションスコープの情報を破棄(＝ログアウト)
+		session.invalidate();
+
+		// 削除完了画面　表示処理
+		return "redirect:/client/user/delete/complete";
 	}
 	
 //	削除完了画面表示
