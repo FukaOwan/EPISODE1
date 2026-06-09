@@ -22,15 +22,18 @@ public class ClientBasketController {
 	@Autowired
    ItemRepository itemRepository;
 	
-	@RequestMapping(path="/client/basket/add", method=RequestMethod.POST)
-	public String addItem(Model model,ItemForm itemForm,HttpSession session){
+	 List<BasketBean> basketList=new ArrayList<>();
+
 	
-		 List<BasketBean> basketList=( List<BasketBean>) session.getAttribute("basketBeans");
-		 
-		if(basketList==null){
+	@RequestMapping(path="/client/basket/add", method=RequestMethod.POST)
+	public String addItem(Integer id,Model model,HttpSession session){
+	
+		 List<BasketBean> RbasketList=( List<BasketBean>) session.getAttribute("basketBeans");
+		
+		if(RbasketList==null){
 			
-			 List<BasketBean> basketList1=new ArrayList<>();
-			 basketList= basketList1;
+			 List<BasketBean> RbasketList1=new ArrayList<>();
+			 RbasketList=RbasketList1;
 				
 		}
 		
@@ -39,40 +42,24 @@ public class ClientBasketController {
 		
 		for(BasketBean b:basketList) {
 			
-			if(b.getId()==itemForm.getId()){ //すでに籠に商品が入ってる場合//
+			if(b.getId()==id){ //すでに籠に商品が入ってる場合//
 				
-				if(b.getOrderNum()>=b.getStock()) { //追加したら注文のほうが多くなってしまうので追加できない場合//
-					
-					if(b.getOrderNum()==b.getStock()) {
-						
-					 List<String> itemNameListZero=new ArrayList<>();
-					 itemNameListZero.add(b.getName());
-					 model.addAttribute("itemNameListZero",itemNameListZero);
-					}
-					
-					else {
-						
-						 List<String> itemNameListLessThan=new ArrayList<>();
-						 itemNameListLessThan.add(b.getName());
-						 model.addAttribute("itemNameListLessThan",itemNameListLessThan);
-						 
-						}
-					break;
-					}
+				
 				
 
 				
-				}
 				
-				else {//商品の注文数を増やす処理が必要な場合//
+				
+				//商品の注文数を増やす処理が必要な場合//
 					
-					BasketBean basketBean=new BasketBean(b.getId(),b.getName(),b.getStock(),(b.getOrderNum()+1));
+					BasketBean basketBean=new BasketBean(b.getId(),b.getName(),b.getStock(),b.getOrderNum()+1);
 					basketList.remove(i);
 					basketList.add(basketBean);
 					
 					break;
 					
-				}
+				
+			}
 			i++;
 		}
 			
@@ -81,20 +68,32 @@ public class ClientBasketController {
 			
 		
 		if(i==basketList.size()) { //籠に商品がなく、新しく追加する場合の処理。sizeでfor文が全部見られたかチェック//
-			Item item = itemRepository.findByIdAndDeleteFlag(itemForm.getId(), 0);
+			//Item item = itemRepository.findByIdAndDeleteFlag(itemForm.getId(), 0);
+			
+		
+			Item item = itemRepository.getReferenceById(id);
+
 			//BeanUtils.copyProperties(item, )
-			BasketBean basketBean=new BasketBean(item.getId(),item.getName(),item.getStock());
+			BasketBean basketBean=new BasketBean(id,item.getName(),item.getStock());
 
 			basketList.add(basketBean);
 			
+			
 		}
 		
-		 
-        session.setAttribute("basketBeans", basketList);
-        
-        return"redirect:/client/basket/list";
+		 RbasketList.clear();
 
-        
+		for(int a=basketList.size();a>0;a--){
+			
+			RbasketList.add(basketList.get(a-1));
+		
+		}
+		
+        session.setAttribute("basketBeans",RbasketList);
+
+        return "redirect:/client/basket/list";
+
+
 
 		
 }
@@ -106,20 +105,48 @@ public class ClientBasketController {
 	
 
 	@RequestMapping(path="/client/basket/list", method=RequestMethod.GET)
-	public String listItem(ItemForm itemForm,HttpSession session){
+	public String listItem(Model model,ItemForm itemForm,HttpSession session){
 		
-		 List<BasketBean> basketList=( List<BasketBean>) session.getAttribute("basketBeans");
-		 
-			if(basketList==null){
-				
-				 List<BasketBean> basketList1=new ArrayList<>();
-				 basketList= basketList1;
-				
-			}
+		 List<BasketBean> RbasketList=( List<BasketBean>) session.getAttribute("basketBeans");
 		
-			 
-	        session.setAttribute("basketBeans", basketList);
-	        
+		//	if(basketList==null){
+				
+				// List<BasketBean> basketList1=new ArrayList<>();
+				 //basketList= basketList1;
+				
+			//}
+		
+			
+		 if(RbasketList != null) {
+				
+					RbasketList.get(0);
+					if(	RbasketList.get(0).getOrderNum()>RbasketList.get(0).getStock()) { //追加したら注文のほうが多くなってしまうので追加できない場合//
+						
+							
+						// List<String> itemNameListZero=new ArrayList<>();
+						// itemNameListZero.add(b.getName());
+							 model.addAttribute("itemNameListLessThan",RbasketList.get(0).getName());
+							 RbasketList.get(0).setOrderNum(RbasketList.get(0).getStock());
+							 basketList.get(basketList.size()-1).setOrderNum( basketList.get(basketList.size()-1).getStock());
+
+						}
+						
+						else if(RbasketList.get(0).getStock()==0) {
+							
+							// List<String> itemNameListLessThan=new ArrayList<>();
+							// itemNameListLessThan.add(b.getName());
+							 model.addAttribute("itemNameListZero",RbasketList.get(0).getName());
+							 RbasketList.remove(0);
+							 basketList.remove(basketList.size()-1);
+
+							}
+					
+						
+		 }
+		
+			
+	        session.setAttribute("basketBeans", RbasketList);
+	
 
 			
 	
@@ -129,23 +156,27 @@ public class ClientBasketController {
 	@RequestMapping(path="/client/basket/delete", method=RequestMethod.POST)
     public String deleteItem(ItemForm itemForm,HttpSession session){
 
-		 List<BasketBean> basketList=(List<BasketBean>) session.getAttribute("basketBeans");
+		 List<BasketBean> RbasketList=(List<BasketBean>) session.getAttribute("basketBeans");
 			int i=0;
 
-for(BasketBean b:basketList) {
+for(BasketBean b:RbasketList) {
 	
 			
 			if(b.getId()==itemForm.getId()){ //すでに籠に商品が入ってる場合//
 				
 				
 					if(b.getOrderNum()==1) {
-					basketList.remove(i);
 					
-					if(basketList==null) { session.removeAttribute("basketBeans");
+					if(RbasketList.size()==1) {
+						basketList.clear();
+
+						session.removeAttribute("basketBeans");
 					
 					return"redirect:/client/basket/list";
 
 					}
+					RbasketList.remove(i);
+
 					
 					break;
 					}
@@ -153,7 +184,7 @@ for(BasketBean b:basketList) {
 						
 						BasketBean basketBean=new BasketBean(b.getId(),b.getName(),b.getStock(),(b.getOrderNum()-1));
 
-						basketList.set(i, basketBean);
+						RbasketList.set(i, basketBean);
 						
 						break;
 					}
@@ -161,9 +192,12 @@ for(BasketBean b:basketList) {
 				}
 			i++;
 		}
-	
-session.setAttribute("basketBeans", basketList);
-return"redirect:/client/basket/list";
+
+
+
+
+session.setAttribute("basketBeans",RbasketList);
+	return"redirect:/client/basket/list";
 
 	}
 	
@@ -174,8 +208,12 @@ return"redirect:/client/basket/list";
 	@RequestMapping(path="/client/basket/allDelete", method=RequestMethod.POST)
     public String allDeleteItem(ItemForm itemForm,HttpSession session){
 
-		 List<BasketBean> basketList=( List<BasketBean>) session.getAttribute("basketBeans");
+		 List<BasketBean> RbasketList=( List<BasketBean>) session.getAttribute("basketBeans");
 
+		
+			basketList.clear();
+
+			
     session.removeAttribute("basketBeans");
 
 
@@ -184,10 +222,6 @@ return"redirect:/client/basket/list";
 
 
 	}
-	
-	
-	
-	
 	
 	
 	
