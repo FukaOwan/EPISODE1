@@ -27,39 +27,50 @@ public class ClientUserDeleteController {
 	@Autowired
 	HttpSession session;
 
-	//	処理①削除ボタン　押下時処理
-	//	@param UserBeam
-	//	@return 削除確認画面表示処理へ
+	/**
+	 * 処理①退会ボタンを押したとき
+	 * 
+	 * ログイン中の会員情報を取得し
+	 * 削除確認画面へ表示するためのフォームを作成
+	 * 
+	 * @return 削除確認画面処理表示
+	 */
 
 	@RequestMapping(path = "/client/user/delete/check", method = RequestMethod.POST)
 	public String deleteCheck() {
 
-		//　　　セッションスコープに保存されている「user」を取得しloginUserに保存
+		//   ログイン中の会員情報をセッションから取得
 		UserBean loginUser = (UserBean) session.getAttribute("user");
-
+		//    削除対象の会員情報を取得
 		User user = userRepository.findByIdAndDeleteFlag(loginUser.getId(), Constant.NOT_DELETED);
 
-		//		フォームの新オブジェクト
+		//   画面表示用のフォームオブジェクトを生成
 		UserForm userForm = new UserForm();
 
-		//      userFormにuserをコピー
+		//   会員情報をフォームへコピー  
 		BeanUtils.copyProperties(user, userForm);
 
-		//情報フォームをセッションに保持
+		//   削除確認画面用にフォーム情報をセッションへ保存
 		session.setAttribute("userForm", userForm);
 
 		// 削除確認画面表示処理にリダイレクト
 		return "redirect:/client/user/delete/check";
 	}
 
-	//　処理②削除確認画面表示処理
-	//	@param UserForm
-	//	@return 削除確認画面 表示
+	/**
+	 * 処理②削除画面表示処理
+	 * 
+	 * セッションに保存された会員情報を取得し
+	 * 削除画面へ表示する
+	 * 
+	 * @param model
+	 * @return　削除確認画面
+	 */
 
 	@RequestMapping(path = "/client/user/delete/check", method = RequestMethod.GET)
 	public String updateInput(Model model) {
 
-		//セッションから入力フォーム取得
+		//セッションから削除対象の会員情報を取得
 		UserForm userForm = (UserForm) session.getAttribute("userForm");
 		if (userForm == null) {
 			// セッション情報がない場合、エラー
@@ -72,10 +83,17 @@ public class ClientUserDeleteController {
 		return "client/user/delete_check";
 	}
 
-	//処理③削除ボタン　押下処理
-	//	@return 対象のない場合→/syserrorの処理へ
-	//	@return 削除完了画面　表示処理→/client/user/delete/complete
-
+	/**
+	 * 処理③退会処理
+	 * 
+	 * 会員情報に削除フラグを設定
+	 * 退会処理を実行
+	 * 
+	 * 退会後はセッションを破棄し
+	 * ログイン状態を解除する
+	 * 
+	 * @return 削除完了画面表示処理
+	 */
 	@RequestMapping(path = "/client/user/delete/complete", method = RequestMethod.POST)
 	public String deleteComplete() {
 
@@ -99,15 +117,20 @@ public class ClientUserDeleteController {
 		// 会員情報を保存
 		userRepository.save(user);
 
-		// ログインユーザの会員退会の場合、セッションスコープの情報を破棄(＝ログアウト)
+		// セッションを破棄しログアウト状態にする
 		session.invalidate();
 
 		// 削除完了画面　表示処理
 		return "redirect:/client/user/delete/complete";
 	}
 
-	//	処理④　削除完了画面
-	//      @return 削除完了画面　表示
+	/**
+	 * 処理④削除完了画面表示処理
+	 * 
+	 * 退会完了画面を表示する
+	 * 
+	 * @return 削除完了画面
+	 */
 
 	@RequestMapping(path = "/client/user/delete/complete", method = RequestMethod.GET)
 	public String deleteCompleteFinish() {
