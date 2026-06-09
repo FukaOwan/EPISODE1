@@ -44,14 +44,8 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	public Item findByNameAndDeleteFlag(String name, int notDeleted);
 	
 	
-////	商品情報を登録日付順に取得 お客さん側の機能で利用（追記：春山）
-//	@Query("SELECT ui FROM Item ui INNER JOIN ui.category c WHERE ui.deletFlag =:deleteFlag ORDER BY ui.inserDate DESC,ui.id DESC")
-//	Page<Item>findByDeleteFragOrderByInsertDateDescPage(
-//			@Param(value = "deleteFlag")int deleteFlag,Pageable pageble);
-//	
-////	カテゴリIDと削除フラグを条件に検索
-//	public Item findByCategoryIdAndDeleteFlag(Integer id,int deleteFrag);
-	
 //	商品を売上順で検索
+//	@Query("SELECT i FROM Item i INNER JOIN i.category c WHERE i.deleteFlag =:deleteFlag ORDER BY i.insertDate DESC,i.id DESC")
+//	Page<Item>findByDeleteFlagOrderBy
 }
 

@@ -48,7 +48,7 @@ public class ClientItemShowController {
 		model.addAttribute("items",itemRepository.findByDeleteFlagOrderByInsertDateDescPage(Constant.NOT_DELETED, pageable));
 		return "client/item/list";
 	}
-////	商品一覧表示（売れ筋順）（追記：春山）
+//	商品一覧表示（売れ筋順）（追記：春山）
 //	@RequestMapping(path = "/client/item/list/{sortType}?categoryId={カテゴリID}", method = RequestMethod.GET)
 //	public String sortItem(@PathVariable Integer id ,Model model) {
 //		model.addAttribute("items",itemRepository.);
