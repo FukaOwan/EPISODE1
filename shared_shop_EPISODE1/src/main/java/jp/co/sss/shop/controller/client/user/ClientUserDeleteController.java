@@ -14,44 +14,48 @@ import jp.co.sss.shop.form.UserForm;
 import jp.co.sss.shop.repository.UserRepository;
 import jp.co.sss.shop.util.Constant;
 
-@Controller 
+@Controller
 public class ClientUserDeleteController {
-	
-//	会員情報リポジトリ
+
+	//	会員情報リポジトリ
 
 	@Autowired
 	UserRepository userRepository;
-	
-//	セッション
-	
+
+	//	セッション
+
 	@Autowired
 	HttpSession session;
-	
-//	削除ボタン　押下時処理
-	
+
+	//	処理①削除ボタン　押下時処理
+	//	@param UserBeam
+	//	@return 削除確認画面表示処理へ
+
 	@RequestMapping(path = "/client/user/delete/check", method = RequestMethod.POST)
-	 public String deleteCheck() {
+	public String deleteCheck() {
+
+		//　　　セッションスコープに保存されている「user」を取得しloginUserに保存
 		UserBean loginUser = (UserBean) session.getAttribute("user");
-		   User user = userRepository.findByIdAndDeleteFlag(loginUser.getId(),Constant.NOT_DELETED);
 
-		  
-		   UserForm userForm = new UserForm();
+		User user = userRepository.findByIdAndDeleteFlag(loginUser.getId(), Constant.NOT_DELETED);
 
-		   BeanUtils.copyProperties(user, userForm);
+		//		フォームの新オブジェクト
+		UserForm userForm = new UserForm();
 
-			//情報フォームをセッションに保持
-		   session.setAttribute("userForm", userForm);
+		//      userFormにuserをコピー
+		BeanUtils.copyProperties(user, userForm);
 
+		//情報フォームをセッションに保持
+		session.setAttribute("userForm", userForm);
 
-			// 削除確認画面　表示
-			return "redirect:/client/user/delete/check";
-		}
+		// 削除確認画面表示処理にリダイレクト
+		return "redirect:/client/user/delete/check";
+	}
 
+	//　処理②削除確認画面表示処理
+	//	@param UserForm
+	//	@return 削除確認画面 表示
 
-	
-	
-//	削除確認画面表示処理
-	
 	@RequestMapping(path = "/client/user/delete/check", method = RequestMethod.GET)
 	public String updateInput(Model model) {
 
@@ -68,9 +72,10 @@ public class ClientUserDeleteController {
 		return "client/user/delete_check";
 	}
 
+	//処理③削除ボタン　押下処理
+	//	@return 対象のない場合→/syserrorの処理へ
+	//	@return 削除完了画面　表示処理→/client/user/delete/complete
 
-	
-//	削除ボタン　押下処理
 	@RequestMapping(path = "/client/user/delete/complete", method = RequestMethod.POST)
 	public String deleteComplete() {
 
@@ -100,13 +105,15 @@ public class ClientUserDeleteController {
 		// 削除完了画面　表示処理
 		return "redirect:/client/user/delete/complete";
 	}
-	
-//	削除完了画面表示
 
-    @RequestMapping(path = "/client/user/delete/complete", method = RequestMethod.GET)
-     public String deleteCompleteFinish() {
+	//	処理④　削除完了画面
+	//      @return 削除完了画面　表示
 
-	return "client/user/delete_complete";
-}
+	@RequestMapping(path = "/client/user/delete/complete", method = RequestMethod.GET)
+	public String deleteCompleteFinish() {
+
+		//    	削除完了画面のHTML
+		return "client/user/delete_complete";
+	}
 
 }
