@@ -82,7 +82,6 @@ public class ClientOrderRegistController {
 		}else {
 			return "redirect:/client/order/payment/input";
 		}
-		
 	}
 	
 	
