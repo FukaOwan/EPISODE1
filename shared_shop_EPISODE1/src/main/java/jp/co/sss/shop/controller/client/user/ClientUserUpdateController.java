@@ -22,19 +22,19 @@ import jp.co.sss.shop.util.Constant;
 @Controller
 public class ClientUserUpdateController {
 	/**
-	 * 会員情報　リポジトリ
+	 * 会員情報　リポジトリ(東山)
 	 */
 	@Autowired
 	UserRepository userRepository;
 	
 	/**
-	 * セッション情報
+	 * セッション情報(東山)
 	 */
 	@Autowired
 	HttpSession session;
 	
 	/**
-	 * 処理1　変更ボタン、確認画面-戻るボタン 押下時処理
+	 * 処理1　変更ボタン、確認画面-戻るボタン 押下時処理(東山)
 	 * @return
 	 */
 	@PostMapping("/client/user/update/input")
@@ -59,7 +59,7 @@ public class ClientUserUpdateController {
 	}
 	
 	/**
-	 * 処理2 変更入力画面表示処理
+	 * 処理2 変更入力画面表示処理(東山)
 	 * @param model
 	 * @return
 	 */
@@ -83,7 +83,7 @@ public class ClientUserUpdateController {
 	}
 	
 	/**
-	 * 処理3 確認ボタン 押下時処理
+	 * 処理3 確認ボタン 押下時処理(東山)
 	 * @param form
 	 * @param result
 	 * @return
@@ -112,7 +112,7 @@ public class ClientUserUpdateController {
 	}
 	
 	/**
-	 * 処理4
+	 * 処理4(東山)
 	 * @param model
 	 * @return
 	 */
@@ -126,26 +126,40 @@ public class ClientUserUpdateController {
 		return "/client/user/update_check";
 	}
 	
+	/**
+	 * 処理5 登録ボタン 押下時処理(東山)
+	 * @return
+	 */
 	@PostMapping("/client/user/update/complete")
 	public String complete() {
 		// セッションスコープに入力フォーム情報を取得
 		UserForm userForm = (UserForm) session.getAttribute("userForm");
+		// 入力フォーム情報を元にDB登録用エンティティオブジェクトを生成
 		User user = userRepository.findByIdAndDeleteFlag(userForm.getId(), Constant.NOT_DELETED);
 		Integer deleteFlag = user.getDeleteFlag();
 		Date insertDate = user.getInsertDate();
 		BeanUtils.copyProperties(userForm, user, "id", "deleteFlag", "insertDate");
 		user.setDeleteFlag(deleteFlag);
 		user.setInsertDate(insertDate);
+		// DB更新実施
 		userRepository.save(user);
+		// セッションスコープの入力フォーム情報削除
 		session.removeAttribute("userForm");
+		// セッションスコープの会員情報を更新
 		UserBean userBean = new UserBean();
 		BeanUtils.copyProperties(user, userBean);
 		session.setAttribute("user", userBean);
+		// 変更完了画面表示処理にリダイレクト
 		return "redirect:/client/user/update/complete";
 	}
 	
+	/**
+	 * 処理6 変更完了画面表示処理(東山)
+	 * @return
+	 */
 	@GetMapping("/client/user/update/complete")
 	public String show_complete() {
+		// 登録完了画面表示
 		return "/client/user/update_complete";
 	}
 }
