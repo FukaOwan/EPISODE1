@@ -23,9 +23,10 @@
 		</ul>
 		<br />
 	</th:block>
-
+	
+	<!--/* 買い物かごが空のとき */-->
 	<div th:if="${session.basketBeans == null}">
-		<!--/* 買い物かごが空のとき */-->
+	
 		<p th:text="#{msg.basket.list.none}"></p>
 	</div>
 
