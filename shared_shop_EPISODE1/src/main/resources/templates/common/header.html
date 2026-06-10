@@ -9,6 +9,11 @@
 	<div th:if="${session.user != null and session.user.authority == 2}" class="user_info">
 		<a th:href="@{/client/user/detail}" th:text="${session.user.name}"></a>さん | <a th:href="@{/logout}" th:text="#{logout}"></a>
 	</div>
+<!--	タイムセール表示-->
+	<div id="sale-header">
+        <!-- JavaScriptでここの文字を書き換えます -->
+        <span id="sale-message">状態を確認中...</span>
+    </div>
 	<div th:if="${session.user != null and (session.user.authority == 0 or session.user.authority == 1)}" class="user_info">
 		<a th:href="@{/admin/user/detail/{id}(id=${session.user.id})}" th:text="${session.user.name}"></a>さん | <a th:href="@{/logout}" th:text="#{logout}"></a>
 	</div>
@@ -18,3 +23,33 @@
 </div>
 </body>
 </html>
+
+<!--js-->
+<script>
+    function updateSaleStatus() {
+        // ユーザーのブラウザの現在時刻を取得
+        const now = new Date();
+        const hours = now.getHours(); // 現在の「時」 (0〜23)
+
+        const headerEl = document.getElementById("sale-header");
+        const messageEl = document.getElementById("sale-message");
+
+		// 【開催中】 19:00 〜 21:59 (22:00未満) の場合
+        if (hours >= 19 && hours < 22) {
+            messageEl.innerText = "19:00～20:00タイムセール中！！全品10％オフ！！";
+            headerEl.className = "sale-active"; // CSSでデザインを変える用
+        } 
+        // 【時間外】 それ以外の時間帯の場合
+        else {
+            messageEl.innerText = "本日19時～22時までタイムセール実施予定！";
+            headerEl.className = "sale-inactive";
+        }
+    }
+
+    // 1分（60000ミリ秒）ごとに状態をチェックして更新
+    setInterval(updateSaleStatus, 60000);
+    
+    // ページが開かれた瞬間に1回目を実行
+    updateSaleStatus();
+</script>
+
