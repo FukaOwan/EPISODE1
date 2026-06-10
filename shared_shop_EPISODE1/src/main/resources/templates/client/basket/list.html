@@ -25,12 +25,12 @@
 	</th:block>
 	
 	<!--/* 買い物かごが空のとき */-->
-	<!-- <div th:if="${session.basketBeans == null}">
+	<div th:if="${session.basketBeans == null}">
 	
 		<p th:text="#{msg.basket.list.none}"></p>
-	</div> -->
+	</div>
 
-	<!-- <th:block th:if="${session.basketBeans != null}"> -->
+	<th:block th:if="${session.basketBeans != null}">
 		<table class="list_table basket">
 			<tr>
 				<th>[[#{data.basket.item.name}]]</th>
@@ -62,7 +62,7 @@
 				<input type="submit" value="買い物かごを空にする" class="delete" />
 			</form>
 		</div>
-	<!--</th:block>-->
+	</th:block>
 </body>
 
 </html>
