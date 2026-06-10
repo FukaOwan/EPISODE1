@@ -60,13 +60,13 @@ public class ClientItemShowController {
 	public String categoryList(@PathVariable Integer sortType,@RequestParam (required = false)Integer categoryId, Model model,Pageable pageable) {
 		
 //		新着順表示
-		if(sortType==1 && categoryId==null) {
+		if(sortType==1 && (categoryId==null || categoryId==0)) {
 			model.addAttribute("items",itemRepository.findByDeleteFlagOrderByInsertDateDescPage(Constant.NOT_DELETED, pageable));
 		
 //		売れ筋順表示	
-		}else if(sortType==2 && categoryId==null){
+		}else if(sortType==2 && (categoryId==null || categoryId==0)){
 			model.addAttribute("items",itemRepository.findByDeleteFlagOrderByQuantityDescPage(Constant.NOT_DELETED,pageable));
-		
+
 //		カテゴリ別検索 + 新着順表示
 		}else if(sortType==1 && categoryId!=null) {
 			model.addAttribute("items",itemRepository.findByDeleteFlagAndCategoryOrderByInsertDateDescPage(Constant.NOT_DELETED,categoryId,pageable));
