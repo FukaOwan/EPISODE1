@@ -29,7 +29,7 @@ public class ClientBasketController {
 	public String addItem(Integer id,Model model,HttpSession session){
 	
 		 List<BasketBean> RbasketList=( List<BasketBean>) session.getAttribute("basketBeans");
-		
+
 		if(RbasketList==null){
 			
 			 List<BasketBean> RbasketList1=new ArrayList<>();
@@ -88,10 +88,12 @@ public class ClientBasketController {
 			RbasketList.add(basketList.get(a-1));
 		
 		}
-		
+		 
         session.setAttribute("basketBeans",RbasketList);
-
+        
         return "redirect:/client/basket/list";
+		
+  
 
 
 
@@ -104,10 +106,19 @@ public class ClientBasketController {
 	
 	
 
-	@RequestMapping(path="/client/basket/list", method=RequestMethod.GET)
+	@RequestMapping(path="/client/basket/list")
 	public String listItem(Model model,ItemForm itemForm,HttpSession session){
 		
 		 List<BasketBean> RbasketList=( List<BasketBean>) session.getAttribute("basketBeans");
+		 
+		//	if(basketList==null){
+				
+				// List<BasketBean> basketList1=new ArrayList<>();
+				 //basketList= basketList1;
+				
+			//}
+		
+			 
 		
 		//	if(basketList==null){
 				
@@ -119,7 +130,6 @@ public class ClientBasketController {
 			
 		 if(RbasketList != null) {
 				
-					RbasketList.get(0);
 					if(	RbasketList.get(0).getOrderNum()>RbasketList.get(0).getStock()) { //追加したら注文のほうが多くなってしまうので追加できない場合//
 						
 							
@@ -144,6 +154,8 @@ public class ClientBasketController {
 						
 		 }
 		
+
+	        
 			
 	        session.setAttribute("basketBeans", RbasketList);
 	
@@ -167,6 +179,7 @@ for(BasketBean b:RbasketList) {
 				
 					if(b.getOrderNum()==1) {
 					
+
 					if(RbasketList.size()==1) {
 						basketList.clear();
 
@@ -178,22 +191,22 @@ for(BasketBean b:RbasketList) {
 					RbasketList.remove(i);
 
 					
-					break;
+					
 					}
 					else {
 						
 						BasketBean basketBean=new BasketBean(b.getId(),b.getName(),b.getStock(),(b.getOrderNum()-1));
 
 						RbasketList.set(i, basketBean);
+						basketList.set(RbasketList.size()-1-i, basketBean);
+
 						
-						break;
+						
 					}
 					
 				}
 			i++;
 		}
-
-
 
 
 session.setAttribute("basketBeans",RbasketList);
@@ -210,6 +223,7 @@ session.setAttribute("basketBeans",RbasketList);
 
 		 List<BasketBean> RbasketList=( List<BasketBean>) session.getAttribute("basketBeans");
 
+			 
 		
 			basketList.clear();
 

@@ -39,12 +39,12 @@ public class ClientOrderRegistController {
 	ItemRepository itemRepository;
 	@Autowired
 	OrderItemRepository orderItemRepository;
-		//注文入力フォーム情報初期化処理（届け先入力前に）
-		@RequestMapping(path="/client/order/address/input", method=RequestMethod.POST)
-		public String resetForm(OrderForm orderForm) {
-			Integer id  = (Integer) ((UserBean) session.getAttribute("user")).getId();
-			
-			User user = userRepository.findByIdAndDeleteFlag(id, 0);
+	//注文入力フォーム情報初期化処理（届け先入力前に）
+	@RequestMapping(path="/client/order/address/input", method=RequestMethod.POST)
+	public String resetForm(OrderForm orderForm) {
+		Integer id = (Integer) ((UserBean) session.getAttribute("user")).getId();
+	
+		User user = userRepository.findByIdAndDeleteFlag(id, 0);
 			
 			BeanUtils.copyProperties(user, orderForm);
 			orderForm.setPayMethod(1);
@@ -72,11 +72,12 @@ public class ClientOrderRegistController {
 	@RequestMapping(path="/client/order/payment/input", method = RequestMethod.POST)
 	public String inputPayment(@Valid @ModelAttribute OrderForm orderForm, BindingResult result) {
 		//・セッションスコープから注文入力フォーム情報を取得 
-		orderForm = (@Valid OrderForm) session.getAttribute("orderForm");
+		OrderForm orderform = (@Valid OrderForm) session.getAttribute("orderForm");
+		orderForm.setPayMethod(orderform.getPayMethod());
+		session.setAttribute("orderForm", orderForm);
 		
 		 if(result.hasErrors()) {
 			 //- 入力エラー情報をセッションスコープに設定
-			session.setAttribute("orderForm", orderForm);
 			session.setAttribute("orderFormErrors", result);
 			return "redirect:/client/order/address/input";
 		}else {
@@ -90,7 +91,7 @@ public class ClientOrderRegistController {
 	public String showPaymentInput(Model model) {
 		
 		model.addAttribute("orderForm", session.getAttribute("orderForm"));
-		
+		model.addAttribute("payMethod", 1);
 		return "client/order/payment_input";
 	}
 	
@@ -113,38 +114,42 @@ public class ClientOrderRegistController {
 		Integer total = 0;
 
 		List<OrderItemBean> orderItems = new ArrayList<>();
-		
-		for (int i = 0; i < basketLists.size() ;i++) {
-			BasketBean basket = basketLists.get(i);
-			Item item = itemRepository.getReferenceById(basket.getId());
+		if (basketLists == null) {
+				model.addAttribute("orderItemBeans", null);
+		}else {	
+			for (int i = 0; i < basketLists.size() ;i++) {
+				BasketBean basket = basketLists.get(i);
+				Item item = itemRepository.getReferenceById(basket.getId());
+				
+			//在庫チェック	
+			if (item.getStock() == 0){
+				//エラーメッセージ用
+				 model.addAttribute("itemNameListLessThan",item.getName());
+				//買い物かごから削除
+				basketLists.remove(i);
+				i--;
+				
+			}else if (basketLists.get(i).getOrderNum() > item.getStock()) {
+				model.addAttribute("itemNameListLessThan", item.getName());
+				//買い物かごを更新
+				basket.setOrderNum(item.getStock());
+			}
+				
 			
-		//在庫チェック	
-		if (item.getStock() == 0){
-			model.addAttribute("errormessage");
-			//買い物かごから削除
-			basketLists.remove(i);
-			i--;
-			
-		}else if (basketLists.get(i).getOrderNum() > item.getStock()) {
-			model.addAttribute("errormessage");
-			//買い物かごを更新
-			basket.setOrderNum(item.getStock());
+			total = basket.getOrderNum() * item.getPrice();
+			model.addAttribute("total", total);
+			OrderItemBean orderitem = new OrderItemBean();
+			BeanUtils.copyProperties(item, orderitem);
+			orderitem.setOrderNum(basket.getOrderNum());
+			orderitem.setSubtotal(basket.getOrderNum() * item.getPrice());
+			orderItems.add(orderitem);
+			}
+			session.setAttribute("basketlists", basketLists);
+			model.addAttribute("orderItemBeans", orderItems);
+			session.setAttribute("orderItemBeans", orderItems);
+			model.addAttribute("orderForm", session.getAttribute("orderForm"));
 		}
-			
 		
-		total = basket.getOrderNum() * item.getPrice();
-		model.addAttribute("total", total);
-		OrderItemBean orderitem = new OrderItemBean();
-		BeanUtils.copyProperties(item, orderitem);
-		orderitem.setOrderNum(basket.getOrderNum());
-		orderitem.setSubtotal(basket.getOrderNum() * item.getPrice());
-		orderItems.add(orderitem);
-		}
-		
-		session.setAttribute("basketlists", basketLists);
-		model.addAttribute("orderItemBeans", orderItems);
-		session.setAttribute("orderItemBeans", orderItems);
-		model.addAttribute("orderForm", session.getAttribute("orderForm"));
 		return "client/order/check";
 	}
 	
@@ -156,13 +161,15 @@ public class ClientOrderRegistController {
 	
 	//ご注文の確定ボタン押下時処理
 	@RequestMapping(path="client/order/complete", method=RequestMethod.POST)
-	public String submitOrder() {
+	public String submitOrder(Model model) {
 		
 		List<BasketBean> basketBeans = (List<BasketBean>) session.getAttribute("basketlists");
-		
+		//在庫チェック
+		System.out.println(basketBeans.size());
 		for (int i = 0; i < basketBeans.size() ;i++) {
 			Item item = itemRepository.getReferenceById(basketBeans.get(i).getId());
 		if(basketBeans.get(i).getStock() > item.getStock()) {
+			model.addAttribute("itemNameListLessThan", item.getName());
 			return "redirect:/client/order/check";
 			}
 		}
@@ -191,7 +198,12 @@ public class ClientOrderRegistController {
 			
 			orderitem = orderItemRepository.save(orderitem);
 			orderItemsList.add(orderitem);
+			//商品情報の在庫数を注文個数分減らす
+			item.setStock(item.getStock()-orderitem.getQuantity());
+			item = itemRepository.save(item);
 		}
+		
+		//セッション破棄
 		session.removeAttribute("orderForm");
 		session.removeAttribute("orderItemBeans");
 		
