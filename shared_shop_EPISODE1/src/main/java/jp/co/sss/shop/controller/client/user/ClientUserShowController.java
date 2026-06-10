@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import jakarta.servlet.http.HttpSession;
 import jp.co.sss.shop.bean.UserBean;
+import jp.co.sss.shop.repository.UserRepository;
 
 @Controller
 public class ClientUserShowController {
@@ -18,6 +19,14 @@ public class ClientUserShowController {
 	@Autowired
 	HttpSession session;
 	
+	@Autowired
+	UserRepository userRepository;
+	
+	@RequestMapping(path="/client/user/detail", method = { RequestMethod.GET, RequestMethod.POST })
+	public String show(@ModelAttribute UserBean userBean) {
+		
+		UserBean userBean1=(UserBean)session.getAttribute("user");
+		BeanUtils.copyProperties(userRepository.getReferenceById(userBean1.getId()), userBean);
 	/**
 	 * 会員詳細表示
 	 * @param userBean
