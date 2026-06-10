@@ -27,6 +27,14 @@ public class ClientUserShowController {
 		
 		UserBean userBean1=(UserBean)session.getAttribute("user");
 		BeanUtils.copyProperties(userRepository.getReferenceById(userBean1.getId()), userBean);
+	/**
+	 * 会員詳細表示
+	 * @param userBean
+	 * @return
+	 */
+	@RequestMapping(path="/client/user/detail", method = { RequestMethod.GET, RequestMethod.POST })
+	public String show(@ModelAttribute UserBean userBean) {
+		BeanUtils.copyProperties(session.getAttribute("user"), userBean);
 		return "client/user/detail";
 	}
 }
