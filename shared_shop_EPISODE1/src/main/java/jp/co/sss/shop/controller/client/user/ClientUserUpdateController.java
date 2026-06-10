@@ -1,5 +1,7 @@
 package jp.co.sss.shop.controller.client.user;
 
+import java.sql.Date;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,7 +44,8 @@ public class ClientUserUpdateController {
 		// 入力フォーム情報がない場合
 		if(userForm == null) {
 			// ログイン会員IDを取得
-			Integer userId = ((UserBean)session.getAttribute("user")).getId();
+			UserBean loginUser = (UserBean) session.getAttribute("user");
+			Integer userId = loginUser.getId();
 			// 変更対象データをDBから取得
 			User user = userRepository.findByIdAndDeleteFlag(userId, Constant.NOT_DELETED);
 			// 取得データを元に入力画面初期表示用の入力フォーム情報を新規生成
@@ -128,10 +131,16 @@ public class ClientUserUpdateController {
 		// セッションスコープに入力フォーム情報を取得
 		UserForm userForm = (UserForm) session.getAttribute("userForm");
 		User user = userRepository.findByIdAndDeleteFlag(userForm.getId(), Constant.NOT_DELETED);
-		BeanUtils.copyProperties(userForm, user, "id");
+		Integer deleteFlag = user.getDeleteFlag();
+		Date insertDate = user.getInsertDate();
+		BeanUtils.copyProperties(userForm, user, "id", "deleteFlag", "insertDate");
+		user.setDeleteFlag(deleteFlag);
+		user.setInsertDate(insertDate);
 		userRepository.save(user);
 		session.removeAttribute("userForm");
-		session.setAttribute("user", user);
+		UserBean userBean = new UserBean();
+		BeanUtils.copyProperties(user, userBean);
+		session.setAttribute("user", userBean);
 		return "redirect:/client/user/update/complete";
 	}
 	
