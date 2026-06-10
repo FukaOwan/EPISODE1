@@ -4,8 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import jp.co.sss.shop.repository.ItemRepository;
 import jp.co.sss.shop.service.BeanTools;
@@ -24,6 +26,7 @@ public class ClientItemShowController {
 	@Autowired
 	ItemRepository itemRepository;
 
+
 	/**
 	 * Entity、Form、Bean間のデータコピーサービス
 	 */
@@ -41,17 +44,41 @@ public class ClientItemShowController {
 
 		return "index";
 	}
-	
-//	商品一覧ボタン押下後処理(新着順)（追記：春山）
-	@RequestMapping(path = "/client/item/list/1" , method = RequestMethod.GET)
-	public String itemstop(Model model,Pageable pageable) {
-		model.addAttribute("items",itemRepository.findByDeleteFlagOrderByInsertDateDescPage(Constant.NOT_DELETED, pageable));
-		return "client/item/list";
+//	商品一覧表示カテゴリ検索（追記：春山）
+	@RequestMapping(path = "/client/item/list/{sortType}", method = RequestMethod.GET, params = "categoryId")
+	public String categoryList(@PathVariable Integer sortType,@RequestParam Integer categoryId, Model model,Pageable pageable) {
+		System.out.println(categoryId);
+		
+		if(categoryId==null && sortType==1) {
+			model.addAttribute("items",itemRepository.findByDeleteFlagOrderByInsertDateDescPage(Constant.NOT_DELETED, pageable));
+			
+		}else if(categoryId==null && sortType==2){
+			model.addAttribute("items",itemRepository.findByDeleteFlagOrderByQuantityDescPage(Constant.NOT_DELETED,pageable));
+			
+		}else if(categoryId!=null && sortType==1) {
+			model.addAttribute("items",itemRepository.findByDeleteFlagAndCategoryOrderByInsertDateDescPage(Constant.NOT_DELETED,categoryId,pageable));
+		
+		}else if(categoryId!=null && sortType==2) {
+			
+		}
+		return "client/item/list";	
 	}
-//	商品一覧表示（売れ筋順）（追記：春山）
-//	@RequestMapping(path = "/client/item/list/{sortType}?categoryId={カテゴリID}", method = RequestMethod.GET)
-//	public String sortItem(@PathVariable Integer id ,Model model) {
-//		model.addAttribute("items",itemRepository.findByDeleteFlagOrderByQuantityDescPage(Constant.NOT_DELETED,id));
+////	商品一覧ボタン押下後処理(新着順)（追記：春山）
+//	@RequestMapping(path = "/client/item/list/1" , method = RequestMethod.GET)
+//	public String itemstop(Model model,Pageable pageable) {
+//		model.addAttribute("items",itemRepository.findByDeleteFlagOrderByInsertDateDescPage(Constant.NOT_DELETED, pageable));
+//		
 //		return "client/item/list";
 //	}
+//	
+////	商品一覧表示（売れ筋順）（追記：春山）
+//	@RequestMapping(path = "/client/item/list/2", method = RequestMethod.GET)
+//	public String sortItem( Model model,Pageable pageable) {		
+//		model.addAttribute("items",itemRepository.findByDeleteFlagOrderByQuantityDescPage(Constant.NOT_DELETED,pageable));
+//		
+//		return "client/item/list";
+//	}
+//	
+
+
 }
