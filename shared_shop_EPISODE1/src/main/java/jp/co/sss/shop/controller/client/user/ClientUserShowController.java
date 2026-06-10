@@ -1,5 +1,32 @@
 package jp.co.sss.shop.controller.client.user;
 
-public class ClientUserShowController {
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
+import jakarta.servlet.http.HttpSession;
+import jp.co.sss.shop.bean.UserBean;
+import jp.co.sss.shop.repository.UserRepository;
+
+@Controller
+public class ClientUserShowController {
+	/**
+	 * セッション情報
+	 */
+	@Autowired
+	HttpSession session;
+	
+	@Autowired
+	UserRepository userRepository;
+	
+	@RequestMapping(path="/client/user/detail", method = { RequestMethod.GET, RequestMethod.POST })
+	public String show(@ModelAttribute UserBean userBean) {
+		
+		UserBean userBean1=(UserBean)session.getAttribute("user");
+		BeanUtils.copyProperties(userRepository.getReferenceById(userBean1.getId()), userBean);
+	return "client/user/detail";
+	}
 }
