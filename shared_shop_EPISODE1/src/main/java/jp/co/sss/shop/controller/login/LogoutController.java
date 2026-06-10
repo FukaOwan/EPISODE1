@@ -1,9 +1,9 @@
 package jp.co.sss.shop.controller.login;
 
-import jakarta.servlet.http.HttpSession;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import jakarta.servlet.http.HttpSession;
 
 /**
  * ログアウト機能のコントローラクラス
@@ -21,7 +21,7 @@ public class LogoutController {
 	 */
 	@RequestMapping(path = "/logout")
 	public String logout(HttpSession session) {
-		// セッション情報を無効にする
+		// セッション情報を無効にする, 買い物かごのセッション情報を無効にする
 		session.invalidate();
 		return "redirect:/";
 	}
