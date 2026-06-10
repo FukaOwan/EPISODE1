@@ -75,7 +75,7 @@ public class ClientOrderRegistController {
 		orderForm = (@Valid OrderForm) session.getAttribute("orderForm");
 		
 		 if(result.hasErrors()) {
-			 //- 入力エラー情報をセッションスコープに設定->画面遷移はうまくいっているが、エラーが出ない
+			 //- 入力エラー情報をセッションスコープに設定
 			session.setAttribute("orderForm", orderForm);
 			session.setAttribute("orderFormErrors", result);
 			return "redirect:/client/order/address/input";
