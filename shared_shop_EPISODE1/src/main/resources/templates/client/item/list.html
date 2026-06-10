@@ -12,6 +12,9 @@
 	<h2 th:class="title" th:text="#{item}+#{title.list}"></h2>
 
 	<div class="sorted_by">
+<!--	カテゴリ選択をしたまま表示順を変更（追記：春山）-->
+		<input type="hidden" name="categoryId" th:value="${categoryId}">
+		
 		<span th:if="${sortType==1}" th:text="#{sort.latest.str}"></span>
 		<a th:unless="${sortType==1}" th:href="@{/client/item/list/1(categoryId=${categoryId})}"
 			th:text="#{sort.latest.str}"></a>
