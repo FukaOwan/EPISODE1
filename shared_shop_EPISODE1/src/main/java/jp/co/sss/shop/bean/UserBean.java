@@ -42,12 +42,12 @@ public class UserBean {
 	/**
 	 * ポイント
 	 */
-	private Integer point=0;
+	private Integer point;
 	
 	/**
 	 * クーポン
 	 */
-	private Integer coupon=0;
+	private Integer coupon;
 
 	/**
 	 * 会員IDの取得
