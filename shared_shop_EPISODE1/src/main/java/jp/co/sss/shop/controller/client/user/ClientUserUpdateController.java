@@ -74,14 +74,13 @@ public class ClientUserUpdateController {
 		// 入力エラー情報がある場合
 		if(result != null) {
 			// 取得した入力エラー情報をリクエストスコープに設定
-			model.addAttribute("result", result);
+			model.addAttribute("org.springframework.validation.BindingResult.userForm", result);
 			// セッションスコープから、入力エラー情報を削除
 			session.removeAttribute("result");
 		}
 		// 変更入力画面表示
 		return "/client/user/update_input";
 	}
-	
 	/**
 	 * 処理3 確認ボタン 押下時処理(東山)
 	 * @param form
