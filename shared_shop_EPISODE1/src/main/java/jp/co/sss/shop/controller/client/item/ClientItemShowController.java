@@ -107,3 +107,14 @@ public class ClientItemShowController {
 	}
 	
 }
+
+
+
+
+
+
+
+
+
+
+
