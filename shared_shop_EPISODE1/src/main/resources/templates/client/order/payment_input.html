@@ -58,12 +58,13 @@
 				</li>
 			</ul>
 	</div>
-	<h2>クーポン利用をご希望の場合はクーポン利用を選択してください。</h2>
+	
+	<h2 th:if="${orderForm.couponMethod != null}">クーポン利用をご希望の場合はクーポン利用を選択してください。</h2>
 	<div>
 		
 
-					<label class="coupon_label">
-						<input type="checkbox" name="coupon" value="1" />
+					<label class="coupon_label" th:if="${orderForm.couponMethod != null}">
+						<input type="checkbox" name="couponMethod" value="1" />
 						クーポン使用
 					</label>
 

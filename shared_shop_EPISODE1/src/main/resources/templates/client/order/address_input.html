@@ -40,6 +40,8 @@
 			</ul>
 			<input type="hidden" th:field="*{id}" />
 			<input type="hidden" th:field="*{payMethod}" />
+	     	<input type="hidden" th:field="*{couponMethod}" /><!-- 追記 -->
+
 			<input type="submit" value="次へ" class="send_button" />
 		</form>
 		<form th:action="@{/client/basket/list}" method="post">

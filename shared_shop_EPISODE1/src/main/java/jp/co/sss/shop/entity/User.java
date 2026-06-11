@@ -81,6 +81,31 @@ public class User {
 	@Column(insertable = false)
 	private Date insertDate;
 
+	@Column
+	private Integer coupon;
+	
+	@Column
+	private Integer point;
+
+
+	
+
+	public Integer getCoupon() {
+		return coupon;
+	}
+
+	public void setCoupon(Integer coupon) {
+		this.coupon = coupon;
+	}
+
+	public Integer getPoint() {
+		return point;
+	}
+
+	public void setPoint(Integer point) {
+		this.point = point;
+	}
+
 	/**
 	 * 会員IDの取得
 	 * @return 会員ID
