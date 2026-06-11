@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -60,7 +59,7 @@ public class ClientItemShowController {
 	}
 	
 //	商品一覧（追記：春山）
-	@RequestMapping(path = "/client/item/list/{sortType}", method = RequestMethod.GET)
+	@RequestMapping(path = "/client/item/list/{sortType}",  method = { RequestMethod.GET, RequestMethod.POST })
 	public String categoryList(@PathVariable Integer sortType,@RequestParam (required = false)Integer categoryId, Model model,Pageable pageable) {
 		
 //		新着順表示
@@ -105,12 +104,4 @@ public class ClientItemShowController {
 		return "client/item/detail";
 	}
 	
-	/**
-	 * 商品一覧画面 表示処理（「戻るボタン」を機能させるための仮）
-	 *
-	 * @return "/client/item/list" 商品一覧画面
-	 */
-	@PostMapping(path = "/client/item/list/1")
-	public String itemList(){
-		return "/client/item/list";
-	}}
+}
