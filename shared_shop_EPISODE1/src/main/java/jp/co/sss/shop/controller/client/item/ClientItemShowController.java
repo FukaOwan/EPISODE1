@@ -47,12 +47,14 @@ public class ClientItemShowController {
 	 */
 	@RequestMapping(path = "/" , method = { RequestMethod.GET, RequestMethod.POST })
 	public String index(Model model,Pageable pageable) {
+//		トップ画面の商品一覧
 		List<Item> item =itemRepository.findByDeleteFlagAndQuantity(Constant.NOT_DELETED);
-		
-//		トップ画面ぶ
+		//売り上げ数が０じゃない商品の場合
 		if(item !=null) {
 			model.addAttribute("items",itemRepository.findByDeleteFlagOrderByQuantityDescPage(Constant.NOT_DELETED,pageable));
-		}else if(item ==null){
+		}
+		//売り上げ数が０の場合
+		else if(item ==null){
 			model.addAttribute("items",itemRepository.findByDeleteFlagOrderByInsertDateDescPage(Constant.NOT_DELETED, pageable));
 		}
 		return "index";
