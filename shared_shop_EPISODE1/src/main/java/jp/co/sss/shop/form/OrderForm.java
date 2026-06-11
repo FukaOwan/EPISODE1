@@ -55,21 +55,6 @@ public class OrderForm implements Serializable {
 	 * 支払い方法
 	 */
 	private Integer payMethod;
-	
-	
-	//追記//
-	private Integer couponMethod;
-
-
-	public Integer getCouponMethod() {
-		return couponMethod;
-	}
-
-	public void setCouponMethod(Integer couponMethod) {
-		this.couponMethod = couponMethod;
-	}
-	//追記終了//
-
 
 	/**
 	 * 注文するユーザIDの取得

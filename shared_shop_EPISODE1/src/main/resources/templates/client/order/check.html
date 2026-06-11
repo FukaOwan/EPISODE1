@@ -51,11 +51,6 @@
 			<td class="total">[[#{data.total}]]</td>
 			<td class="total" th:text="${total}"></td>
 		</tr>
-		<tr>	<!-- 追記 -->
-			<td colspan="3"></td>
-			<td class="offTotal"th:if="${orderForm.couponMethod != null}">割引適用後合計</td>
-			<td class="offTotal" th:if="${orderForm.couponMethod != null}" th:text="${total}*9/10"></td>
-		</tr>
 	</table>
 	<div class="user_info_form_area">
 		<table class="detail_table address">

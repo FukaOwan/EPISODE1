@@ -48,8 +48,6 @@ public class ClientOrderRegistController {
 			
 			BeanUtils.copyProperties(user, orderForm);
 			orderForm.setPayMethod(1);
-			orderForm.setCouponMethod(user.getCoupon());
-
 			session.setAttribute("orderForm", orderForm);
 			return "redirect:/client/order/address/input";
 		}
@@ -99,12 +97,9 @@ public class ClientOrderRegistController {
 	
 	//支払方法選択画面次へボタン押下時
 	@RequestMapping(path="/client/order/check", method = RequestMethod.POST)
-	public String moveToCheck(Integer payMethod,Integer couponMethod) {//追記//
+	public String moveToCheck(Integer payMethod) {
 		OrderForm orderForm = (OrderForm) session.getAttribute("orderForm");
 		orderForm.setPayMethod(payMethod);
-		orderForm.setCouponMethod(couponMethod);//追記//
-
-		
 		
 		session.setAttribute("orderForm", orderForm);
 		return "redirect:/client/order/check";
@@ -140,7 +135,6 @@ public class ClientOrderRegistController {
 				basket.setOrderNum(item.getStock());
 			}
 				
-			
 			total += basket.getOrderNum() * item.getPrice();
 			model.addAttribute("total", total);
 			OrderItemBean orderitem = new OrderItemBean();

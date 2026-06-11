@@ -1,6 +1,5 @@
 package jp.co.sss.shop.repository;
 
-
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -45,7 +44,8 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	 * @return 商品エンティティ
 	 */
 	public Item findByNameAndDeleteFlag(String name, int notDeleted);
-
+	
+	
 //	商品を売上順で検索（追記：春山）
 	@Query("SELECT i FROM Item i LEFT JOIN i.orderItemList o WHERE i.deleteFlag =:deleteFlag ORDER BY o.quantity ASC,i.id DESC")
 	Page<Item>findByDeleteFlagOrderByQuantityDescPage(
@@ -61,8 +61,9 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	Page<Item>findByDeleteFlagAndCategoryOrderByQuantityDescPage(
 	        @Param(value = "deleteFlag") int deleteFlag,  @Param (value = "categoryId") Integer categoryId, Pageable pageable);
 
+//	OderItemから販売個数が0以上の商品を取得
 	@Query("SELECT i FROM Item i INNER JOIN i.orderItemList o WHERE i.deleteFlag =:deleteFlag  And o.quantity != 0 ")
 	List<Item> findByDeleteFlagAndQuantity(
 	        @Param(value = "deleteFlag") int deleteFlag);
-	
 }
+
