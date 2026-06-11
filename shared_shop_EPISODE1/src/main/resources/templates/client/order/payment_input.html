@@ -10,10 +10,11 @@
 
 <body class="user order_payment_input">
 	<h2 th:class="title" th:text="#{title.order.payment.input}"></h2>
-	<p th:class="input_message" th:text="#{msg.order.payment.input}"></p>
+		<form th:action="@{/client/order/check}" method="post">
+			<p th:class="input_message" th:text="#{msg.order.payment.input}"></p>
 
 	<div class="user_info_form_area">
-		<form th:action="@{/client/order/check}" method="post">
+
 			<ul class="payment_method_select">
 				<li>
 					<label class="radio_label">
@@ -56,6 +57,18 @@
 					</label>
 				</li>
 			</ul>
+	</div>
+	<h2>クーポン利用をご希望の場合はクーポン利用を選択してください。</h2>
+	<div>
+		
+
+					<label class="coupon_label">
+						<input type="checkbox" name="coupon" value="1" />
+						クーポン使用
+					</label>
+
+			
+
 
 			<input type="submit" class="send_button" value="次へ" />
 
