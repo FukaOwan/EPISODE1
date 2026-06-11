@@ -135,7 +135,6 @@ public class ClientOrderRegistController {
 				basket.setOrderNum(item.getStock());
 			}
 				
-			
 			total += basket.getOrderNum() * item.getPrice();
 			model.addAttribute("total", total);
 			OrderItemBean orderitem = new OrderItemBean();
