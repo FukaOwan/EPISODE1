@@ -136,7 +136,7 @@ public class ClientOrderRegistController {
 			}
 				
 			
-			total = basket.getOrderNum() * item.getPrice();
+			total += basket.getOrderNum() * item.getPrice();
 			model.addAttribute("total", total);
 			OrderItemBean orderitem = new OrderItemBean();
 			BeanUtils.copyProperties(item, orderitem);
