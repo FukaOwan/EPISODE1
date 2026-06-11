@@ -47,11 +47,9 @@ public class ClientItemShowController {
 	 */
 	@RequestMapping(path = "/" , method = { RequestMethod.GET, RequestMethod.POST })
 	public String index(Model model,Pageable pageable) {
-		
-//		トップ画面 OderItemから商品情報取得
 		List<Item> item =itemRepository.findByDeleteFlagAndQuantity(Constant.NOT_DELETED);
 		
-//		トップ画面商品表示分岐
+//		トップ画面ぶ
 		if(item !=null) {
 			model.addAttribute("items",itemRepository.findByDeleteFlagOrderByQuantityDescPage(Constant.NOT_DELETED,pageable));
 		}else if(item ==null){
@@ -106,4 +104,15 @@ public class ClientItemShowController {
 		return "client/item/detail";
 	}
 	
-	}
+}
+
+
+
+
+
+
+
+
+
+
+
