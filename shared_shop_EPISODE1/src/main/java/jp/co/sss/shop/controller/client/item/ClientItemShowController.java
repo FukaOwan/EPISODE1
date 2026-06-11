@@ -59,7 +59,7 @@ public class ClientItemShowController {
 	}
 	
 //	商品一覧（追記：春山）
-	@RequestMapping(path = "/client/item/list/{sortType}", method = RequestMethod.GET)
+	@RequestMapping(path = "/client/item/list/{sortType}",  method = { RequestMethod.GET, RequestMethod.POST })
 	public String categoryList(@PathVariable Integer sortType,@RequestParam (required = false)Integer categoryId, Model model,Pageable pageable) {
 		
 //		新着順表示
