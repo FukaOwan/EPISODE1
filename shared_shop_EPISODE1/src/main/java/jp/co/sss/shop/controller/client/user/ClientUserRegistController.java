@@ -78,7 +78,7 @@ public class ClientUserRegistController {
 		BindingResult result = (BindingResult) session.getAttribute("result");
 		// 入力エラー情報がある場合
 		if (result != null) {
-			model.addAttribute("result", result);
+			model.addAttribute("org.springframework.validation.BindingResult.userForm", result);
 			session.removeAttribute("result");
 		}
 		// 登録画面表示
@@ -92,17 +92,16 @@ public class ClientUserRegistController {
 	 * @return
 	 */
 	@PostMapping("/client/user/regist/check")
-	public String check(@Valid @ModelAttribute UserForm registForm, BindingResult result) {
+	public String check(@Valid @ModelAttribute UserForm registForm, BindingResult result, Model model) {
 		// セッションスコープからフォーム情報を取得
 		UserForm userForm = (UserForm) session.getAttribute("userForm");
 		// 画面から入力された入力フォームを、セッションスコープに入力フォーム情報として保存
 		BeanUtils.copyProperties(registForm, userForm);
-		
+		session.setAttribute("userForm", userForm);
 		// BindngResultオブジェクトに入力エラー情報がある場合
 		if(result.hasErrors()) {
 			// 入力エラー情報と入力フォーム情報を設定
 			session.setAttribute("result", result);
-			session.setAttribute("userForm", userForm);
 			// 登録入力画面表示処理にリダイレクト
 			return "redirect:/client/user/regist/input";
 		} else {
@@ -137,6 +136,8 @@ public class ClientUserRegistController {
 		User user = new User();
 		// DB登録実施
 		BeanUtils.copyProperties(userForm, user);
+		user.setPoint(0);
+		user.setCoupon(0);
 		userRepository.save(user);
 		// セッションスコープ
 		session.removeAttribute("userForm");
