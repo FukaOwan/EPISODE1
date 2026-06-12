@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	th:replace="~{common/layout_5block :: layout(~{::title},~{::body/content()})}">
@@ -10,11 +12,11 @@
 
 <body class="user order_payment_input">
 	<h2 th:class="title" th:text="#{title.order.payment.input}"></h2>
-	<p th:class="input_message" th:text="#{msg.order.payment.input}"></p>
+		<form th:action="@{/client/order/check}" method="post">
+			<p th:class="input_message" th:text="#{msg.order.payment.input}"></p>
 
 	<div class="user_info_form_area">
-		<form th:action="@{/client/order/check}" method="post">
-			<ul class="payment_method_select">
+	<ul class="payment_method_select">
 				<li>
 					<label class="radio_label">
 						<input type="radio" name="payMethod" value="1" th:if="${payMethod == 1}" checked="checked"
@@ -56,14 +58,38 @@
 					</label>
 				</li>
 			</ul>
+	</div>
+				<!--クーポン用追記-->
+	<p class="input_message" th:if="${orderForm.couponFlag != 0}">クーポン利用をご希望の場合はクーポン利用を選択してください。</p>
 
-			<input type="submit" class="send_button" value="次へ" />
+	<div class="user_info_form_area">
+							<!--	<input type="hidden" name="useCouponFlag" value="1" th:if="${orderForm.couponFlag == 0}"> -->
+
+			<ul class="payment_method_select" th:if="${orderForm.couponFlag != 0}">
+				<li>	
+					<label class="pay_label" >
+						<input type="radio" name="useCouponFlag" value="1">クーポン利用
+						<!--ここにクーポンが無い時の送信情報を追加-->
+						<input type="radio" name="useCouponFlag" value="0" th:if="${session.orderForm.useCouponFlag == 0}" checked="checked" >クーポンを使用しない
+					</label>
+									
+				</li>
+			</ul>
+		<br />
+
+			<input type="submit" class="send_button" value="次へ">
 
 		</form>
+		
 		<form th:action="@{/client/order/payment/back}" method="post" class="update">
+				
 			<input type="submit" class="back_button" value="戻る" />
 		</form>
-	</div>
-</body>
 
-</html>
+
+		</article>
+	</div>
+	
+	
+
+</body></html>
