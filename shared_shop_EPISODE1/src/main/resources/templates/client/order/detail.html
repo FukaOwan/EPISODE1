@@ -57,8 +57,12 @@
 				<td th:text="${orderItem.subtotal}"></td>
 			</tr>
 			<tr>
-				<td colspan="2"></td>
-				<td class="total">[[#{data.total}]]</td>
+				<td colspan="2" ></td>
+				<td class="total" th:switch="${couponInfo}">
+					<span th:case="0">[[#{data.total}]]</span>
+					<span th:case="1">クーポン利用後合計</span>
+					<span th:case="2">タイムセール割引合計</span>
+				</td>
 				<td class="total" th:text="${total}"></td>
 			</tr>
 		</table>
