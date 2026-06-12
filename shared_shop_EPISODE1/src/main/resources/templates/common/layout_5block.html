@@ -25,9 +25,17 @@
 	<nav th:if="${session.user == null or session.user.authority == 2}" class="navi_area">
 		<div th:replace="~{common/menu :: layout-menu}"></div>
 	</nav>
+	<!--メインビジュアル追加（伊藤）-->
+	<section class="main-visual">
+		<figure class="main-visual-figure">
+			<img src="../../../../../images/main-visual.jpg" alt="メインビジュアルの説明文">
+		</figure>
+	</section>
+	
 	<div class="container">
 		<!--/* サイドバー */-->
 		<aside th:replace="~{common/sidebar :: layout-sidebar}"></aside>
+
 		<!--/* メイン */-->
 		<article class="main">
 			<div th:replace="${body}"></div>

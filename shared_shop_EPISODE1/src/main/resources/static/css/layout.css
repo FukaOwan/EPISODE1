@@ -127,10 +127,12 @@ footer {
  * 基本サイズが変更になったとしても、比例して大きさが変化します。
  */
 .site_title {
-	font-size: 1.8em;
+	font-size: 2em;
 	font-weight: 700;
 	margin: 0;
-	text-shadow: 2px 2px 2px #616161;
+	text-shadow: 
+    0 0 4px rgba(0, 0, 0, 0.4),
+    0 0 8px rgba(0, 0, 0, 0.2); /* 2重にかけるとより自然に馴染みます */
 }
 
 /*セール表示を追加（伊藤）*/
@@ -215,6 +217,8 @@ footer {
 	padding: 12px 0;
 	margin: 0 auto;
 	color: #fff;
+	display: flex;
+	justify-content: space-around;
 }
 
 .navi_menu li {
@@ -230,7 +234,14 @@ footer {
 	border-right: 1px solid #000;
 	text-align: center;
 	text-decoration: none;
-	color: #000; 
+	color: #ffffff;/* 白文字 */
+	font-weight: bold;
+	
+	text-shadow: 
+    1px  1px 0 rgba(0, 0, 0, 0.20), -1px  1px 0 rgba(0, 0, 0, 0.20),
+    1px -1px 0 rgba(0, 0, 0, 0.20), -1px -1px 0 rgba(0, 0, 0, 0.20),
+    0px  1px 0 rgba(0, 0, 0, 0.20),  0px -1px 0 rgba(0, 0, 0, 0.20),
+    1px  0px 0 rgba(0, 0, 0, 0.20), -1px  0px 0 rgba(0, 0, 0, 0.20);
 }
 
 .navi_menu a:last-child {
@@ -240,19 +251,18 @@ footer {
 .hover-underline {
 	/*	相対位置を指定（伊藤）*/
 	position: relative;
-	display: inline-block; 
-	padding: 0 2.5em; 
+	display: inline-block;
 }
 
 .hover-underline::after {
 	content: '';
 	position: absolute;
-	width: 100%;                 
-	transform: scaleX(0);       
-	height: 2px;                
-	bottom: -2px;                
+	width: 100%;
+	transform: scaleX(0);
+	height: 2px;
+	bottom: -2px;
 	left: 0;
-	
+
 	background-color: #007bff;
 	transform-origin: bottom left;
 	transition: transform 0.3s ease-out;
@@ -268,6 +278,10 @@ footer {
 
 .navi_menu li:last-of-type a {
 	border-radius: 0px 6px 6px 0px;
+}
+
+.main-visual{
+	width: 100%;
 }
 
 /* ---- サイドバー ---- */
