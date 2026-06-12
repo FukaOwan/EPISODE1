@@ -78,7 +78,19 @@ public class Order {
 	 */
 	@OneToMany(mappedBy = "order")
 	private List<OrderItem> orderItemsList;
+	
 
+	/**オリジナル機能追記
+	　　* クーポン情報 */
+	@Column(name = "couponinfo")
+	  private Integer couponInfo;
+		public Integer getCouponInfo() {
+			return couponInfo;
+		}
+
+		public void setCouponInfo(Integer couponInfo) {
+			this.couponInfo = couponInfo;
+		}
 	/**
 	 * 注文IDの取得
 	 * @return 注文ID
