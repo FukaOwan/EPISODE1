@@ -9,11 +9,20 @@
 
 <body class="user order_complete">
 	<h2 th:class="title" th:text="#{title.order.complete}"></h2>
+	
 	<p th:class="complete_message">
 		<span th:text="#{msg.order.complete1}"></span>
 		<br />
 		<span th:text="#{msg.order.complete2}"></span>
+		<br />
+
+		<span  th:if="${point>=100}">ポイントが100ポイントに達したため、</span>
+		<br />
+		<span th:if="${point>=100}">次回から使える10％OFFクーポンが付与されました。</span>
+		
 	</p>
+
+	
 	<p class="complete_link"><a th:href="@{/}" th:text="#{msg.back.to.top}"></a></p>
 </body>
 

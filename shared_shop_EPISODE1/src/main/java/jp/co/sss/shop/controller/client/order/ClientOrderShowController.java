@@ -71,6 +71,12 @@ public class ClientOrderShowController {
 			//PriceCalcクラスのorderItemPriceTotalメソッドを使用して合計金額を算出
 			int total = priceCalc.orderItemPriceTotal(orderItemList);
 
+			//クーポンやタイムセールによる割引処理がある場合
+			if(order.getCouponInfo()!= 0) {
+				total = (int) ((int)total * 0.9);
+			}
+			
+
 			//合計金額のセット
 			orderBean.setTotal(total);
 			orderBeanList.add(orderBean);
@@ -106,7 +112,10 @@ public class ClientOrderShowController {
 
 		// 合計金額を算出
 		int total = priceCalc.orderItemBeanPriceTotalUseSubtotal(orderItemBeanList);
-
+		if(order.getCouponInfo()!= 0) {
+			total = (int) ((int)total * 0.9);
+		}
+		model.addAttribute("couponInfo",order.getCouponInfo() );
 		// 注文情報をViewへ渡す(注文情報 商品情報 合計金額)
 		model.addAttribute("order", orderBean);
 		model.addAttribute("orderItemBeans", orderItemBeanList);
