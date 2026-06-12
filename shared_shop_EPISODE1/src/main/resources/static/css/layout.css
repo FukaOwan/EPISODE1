@@ -76,8 +76,36 @@ header .container {
 	display: flex;
 	justify-content: space-between;
 }
+/*ヘッダーにグラデーションを追加（伊藤）*/
 header {
-	background: #87ceeb;
+	background: #FFD6E7;
+	background-image: -webkit-linear-gradient(to right,
+    #FFD6E7, 
+    #FFF6CC, 
+    #C8E7FF, 
+    #E7C6FF  );
+	background-image: -moz-linear-gradient(to right,
+    #FFD6E7, 
+    #FFF6CC, 
+    #C8E7FF, 
+    #E7C6FF);
+	background-image: -ms-linear-gradient(to right,
+    #FFD6E7, 
+    #FFF6CC, 
+    #C8E7FF, 
+    #E7C6FF);
+	background-image: -o-linear-gradient(to right,
+    #FFD6E7, 
+    #FFF6CC, 
+    #C8E7FF, 
+    #E7C6FF);
+	background-image: linear-gradient(to right,
+    #FFD6E7, 
+    #FFF6CC, 
+    #C8E7FF, 
+    #E7C6FF);
+	color: #fff;
+	text-shadow: 2px 2px 2px #616161;
 	padding: 10px 0;
 }
 .admin header {
