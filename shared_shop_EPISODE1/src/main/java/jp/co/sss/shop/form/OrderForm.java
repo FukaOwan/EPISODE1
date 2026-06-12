@@ -55,7 +55,47 @@ public class OrderForm implements Serializable {
 	 * 支払い方法
 	 */
 	private Integer payMethod;
+	
+	
+	//追記//
+	//クーポンを持ってるか
+	private Integer couponFlag;
+	
+	private Integer offTotal;
+	//クーポンを使うか
+	private Integer useCouponFlag;
 
+
+
+	public Integer getCouponFlag() {
+		return couponFlag;
+	}
+
+	public void setCouponFlag(Integer couponFlag) {
+		this.couponFlag = couponFlag;
+	}
+
+	
+	public Integer getOffTotal() {
+		return offTotal;
+	}
+
+	public void setOffTotal(Integer offTotal) {
+		this.offTotal = offTotal;
+	}
+
+	public Integer getUseCouponFlag() {
+		return useCouponFlag;
+	}
+
+	public void setUseCouponFlag(Integer useCouponFlag) {
+		this.useCouponFlag = useCouponFlag;
+	}
+
+	
+	//追記終了//
+
+	
 	/**
 	 * 注文するユーザIDの取得
 	 * @return 注文するユーザID

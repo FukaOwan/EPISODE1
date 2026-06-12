@@ -80,18 +80,31 @@ public class User {
 	 */
 	@Column(insertable = false)
 	private Date insertDate;
-	
-	/**
-	 * ポイント
-	 */
-	@Column
-	private Integer point;
-	
-	/**
-	 * クーポン
-	 */
+
 	@Column
 	private Integer coupon;
+	
+	@Column
+	private Integer point;
+
+
+	
+
+	public Integer getCoupon() {
+		return coupon;
+	}
+
+	public void setCoupon(Integer coupon) {
+		this.coupon = coupon;
+	}
+
+	public Integer getPoint() {
+		return point;
+	}
+
+	public void setPoint(Integer point) {
+		this.point = point;
+	}
 
 	/**
 	 * 会員IDの取得
@@ -251,39 +264,5 @@ public class User {
 	 */
 	public void setInsertDate(Date insertDate) {
 		this.insertDate = insertDate;
-		
 	}
-
-	/**
-	 * ポイントの取得
-	 * @return ポイント
-	 */
-	public Integer getPoint() {
-		return point;
-	}
-	
-	/**
-	 * ポイントのセット
-	 * @param point　ポイント
-	 */
-	public void setPoint(Integer point) {
-		this.point = point;
-	}
-	
-	/**
-	 * クーポンの取得
-	 * @return
-	 */
-	public Integer getCoupon() {
-		return coupon;
-	}
-	
-	/**
-	 * クーポンのセット
-	 * @param coupon クーポン
-	 */
-	public void setCoupon(Integer coupon) {
-		this.coupon = coupon;
-	}
-	
 }
