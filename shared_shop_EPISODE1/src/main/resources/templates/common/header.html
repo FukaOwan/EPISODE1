@@ -12,8 +12,8 @@
 			<a th:href="@{/client/user/detail}" th:text="${session.user.name}"></a>さん | <a th:href="@{/logout}"
 				th:text="#{logout}"></a>
 		</div>
-		<div id="sale-header">
-			<!-- タイムセール文字 -->
+		<!-- タイムセール文字追加、一般権限のみ（伊藤） -->
+		<div th:if="${session.user != null and (session.user.authority == 2)}" id="user_sale-info">
 			<span id="sale-message">タイムセール中！！</span>
 		</div>
 		<div th:if="${session.user != null and (session.user.authority == 0 or session.user.authority == 1)}"

@@ -73,6 +73,9 @@ public class ClientBasketController {
 		}
 
 		session.setAttribute("basketBeans", RbasketList);
+		
+//		画面の名前を入れる（伊藤）
+		model.addAttribute("currentPage", "basket-list");
 
 		return "redirect:/client/basket/list";
 
@@ -121,11 +124,14 @@ public class ClientBasketController {
 		}
 		session.setAttribute("basketBeans", RbasketList);
 
+//		画面の名前を入れる（伊藤）
+		model.addAttribute("currentPage", "basket-list");
+		
 		return "/client/basket/list";
 	}
 
 	@RequestMapping(path = "/client/basket/delete", method = RequestMethod.POST)
-	public String deleteItem(ItemForm itemForm, HttpSession session) {
+	public String deleteItem(ItemForm itemForm, HttpSession session, Model model) {
 
 		List<BasketBean> RbasketList = (List<BasketBean>) session.getAttribute("basketBeans");
 		int i = 0;
@@ -160,17 +166,24 @@ public class ClientBasketController {
 		}
 
 		session.setAttribute("basketBeans", RbasketList);
+		
+//		画面の名前を入れる（伊藤）
+		model.addAttribute("currentPage", "basket-list");
+		
 		return "redirect:/client/basket/list";
 	}
 
 	@RequestMapping(path = "/client/basket/allDelete", method = RequestMethod.POST)
-	public String allDeleteItem(ItemForm itemForm, HttpSession session) {
+	public String allDeleteItem(ItemForm itemForm, HttpSession session,Model model) {
 
 		List<BasketBean> RbasketList = (List<BasketBean>) session.getAttribute("basketBeans");
 
 		basketList.clear();
 
 		session.removeAttribute("basketBeans");
+		
+//		画面の名前を入れる（伊藤）
+		model.addAttribute("currentPage", "basket-list");
 
 		return "redirect:/client/basket/list";
 

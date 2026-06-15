@@ -84,6 +84,9 @@ public class ClientOrderShowController {
 
 		// 注文情報リストをViewへ渡す
 		model.addAttribute("orders", orderBeanList);
+		
+//		画面の名前を入れる（伊藤）
+		model.addAttribute("currentPage", "order-list");
 
 		return "client/order/list";
 	}

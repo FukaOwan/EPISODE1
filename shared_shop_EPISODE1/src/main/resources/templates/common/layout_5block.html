@@ -26,7 +26,7 @@
 		<div th:replace="~{common/menu :: layout-menu}"></div>
 	</nav>
 	<!--メインビジュアル追加（伊藤）-->
-	<section class="main-visual">
+	<section class="main-visual" th:if="${currentPage == 'top'}">
 		<img th:src="@{/images/main-visual.jpg}" alt="メインビジュアル">
 	</section>
 
