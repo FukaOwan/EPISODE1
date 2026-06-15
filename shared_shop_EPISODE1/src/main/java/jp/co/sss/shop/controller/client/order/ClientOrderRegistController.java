@@ -93,14 +93,9 @@ public class ClientOrderRegistController {
 		OrderForm orderform = (@Valid OrderForm) session.getAttribute("orderForm");
 		orderForm.setPayMethod(orderform.getPayMethod());
 		//ユーザーのクーポン情報を取得
-		/*Integer id = (Integer) ((UserBean) session.getAttribute("user")).getId();
 		
-		User user = userRepository.findByIdAndDeleteFlag(id, 0);
-		orderForm.setCoupon(user.getCoupon());
-		orderForm.setCoupon(3);*/
 
 		orderForm.setCouponFlag(orderform.getCouponFlag());
-		//orderForm.setCouponFlag(1);
 		session.setAttribute("orderForm", orderForm);
 
 		if (result.hasErrors()) {
@@ -185,13 +180,15 @@ public class ClientOrderRegistController {
 
 			//割引後合計計算//
 			LocalTime now = LocalTime.now();
-			if (!now.isBefore(start) && now.isBefore(end) || orderForm.getUseCouponFlag() == 1) {
+			if ((!now.isBefore(start) && now.isBefore(end)) || orderForm.getUseCouponFlag() == 1) {
 				orderForm.setOffTotal(total * 9 / 10);
+				model.addAttribute("now", 1);
+
 			}
 
 			//購入後に加算されるポイント計算//
 			Integer totalPoint;
-			if (!now.isBefore(start) && now.isBefore(end) || orderForm.getUseCouponFlag() == 1) {
+			if ((!now.isBefore(start) && now.isBefore(end)) || orderForm.getUseCouponFlag() == 1) {
 				totalPoint = total * 9 / 10 / 100;
 			} else {
 				totalPoint = total / 100;
@@ -220,13 +217,14 @@ public class ClientOrderRegistController {
 	public String submitOrder(Model model, HttpSession session) {
 
 		List<BasketBean> basketBeans = (List<BasketBean>) session.getAttribute("basketlists");
+		List<BasketBean> basketList = (List<BasketBean>) session.getAttribute("BL");
+
 		Integer totalPoint = (Integer) session.getAttribute("totalPoint");
 
 		//在庫チェック
-		System.out.println(basketBeans.size());
 		for (int i = 0; i < basketBeans.size(); i++) {
 			Item item = itemRepository.getReferenceById(basketBeans.get(i).getId());
-			if (basketBeans.get(i).getStock() > item.getStock()) {
+			if (basketBeans.get(i).getOrderNum() > item.getStock()) {
 				model.addAttribute("itemNameListLessThan", item.getName());
 				return "redirect:/client/order/check";
 			}
@@ -277,6 +275,8 @@ public class ClientOrderRegistController {
 			user.setCoupon(user.getCoupon() - 1);
 		}
 		user.setPoint(user.getPoint() + totalPoint);
+		
+		//追記
 		//ユーザービーンを生成→セッション"user"を呼び出して代入する
 		UserBean userBean = (UserBean) session.getAttribute("user");
 
@@ -299,7 +299,10 @@ public class ClientOrderRegistController {
 		session.removeAttribute("orderForm");
 		session.removeAttribute("orderItemBeans");
 		session.removeAttribute("totalPoint");
-
+		session.removeAttribute("basketelists");
+		session.removeAttribute("basketBeans");
+		session.removeAttribute("BL");
+		
 		return "redirect:/client/order/complete";
 	}
 
@@ -309,9 +312,7 @@ public class ClientOrderRegistController {
 
 		//注文完了画面に会員が持っているポイントの情報を持っていく//
 		Integer point = (Integer) session.getAttribute("point");
-
 		model.addAttribute("point", point);
-
 		session.removeAttribute("point");
 
 		return "client/order/complete";
