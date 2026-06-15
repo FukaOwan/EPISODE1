@@ -22,14 +22,15 @@ public class ClientBasketController {
 	//リポジトリー設定//
 	@Autowired
 	ItemRepository itemRepository;
+	@Autowired
+	HttpSession session;
 
 	//商品追加時の処理//
 	@RequestMapping(path = "/client/basket/add", method = RequestMethod.POST)
-	public String addItem(Integer id, Model model, HttpSession session) {
-
-		//basketListは注文商品が入っているリスト//
-		List<BasketBean> RbasketList = (List<BasketBean>) session.getAttribute("basketBeans");
+	public String addItem(Integer id, Model model) {
 		//RbasketListはbasketListの並び順を逆にしたリスト//
+		List<BasketBean> RbasketList = (List<BasketBean>) session.getAttribute("basketBeans");
+		//basketListは注文商品が入っているリスト//
 		List<BasketBean> basketList = (List<BasketBean>) session.getAttribute("BL");
 
 		//買い物かごが空の場合の処理//
@@ -79,7 +80,7 @@ public class ClientBasketController {
 
 	//買い物かご一覧を表示する処理//
 	@RequestMapping(path = "/client/basket/list")
-	public String listItem(Model model, ItemForm itemForm, HttpSession session) {
+	public String listItem(Model model) {
 
 		List<BasketBean> RbasketList = (List<BasketBean>) session.getAttribute("basketBeans");
 		List<BasketBean> basketList = (List<BasketBean>) session.getAttribute("BL");
@@ -111,7 +112,7 @@ public class ClientBasketController {
 
 	//商品を削除する処理//
 	@RequestMapping(path = "/client/basket/delete", method = RequestMethod.POST)
-	public String deleteItem(ItemForm itemForm, HttpSession session) {
+	public String deleteItem(ItemForm itemForm) {
 
 		List<BasketBean> RbasketList = (List<BasketBean>) session.getAttribute("basketBeans");
 		List<BasketBean> basketList = (List<BasketBean>) session.getAttribute("BL");
@@ -153,7 +154,7 @@ public class ClientBasketController {
 
 	//買い物かごを空にするボタンの処理//
 	@RequestMapping(path = "/client/basket/allDelete", method = RequestMethod.POST)
-	public String allDeleteItem(ItemForm itemForm, HttpSession session) {
+	public String allDeleteItem() {
 
 		List<BasketBean> RbasketList = (List<BasketBean>) session.getAttribute("basketBeans");
 		List<BasketBean> basketList = (List<BasketBean>) session.getAttribute("BL");
