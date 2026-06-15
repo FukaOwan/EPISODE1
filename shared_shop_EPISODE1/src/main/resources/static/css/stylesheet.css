@@ -498,7 +498,7 @@ select {
 /* ---- 共通 ---- */
 .list_table,
 .detail_table {
-	border-bottom: 1px solid #f0f8fb;
+	border-bottom: 2px solid #f0f8fb;
 	background-color: #fff;
 	border-collapse: collapse;
 	margin: 50px auto 20px;
@@ -511,6 +511,16 @@ select {
 	background: #add8e6;
 	font-weight: normal;
 	position: relative;
+}
+
+.user .list_table th,
+.user .detail_table th {
+	white-space: nowrap;
+	padding: 5px;
+	background: #FFF6CC;
+	font-weight: normal;
+	position: relative;
+	border-radius: 10px;
 }
 
 .list_table td,

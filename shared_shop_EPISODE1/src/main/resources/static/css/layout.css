@@ -83,34 +83,19 @@ header .container {
 }
 
 /*ヘッダーとフッターにグラデーションを追加（伊藤）*/
-header,
-footer {
+.user header {
 	background: #fff;
-	background-image: -webkit-linear-gradient(to right,
-			#FFD6E7,
-			#FFF6CC,
-			#C8E7FF,
-			#E7C6FF);
-	background-image: -moz-linear-gradient(to right,
-			#FFD6E7,
-			#FFF6CC,
-			#C8E7FF,
-			#E7C6FF);
-	background-image: -ms-linear-gradient(to right,
-			#FFD6E7,
-			#FFF6CC,
-			#C8E7FF,
-			#E7C6FF);
-	background-image: -o-linear-gradient(to right,
-			#FFD6E7,
-			#FFF6CC,
-			#C8E7FF,
-			#E7C6FF);
-	background-image: linear-gradient(to right,
-			#FFD6E7,
-			#FFF6CC,
-			#C8E7FF,
-			#E7C6FF);
+	background-image:
+		-webkit-linear-gradient(to right, #FFD6E7, #FFF6CC, #C8E7FF, #E7C6FF);
+	background-image:
+		-moz-linear-gradient(to right, #FFD6E7, #FFF6CC, #C8E7FF, #E7C6FF);
+	background-image:
+		-ms-linear-gradient(to right, #FFD6E7, #FFF6CC, #C8E7FF, #E7C6FF);
+	background-image:
+		-o-linear-gradient(to right, #FFD6E7, #FFF6CC, #C8E7FF, #E7C6FF);
+	background-image:
+		linear-gradient(to right, #FFD6E7, #FFF6CC, #C8E7FF, #E7C6FF);
+
 	padding: 10px 0;
 	color: #fff;
 }
@@ -134,14 +119,20 @@ footer {
 	text-shadow:
 		0 0 4px rgba(0, 0, 0, 0.4),
 		0 0 8px rgba(0, 0, 0, 0.2);
-	/* 2重にかけるとより自然に馴染みます */
 }
 
 /*セール表示を追加（伊藤）*/
-.sale-header_class {
-	font-size: 1rem;
-	padding-top: 15px;
-	color: red;
+.user #sale-header {
+	font-family: 'Arial Black', 'Impact', sans-serif;
+	font-size: 24px;
+	font-weight: bold;
+	color: #fff;
+	letter-spacing: 2px;
+
+	text-shadow:
+		2px 2px 0px #FF94C2,
+		-1px -1px 0px #E7C6FF,
+		0px 0px 8px rgba(255, 148, 194, 0.6);
 }
 
 /* スキルアップテクニック4
@@ -184,11 +175,37 @@ footer {
 	text-shadow: 1px 1px 1px #12526d;
 }
 
+/*ユーザータイトルの色変え（伊藤）*/
+.user .search_area .title,
+.user .main .title {
+	background-color: #FFD6E7;
+	margin: 0;
+	padding: 5px 8px;
+	color: #fff;
+	text-shadow: 1px 1px 1px #12526d;
+}
+
 
 /* ---- ナビゲーションバー ---- */
-/*ナビゲーションバーもグラデーションに*/
+/*グラデーション追加（伊藤）*/
 .navi_area {
 	background: #fff;
+
+	background-image: 
+		-webkit-linear-gradient(to bottom, transparent 0%, #ffffff 30%),
+		-webkit-linear-gradient(to right, #FFD6E7, #FFF6CC, #C8E7FF, #E7C6FF);
+	background-image:
+		-moz-linear-gradient(to bottom, transparent 0%, #ffffff 30%),
+		-moz-linear-gradient(to right, #FFD6E7, #FFF6CC, #C8E7FF, #E7C6FF);
+	background-image:
+		-ms-linear-gradient(to bottom, transparent 0%, #ffffff 30%),
+		-ms-linear-gradient(to right, #FFD6E7, #FFF6CC, #C8E7FF, #E7C6FF);
+	background-image:
+		-o-linear-gradient(to bottom, transparent 0%, #ffffff 30%),
+		-o-linear-gradient(to right, #FFD6E7, #FFF6CC, #C8E7FF, #E7C6FF);
+	background-image:
+		linear-gradient(to bottom, transparent 0%, #ffffff 30%),
+		linear-gradient(to right, #FFD6E7, #FFF6CC, #C8E7FF, #E7C6FF);
 }
 
 .navi_menu {
@@ -469,11 +486,12 @@ aside.admin_menu {
  * footer要素は画面、もしくはページの最下部に表示されるようになります。
  */
 footer {
-	background-color: #87ceeb;
 	text-align: center;
 	position: absolute;
 	bottom: 0;
 	width: 100%;
+	background-color: #E7C6FF;
+	color: #fff;
 }
 
 .admin footer {
@@ -483,6 +501,6 @@ footer {
 small {
 	height: 30px;
 	line-height: 30px;
-	text-shadow: 1px 1px 1px #fff;
+	/*	text-shadow: 1px 1px 1px #fff;*/
 	font-size: 8pt;
 }
