@@ -85,7 +85,7 @@ header .container {
 /*ヘッダーとフッターにグラデーションを追加（伊藤）*/
 header,
 footer {
-	background: #FFD6E7;
+	background: #fff;
 	background-image: -webkit-linear-gradient(to right,
 			#FFD6E7,
 			#FFF6CC,
@@ -112,8 +112,9 @@ footer {
 			#C8E7FF,
 			#E7C6FF);
 	padding: 10px 0;
-	color: #ffffff;
+	color: #fff;
 }
+
 
 .admin header {
 	background: #ff8669;
@@ -150,6 +151,8 @@ footer {
 .user_info {
 	text-align: right;
 	padding-top: 15px;
+	color: pink;
+
 }
 
 .user_info a {
@@ -185,32 +188,7 @@ footer {
 /* ---- ナビゲーションバー ---- */
 /*ナビゲーションバーもグラデーションに*/
 .navi_area {
-	background: #FFD6E7;
-	background-image: -webkit-linear-gradient(to right,
-			#FFD6E7,
-			#FFF6CC,
-			#C8E7FF,
-			#E7C6FF);
-	background-image: -moz-linear-gradient(to right,
-			#FFD6E7,
-			#FFF6CC,
-			#C8E7FF,
-			#E7C6FF);
-	background-image: -ms-linear-gradient(to right,
-			#FFD6E7,
-			#FFF6CC,
-			#C8E7FF,
-			#E7C6FF);
-	background-image: -o-linear-gradient(to right,
-			#FFD6E7,
-			#FFF6CC,
-			#C8E7FF,
-			#E7C6FF);
-	background-image: linear-gradient(to right,
-			#FFD6E7,
-			#FFF6CC,
-			#C8E7FF,
-			#E7C6FF);
+	background: #fff;
 }
 
 .navi_menu {
@@ -265,7 +243,7 @@ footer {
 	bottom: -2px;
 	left: 0;
 
-	background-color: #007bff;
+	background-color: pink;
 	transform-origin: bottom left;
 	transition: transform 0.3s ease-out;
 }
