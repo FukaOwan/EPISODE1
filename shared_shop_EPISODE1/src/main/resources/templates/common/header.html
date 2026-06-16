@@ -6,16 +6,18 @@
 </head>
 
 <body>
-
 	<div th:fragment="layout-header" class="container">
 		<h1 th:class="site_title" th:text="#{shop.title}"></h1>
+
+		<!--セール、一般権限のみ-->
+		<div class="user_sale-info">
+			<div id="notSale" class="sale-message"></div>
+			<div id="sale" class="sale-message" style="color:red;"></div>
+		</div>
+
 		<div th:if="${session.user != null and session.user.authority == 2}" class="user_info">
 			<a th:href="@{/client/user/detail}" th:text="${session.user.name}"></a>さん | <a th:href="@{/logout}"
 				th:text="#{logout}"></a>
-		</div>
-		<!-- タイムセール文字追加、一般権限のみ（伊藤） -->
-		<div th:if="${session.user != null and (session.user.authority == 2)}" id="user_sale-info">
-			<span id="sale-message">タイムセール中！！</span>
 		</div>
 		<div th:if="${session.user != null and (session.user.authority == 0 or session.user.authority == 1)}"
 			class="user_info">
@@ -27,56 +29,35 @@
 				th:text="#{client.regist}"></a>
 		</div>
 	</div>
-</body>
 
+	<script>
+		/**
+		 * 現在時刻を取得して表示する関数
+		 */
+		function showCurrentTime() {
+			const now = new Date(); // 現在日時を取得
+			const hours = String(now.getHours()).padStart(2, '0');
+			const minutes = String(now.getMinutes()).padStart(2, '0');
+			const seconds = String(now.getSeconds()).padStart(2, '0');
+			//セールは何時から何時か指定
+			if (hours >= 19 && hours <= 22) {
+				//セール時に表示するメッセージ
+				document.getElementById("sale").innerHTML = "<p>19時から22時までタイムセール中！合計金額から10％オフ！</p>";
 
-	<div th:fragment="layout-header" class="container">
-		<h1 th:class="site_title" th:text="#{shop.title}"></h1>
-		<h2 id="notSale"></h2>
-		<h2 id="sale" style="color:red;"></h2>
-
-		<script>
-			/**
-			 * 現在時刻を取得して表示する関数
-			 */
-			function showCurrentTime() {
-				const now = new Date(); // 現在日時を取得
-				const hours = String(now.getHours()).padStart(2, '0');
-				const minutes = String(now.getMinutes()).padStart(2, '0');
-				const seconds = String(now.getSeconds()).padStart(2, '0');
-				//セールは何時から何時か指定
-				if (hours >= 19 && hours <= 22) {
-					//セール時に表示するメッセージ
-					document.getElementById("sale").innerHTML = "19時から22時までタイムセール中！合計金額から10％オフ！";
-
-				}
-				else {
-					document.getElementById("notSale").innerHTML = "19時から22時はタイムセール！お楽しみに！";
-
-				}
 			}
+			else {
+				document.getElementById("notSale").innerHTML = "<p>19時から22時はタイムセール！お楽しみに！</p>";
 
-			// 初回表示
-			showCurrentTime();
+			}
+		}
 
-			// 1秒ごとに更新
-			setInterval(showCurrentTime, 1000);
-		</script>
+		// 初回表示
+		showCurrentTime();
 
-		<div th:if="${session.user != null and session.user.authority == 2}" class="user_info">
-			<a th:href="@{/client/user/detail}" th:text="${session.user.name}"></a>さん | <a th:href="@{/logout}"
-				th:text="#{logout}"></a>
-		</div>
-		<div th:if="${session.user != null and (session.user.authority == 0 or session.user.authority == 1)}"
-			class="user_info">
-			<a th:href="@{/admin/user/detail/{id}(id=${session.user.id})}" th:text="${session.user.name}"></a>さん | <a
-				th:href="@{/logout}" th:text="#{logout}"></a>
-		</div>
-		<div th:if="${session.user == null}" class="user_info">
-			<a th:href="@{/login}" th:text="#{login}"></a> | <a th:href="@{/client/user/regist/input/init}"
-				th:text="#{client.regist}"></a>
-		</div>
-	</div>
+		// 1秒ごとに更新
+		setInterval(showCurrentTime, 1000);
+	</script>
+	
 </body>
 
 </html>

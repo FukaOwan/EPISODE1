@@ -129,7 +129,7 @@ header .container {
 }
 
 /*セール表示を追加（伊藤）*/
-.user #user_sale-info {
+.user .user_sale-info {
 	order: 1;
 	font-family: 'Arial Black', 'Impact', sans-serif;
 	font-size: 24px;
