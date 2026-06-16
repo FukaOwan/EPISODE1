@@ -33,7 +33,7 @@ p {
 	width: 450px;
 	padding: 30px;
 	margin: 0 auto;
-	background-color:#FFF;
+	background-color: #FFF;
 	border: 1px solid rgb(128, 0, 0);
 	border-radius: 15px;
 }
@@ -102,7 +102,7 @@ p {
 .description {
 	margin-top: 30px;
 	text-align: center;
-	color:rgb(128, 0, 0);
+	color: rgb(128, 0, 0);
 }
 
 /* ---- ボタン(機能呼出) ---- */
@@ -450,6 +450,28 @@ li.error_msg {
 	width: 125px;
 }
 
+/*選択と検索を一体化（伊藤）*/
+.search-bar {
+	display: inline-flex;
+	align-items: center;
+	background-color: #ffffff;
+	border: 2px solid #ffccff;
+	border-radius: 30px;
+	padding: 4px 6px 4px 15px;
+	box-shadow: 0 4px 10px rgba(255, 204, 255, 0.2);
+}
+
+.category_select {
+	-webkit-appearance: none;
+	appearance: none;
+	padding-right: 20px;
+	border: none;
+	background: transparent;
+	color: #555;
+	font-weight: bold;
+	outline: none;
+}
+
 /* ---- 処理完了メッセージの出力箇所 ---- */
 .message {
 	clear: both;
@@ -531,8 +553,25 @@ select {
 }
 
 #login_back_button:hover {
-  color: #ff66cc;          /* ホバーした時だけピンクにする */
+	color: #ff66cc;
+	/* ホバーした時だけピンクにする */
 }
+
+.category_submit_button {
+	padding: 5px 10px;
+	background-color: #FFF6CC;
+	border: none;
+	border-radius: 20px;
+	color: #4a3c00;
+	font-weight: bold;
+	transition: transform 0.1s;
+}
+
+.category_submit_button:hover {
+	transform: scale(1.08);
+	background-color: #ffe680;
+}
+
 
 /* ---- テーブル ---- */
 /* ---- 共通 ---- */
