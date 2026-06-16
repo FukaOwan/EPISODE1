@@ -179,18 +179,16 @@ header .container {
 	transition: transform 0.2s ease;
 }
 
-.user_info .login_button{
+.user_info .login_button {
 	border: 2px solid #FFF6CC;
 	background-color: rgba(255, 255, 255, 0.3);
 }
 
-.user_info .regist_button{
+.user_info .regist_button {
 	background-color: #FFF6CC;
 }
 
-.user_info .logout_button{
-	
-}
+.user_info .logout_button {}
 
 /* スキルアップテクニック5
  * :hoverは擬似クラスの一種で、カーソルをその要素に重ねることで動作します。
@@ -514,6 +512,7 @@ aside.admin_menu {
 .complete_message,
 .complete_link {
 	font-size: 1.2em;
+	color: #a0a0a0;
 	margin-top: 30px;
 	padding-left: 30px;
 }

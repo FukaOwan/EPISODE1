@@ -29,6 +29,15 @@ p {
 }
 
 /* ---- 入力フォーム(ログイン) ---- */
+.login_content {
+	width: 450px;
+	padding: 30px;
+	margin: 0 auto;
+	background-color: #fff;
+	border: 1px solid gray;
+	border-radius: 12px;
+}
+
 .login_form_area ul {
 	margin-left: 20px;
 }
@@ -78,19 +87,8 @@ p {
 .user_container>.page_title {
 	display: inline-block;
 	position: relative;
-	margin :0 auto;
-}
-
-.user_container>.page_title::before {
-	content: "";
-	position: absolute;
-	left: 0;
-	top: 15%;
-	width: 4px;
-	height: 70%;
-	background-color: #fff4ca;
-	/* ボタンと同じ黄色 */
-	border-radius: 2px;
+	border-left: 4px solid #FFF6CC;
+	padding-left: 10px;
 }
 
 /* ---- 会員登録入力画面へのリンク ---- */
@@ -504,6 +502,25 @@ select {
 	background-image: linear-gradient(to bottom, #d44444, #9e1818);
 	color: #fff;
 	text-shadow: 1px 1px 1px #616161;
+}
+
+/*ログイン画面 送信ボタン*/
+#login_submit_button {
+	display: block;
+	width: 100%;
+	/* 横幅いっぱいに広げて押しやすくする */
+	padding: 12px;
+	background-color: #fff4ca;
+	/* ★ヘッダーの新規登録と同じ黄色 */
+	color: #4a3c00;
+	/* 文字は濃い茶色でくっきり */
+	border: none;
+	border-radius: 25px;
+	/* 丸角ボタン */
+	font-weight: bold;
+	font-size: 16px;
+	cursor: pointer;
+	transition: transform 0.2s;
 }
 
 /* ---- テーブル ---- */
