@@ -209,7 +209,7 @@ public class ClientOrderRegistController {
 	//注文確認画面「戻る」押下時
 	@RequestMapping(path = "/client/order/payment/back", method = RequestMethod.POST)
 	public String returnAddressInput() {
-		return "redirect:/client/order/address/input";
+		return "redirect:/client/order/payment/input";
 	}
 
 	//ご注文の確定ボタン押下時処理
@@ -276,15 +276,6 @@ public class ClientOrderRegistController {
 		}
 		user.setPoint(user.getPoint() + totalPoint);
 		
-		//追記
-		//ユーザービーンを生成→セッション"user"を呼び出して代入する
-		UserBean userBean = (UserBean) session.getAttribute("user");
-
-		//ユーザービーンにポイント情報を入れる
-		userBean.setPoint(user.getPoint());
-		//セッション"user"にユーザービーンをセットしなおす
-		session.setAttribute("user", userBean);
-
 		session.setAttribute("point", user.getPoint());
 		//session.setAttribute("point", 200);
 

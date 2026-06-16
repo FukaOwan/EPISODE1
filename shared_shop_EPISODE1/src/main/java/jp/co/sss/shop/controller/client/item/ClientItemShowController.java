@@ -63,7 +63,10 @@ public class ClientItemShowController {
 //	商品一覧（追記：春山）
 	@RequestMapping(path = "/client/item/list/{sortType}",  method = { RequestMethod.GET, RequestMethod.POST })
 	public String categoryList(@PathVariable Integer sortType,@RequestParam (required = false)Integer categoryId, Model model,Pageable pageable) {
-		
+		if (sortType == null) {
+			categoryId = 0;
+			model.addAttribute("categoryId",categoryId);
+		}
 //		新着順表示
 		if(sortType==1 && (categoryId==null || categoryId==0)) {
 			model.addAttribute("items",itemRepository.findByDeleteFlagOrderByInsertDateDescPage(Constant.NOT_DELETED, pageable));
