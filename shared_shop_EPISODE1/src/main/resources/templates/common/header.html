@@ -11,13 +11,44 @@
 
 		<!--セール、一般権限のみ-->
 		<div class="user_sale-info">
-			<div id="notSale" class="sale-message"></div>
-			<div id="sale" class="sale-message" style="color:red;"></div>
+			<div id="notSale"></div>
+			<div id="sale"></div>
 		</div>
+
+		<script>
+			/**
+			 * 現在時刻を取得して表示する関数
+			 */
+			function showCurrentTime() {
+				const now = new Date(); // 現在日時を取得
+
+				/*--時間を強制的に設定中（テスト）--*/
+				/*const hours = String(now.getHours()).padStart(2, '0');*/
+				const hours = 19;
+				const minutes = String(now.getMinutes()).padStart(2, '0');
+				const seconds = String(now.getSeconds()).padStart(2, '0');
+				//セールは何時から何時か指定
+				if (hours >= 19 && hours <= 22) {
+					//セール時に表示するメッセージ
+					document.getElementById("sale").innerHTML = "<p>19時から22時までタイムセール中！<br>合計金額から10％オフ！</p>";
+
+				}
+				else {
+					document.getElementById("notSale").innerHTML = "<p>19時から22時はタイムセール！<br>お楽しみに！</p>";
+
+				}
+			}
+
+			// 初回表示
+			showCurrentTime();
+
+			// 1秒ごとに更新
+			setInterval(showCurrentTime, 1000);
+		</script>
 
 		<div th:if="${session.user != null and session.user.authority == 2}" class="user_info">
 			<a th:href="@{/client/user/detail}" th:text="${session.user.name}"></a>さん | <a th:href="@{/logout}"
-				th:text="#{logout}"></a>
+				th:text="#{logout}" class="logout_button"></a>
 		</div>
 		<div th:if="${session.user != null and (session.user.authority == 0 or session.user.authority == 1)}"
 			class="user_info">
@@ -25,39 +56,11 @@
 				th:href="@{/logout}" th:text="#{logout}"></a>
 		</div>
 		<div th:if="${session.user == null}" class="user_info">
-			<a th:href="@{/login}" th:text="#{login}"></a> | <a th:href="@{/client/user/regist/input/init}"
-				th:text="#{client.regist}"></a>
+			<a th:href="@{/login}" th:text="#{login}" class="login_button"></a> | <a
+				th:href="@{/client/user/regist/input/init}" th:text="#{client.regist}" class="regist_button"></a>
 		</div>
 	</div>
 
-	<script>
-		/**
-		 * 現在時刻を取得して表示する関数
-		 */
-		function showCurrentTime() {
-			const now = new Date(); // 現在日時を取得
-			const hours = String(now.getHours()).padStart(2, '0');
-			const minutes = String(now.getMinutes()).padStart(2, '0');
-			const seconds = String(now.getSeconds()).padStart(2, '0');
-			//セールは何時から何時か指定
-			if (hours >= 19 && hours <= 22) {
-				//セール時に表示するメッセージ
-				document.getElementById("sale").innerHTML = "<p>19時から22時までタイムセール中！合計金額から10％オフ！</p>";
-
-			}
-			else {
-				document.getElementById("notSale").innerHTML = "<p>19時から22時はタイムセール！お楽しみに！</p>";
-
-			}
-		}
-
-		// 初回表示
-		showCurrentTime();
-
-		// 1秒ごとに更新
-		setInterval(showCurrentTime, 1000);
-	</script>
-	
 </body>
 
 </html>
