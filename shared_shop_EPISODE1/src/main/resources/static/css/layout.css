@@ -120,8 +120,9 @@ header .container {
 
 /*ユーザー画面のサイトタイトル*/
 .user .site_title {
-	font-size: 2.5em;
-	font-weight: 700;
+	font-family: "DynaPuff", sans-serif;
+	font-size: 3em;
+	font-weight: 600;
 	margin: 0;
 	text-shadow:
 		0 0 4px rgba(0, 0, 0, 0.4),
@@ -139,7 +140,7 @@ header .container {
 
 /* 中に #sale がある時だけ、親の枠線を赤くする（伊藤）*/
 .user_sale-info:has(#sale:not(:empty)) {
-	border: 5px dotted rgb(255, 128, 255);
+	border: 5px dotted #FFD6E7;
 }
 
 .user .user_sale-info p {

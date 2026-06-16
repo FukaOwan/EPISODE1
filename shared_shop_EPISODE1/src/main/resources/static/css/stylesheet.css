@@ -33,9 +33,9 @@ p {
 	width: 450px;
 	padding: 30px;
 	margin: 0 auto;
-	background-color: #fff;
-	border: 1px solid gray;
-	border-radius: 12px;
+	background-color:#FFF;
+	border: 1px solid rgb(128, 0, 0);
+	border-radius: 15px;
 }
 
 .login_form_area ul {
@@ -89,6 +89,7 @@ p {
 	position: relative;
 	border-left: 4px solid #FFF6CC;
 	padding-left: 10px;
+	margin-bottom: 30px;
 }
 
 /* ---- 会員登録入力画面へのリンク ---- */
@@ -101,6 +102,7 @@ p {
 .description {
 	margin-top: 30px;
 	text-align: center;
+	color:rgb(128, 0, 0);
 }
 
 /* ---- ボタン(機能呼出) ---- */
@@ -507,20 +509,29 @@ select {
 /*ログイン画面 送信ボタン*/
 #login_submit_button {
 	display: block;
-	width: 100%;
-	/* 横幅いっぱいに広げて押しやすくする */
+	width: 172px;
 	padding: 12px;
-	background-color: #fff4ca;
-	/* ★ヘッダーの新規登録と同じ黄色 */
+	background-color: #C8E7FF;
 	color: #4a3c00;
-	/* 文字は濃い茶色でくっきり */
 	border: none;
 	border-radius: 25px;
-	/* 丸角ボタン */
 	font-weight: bold;
 	font-size: 16px;
-	cursor: pointer;
 	transition: transform 0.2s;
+}
+
+#login_submit_button:hover {
+	transform: scale(1.05);
+}
+
+#login_back_button {
+	display: inline-block;
+	color: #8a9ca8;
+	font-size: 14px;
+}
+
+#login_back_button:hover {
+  color: #ff66cc;          /* ホバーした時だけピンクにする */
 }
 
 /* ---- テーブル ---- */
