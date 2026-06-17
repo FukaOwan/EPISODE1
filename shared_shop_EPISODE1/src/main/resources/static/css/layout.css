@@ -289,10 +289,24 @@ header .container {
 	border-right: none;
 }
 
-/*選択されているメニューの色変更*/
-.navi_menu a.current {
+/*選択されているメニューごとに色変更*/
+.navi_menu a.current_top {
 	color: #FFD6E7;
 }
+
+.navi_menu a.current_item-list {
+	color: #FFF6CC;
+}
+
+.navi_menu a.current_basket-list {
+	color: #C8E7FF;
+}
+
+.navi_menu a.current_order-list {
+	color: #E7C6FF;
+}
+
+
 
 .hover-underline {
 	/*	相対位置を指定（伊藤）*/

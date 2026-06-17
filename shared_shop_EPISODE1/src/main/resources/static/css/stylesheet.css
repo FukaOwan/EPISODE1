@@ -33,13 +33,13 @@ p {
 	width: 450px;
 	padding: 30px;
 	margin: 0 auto;
-	background-color: #f5f5dc;
+	background-color: rgb(251, 251, 240);
 	border: 1px solid rgb(128, 0, 0);
 	border-radius: 15px;
 }
 
-.login_form_area{
-background-color: #f5f5dc!important; 
+.login_form_area table{
+background-color: rgb(251, 251, 240);
 }
 
 
@@ -627,10 +627,6 @@ select {
 .list_table {
 	width: 100%;
 	text-align: center;
-}
-
-.list_table tr:nth-of-type(odd) {
-	background: #f0f8fb;
 }
 
 .admin .list_table tr:nth-of-type(odd) {
