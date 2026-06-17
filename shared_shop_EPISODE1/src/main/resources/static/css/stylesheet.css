@@ -33,16 +33,22 @@ p {
 	width: 450px;
 	padding: 30px;
 	margin: 0 auto;
-	background-color: #FFF;
+	background-color: #f5f5dc;
 	border: 1px solid rgb(128, 0, 0);
 	border-radius: 15px;
 }
+
+.login_form_area{
+background-color: #f5f5dc!important; 
+}
+
 
 .login_form_area ul {
 	margin-left: 20px;
 }
 
 .login_form {
+	
 	margin-top: 30px;
 }
 
