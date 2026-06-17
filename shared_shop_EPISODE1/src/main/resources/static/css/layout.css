@@ -135,7 +135,9 @@ header .container {
 	padding: 0 10px;
 	background-color: rgba(255, 255, 255, 0.3);
 	border: 5px dotted #fff;
-	border-radius: 10px;
+	border-radius: 20px;
+	box-shadow: 0 6px 12px rgba(255, 182, 215, 0.4);
+	font-family: "Zen Maru Gothic", "HG丸ｺﾞｼｯｸM-PRO", "UD DigiKyokasho NK-R", sans-serif;
 }
 
 /* 中に #sale がある時だけ、親の枠線を赤くする（伊藤）*/
