@@ -571,8 +571,23 @@ footer {
 }
 
 .user footer {
-	background-color: #E7C6FF;
-	color: #fff;
+	color: #ff69b4;
+	text-shadow:
+		2px 2px 0 #fff, -2px -2px 0 #fff,
+		2px -2px 0 #fff, -2px 2px 0 #fff,
+		0 2px 0 #fff, 0 -2px 0 #fff,
+		2px 0 0 #fff, -2px 0 0 #fff;
+	background-color: #fff;
+	background-image:
+		-webkit-linear-gradient(to right, #FFD6E7, #FFF6CC, #C8E7FF, #E7C6FF);
+	background-image:
+		-moz-linear-gradient(to right, #FFD6E7, #FFF6CC, #C8E7FF, #E7C6FF);
+	background-image:
+		-ms-linear-gradient(to right, #FFD6E7, #FFF6CC, #C8E7FF, #E7C6FF);
+	background-image:
+		-o-linear-gradient(to right, #FFD6E7, #FFF6CC, #C8E7FF, #E7C6FF);
+	background-image:
+		linear-gradient(to right, #FFD6E7, #FFF6CC, #C8E7FF, #E7C6FF);
 }
 
 .admin footer {

@@ -38,8 +38,8 @@ p {
 	border-radius: 15px;
 }
 
-.login_form_area table{
-background-color: rgb(251, 251, 240);
+.login_form_area table {
+	background-color: rgb(251, 251, 240);
 }
 
 
@@ -48,7 +48,7 @@ background-color: rgb(251, 251, 240);
 }
 
 .login_form {
-	
+
 	margin-top: 30px;
 }
 
@@ -156,7 +156,7 @@ background-color: rgb(251, 251, 240);
 .item {
 	width: 48.5%;
 	height: 200px;
-	border: 1px solid skyblue;
+	border: 1px solid #FFD6E7;
 	border-radius: 10px;
 	box-sizing: border-box;
 	text-decoration: none;
@@ -176,12 +176,12 @@ background-color: rgb(251, 251, 240);
 
 .item .item_name {
 	padding: 5px 10px;
-	color: skyblue;
+	color: #fff;
 	font-weight: bold;
 	position: absolute;
 	top: 5px;
 	left: 0;
-	background: rgba(255, 255, 255, 0.8);
+	background-color: #FFD6E7CC;
 	z-index: 2;
 	width: 100%;
 }
@@ -213,7 +213,27 @@ background-color: rgb(251, 251, 240);
 .sorted_by {
 	margin-top: 23px;
 	font-size: 1.1em;
+}
 
+.sorted_by a {
+	text-decoration: none;
+	padding: 5px 18px;
+	font-weight: bold;
+	border: 2px solid #ffffff;
+	border-radius: 20px;
+	transition: all 0.2s ease-in-out;
+	background: #f3efff;
+	color: #a395b8;
+	box-shadow: 0 3px 6px rgba(182, 195, 255, 0.3);
+}
+
+.sorted_by a:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 5px 10px rgba(255, 182, 215, 0.5);
+}
+
+.sorted_by span{
+	color: #FFF6CC;
 }
 
 /* ---- 入力フォーム(検索、登録、変更、削除) ---- */
@@ -479,11 +499,11 @@ li.error_msg {
 }
 
 .category_select option {
-  background-color: #fff0f7;
-  border-radius: 10px;
-  color: #6c5a75;
-  padding: 12px;
-  font-size: 15px;
+	background-color: #fff0f7;
+	border-radius: 10px;
+	color: #6c5a75;
+	padding: 12px;
+	font-size: 15px;
 }
 
 
