@@ -142,7 +142,7 @@ header .container {
 
 /* 中に #sale がある時だけ、親の枠線を赤くする（伊藤）*/
 .user_sale-info:has(#sale:not(:empty)) {
-	border: 5px dotted #FFD6E7;
+	border: 5px dotted pink;
 }
 
 .user .user_sale-info p {
@@ -159,26 +159,19 @@ header .container {
 		2px 0 0 #fff, -2px 0 0 #fff;
 }
 
-/* 時間部分の強調 */
 .sale-time {
-  font-size: 1.2rem;
-  color: #ff55a3; /* 少し濃いめ */
+  color: #ff55a3;
   letter-spacing: 1px;
 }
 
-/* 「タイムセール！」を最高に目立たせる */
 .sale-highlight {
   font-size: 1.2rem;
   color: #ff3385;
   display: inline-block;
-  /* 文字を少し斜めにしてPOP感を演出 */
-  animation: poyoAnimation 2s infinite ease-in-out; /* ぷるぷる動かす（おまけ） */
 }
 
-/* スキルアップテクニック4
- * 横幅の％指定はブロックの数が決まっている際、設定が容易に行えます。
- * また、レスポンシブにも対応できるため、px指定と比べ柔軟性に優れます。
- */
+
+/* --ログイン画面-- */
 .user_info {
 	order: 2;
 	text-align: right;
@@ -194,12 +187,14 @@ header .container {
 	transition: transform 0.2s ease;
 }
 
-.user_info .login_button {
+.user_info .login_button,
+.user_info .user-detail_button {
 	border: 2px solid #FFF6CC;
 	background-color: rgba(255, 255, 255, 0.3);
 }
 
-.user_info .regist_button {
+.user_info .regist_button,
+.user_info .logout_button {
 	background-color: #FFF6CC;
 }
 
@@ -233,11 +228,18 @@ header .container {
 .user .search_area .title,
 .user .main .title {
 	font-weight: 600;
-	background-color: #FFD6E7;
 	margin: 0;
 	padding: 5px 8px;
 	color: #fff;
 	text-shadow: 1px 1px 1px gray;
+}
+
+.user .search_area .title{
+	background-color: #FFD6E7;
+}
+
+.user.item_list .title{
+	background-color: #FFF6CC;
 }
 
 
@@ -317,8 +319,6 @@ header .container {
 .navi_menu a.current_order-list {
 	color: #E7C6FF;
 }
-
-
 
 .hover-underline {
 	/*	相対位置を指定（伊藤）*/
@@ -445,6 +445,7 @@ aside.admin_menu {
 	padding: 8px 15px;
 	position: relative;
 	font-size: 1.5rem;
+	background-color: #FFD6E7;
 }
 
 .main .title::before,

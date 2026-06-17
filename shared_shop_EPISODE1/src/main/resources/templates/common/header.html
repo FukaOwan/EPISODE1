@@ -31,7 +31,7 @@
 				if (hours >= 19 && hours <= 22) {
 					//セール時に表示するメッセージ
 					document.getElementById("sale").innerHTML = 
-					'<p class="sale_text"><span class="sale-time">19:00 〜 22:00</span>まで<span class="sale-highlight">タイムセール中！</span><br>合計金額から<span class="sale-value">10％オフ！</span></p>';
+					'<p class="sale_text"><span class="sale-time">19:00 〜 22:00</span>まで<span class="sale-highlight">タイムセール中！</span><br>合計金額から<span class="sale-highlight">10％オフ！</span></p>';
 
 				}
 				else {
@@ -48,10 +48,12 @@
 			setInterval(showCurrentTime, 1000);
 		</script>
 
+		<!--一般画面-->
 		<div th:if="${session.user != null and session.user.authority == 2}" class="user_info">
-			<a th:href="@{/client/user/detail}" th:text="${session.user.name}"></a>さん | <a th:href="@{/logout}"
+			<a th:href="@{/client/user/detail}" th:text="${session.user.name}" class="user-detail_button"></a>さん | <a th:href="@{/logout}"
 				th:text="#{logout}" class="logout_button"></a>
 		</div>
+		<!--管理者画面-->
 		<div th:if="${session.user != null and (session.user.authority == 0 or session.user.authority == 1)}"
 			class="user_info">
 			<a th:href="@{/admin/user/detail/{id}(id=${session.user.id})}" th:text="${session.user.name}"></a>さん | <a
