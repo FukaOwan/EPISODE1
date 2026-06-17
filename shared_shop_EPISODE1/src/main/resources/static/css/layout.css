@@ -589,3 +589,7 @@ small {
 .user small {
 	text-shadow: none;
 }
+
+item_list-title{
+	height: 30px;
+}

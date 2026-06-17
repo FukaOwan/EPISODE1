@@ -617,6 +617,10 @@ select {
 	border-radius: 5px;
 }
 
+.user .list_table.order th {
+	background: #E7C6FF;
+}
+
 .list_table td,
 .detail_table td {
 	padding: 10px;
