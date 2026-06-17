@@ -30,11 +30,13 @@
 				//セールは何時から何時か指定
 				if (hours >= 19 && hours <= 22) {
 					//セール時に表示するメッセージ
-					document.getElementById("sale").innerHTML = "<p>19時から22時までタイムセール中！<br>合計金額から10％オフ！</p>";
+					document.getElementById("sale").innerHTML = 
+					'<p class="sale_text"><span class="sale-time">19:00 〜 22:00</span>まで<span class="sale-highlight">タイムセール中！</span></p><p class="sale-sub">合計金額から10％オフ！</p>';
 
 				}
 				else {
-					document.getElementById("notSale").innerHTML = "<p>19時から22時はタイムセール！<br>お楽しみに！</p>";
+					document.getElementById("notSale").innerHTML = 
+					'<p class="not-sale_text"><span class="sale-time">19:00 〜 22:00</span>は<span class="sale-highlight">タイムセール！</span></p><p class="sale-sub">お楽しみに！</p>';
 
 				}
 			}

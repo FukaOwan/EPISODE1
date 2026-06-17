@@ -472,6 +472,15 @@ li.error_msg {
 	outline: none;
 }
 
+.category_select option {
+  background-color: #fff0f7;
+  border-radius: 10px;
+  color: #6c5a75;
+  padding: 12px;
+  font-size: 15px;
+}
+
+
 /* ---- 処理完了メッセージの出力箇所 ---- */
 .message {
 	clear: both;
