@@ -62,24 +62,24 @@ public class ClientItemShowController {
 	
 //	商品一覧（追記：春山）
 	@RequestMapping(path = "/client/item/list/{sortType}",  method = { RequestMethod.GET, RequestMethod.POST })
-	public String categoryList(@PathVariable Integer sortType,@RequestParam (required = false)Integer categoryId, Model model,Pageable pageable) {
+	public String categoryList(@PathVariable Integer sortType,@RequestParam (required = false)Integer categoryId, Model model) {
 		
 //		新着順表示
 		if(sortType==1 && (categoryId==null || categoryId==0)) {
-			model.addAttribute("items",itemRepository.findByDeleteFlagOrderByInsertDateDescPage(Constant.NOT_DELETED, pageable));
+			model.addAttribute("items",itemRepository.findByDeleteFlagOrderByInsertDateDesc(Constant.NOT_DELETED));
 		
 //		売れ筋順表示	
 		}else if(sortType==2 && (categoryId==null || categoryId==0)){
-			model.addAttribute("items",itemRepository.findByDeleteFlagOrderByQuantityDescPage(Constant.NOT_DELETED,pageable));
+			model.addAttribute("items",itemRepository.findByDeleteFlagOrderByQuantityDesc(Constant.NOT_DELETED));
 
 //		カテゴリ別検索 + 新着順表示
 		}else if(sortType==1 && categoryId!=null) {
-			model.addAttribute("items",itemRepository.findByDeleteFlagAndCategoryOrderByInsertDateDescPage(Constant.NOT_DELETED,categoryId,pageable));
+			model.addAttribute("items",itemRepository.findByDeleteFlagAndCategoryOrderByInsertDateDesc(Constant.NOT_DELETED,categoryId));
 			model.addAttribute("categoryId",categoryId);
 		
 //		カテゴリ別検索 + 売れ筋順表示
 		}else if(sortType==2 && categoryId!=null) {
-			model.addAttribute("items",itemRepository.findByDeleteFlagAndCategoryOrderByQuantityDescPage(Constant.NOT_DELETED,categoryId,pageable));
+			model.addAttribute("items",itemRepository.findByDeleteFlagAndCategoryOrderByQuantityDesc(Constant.NOT_DELETED,categoryId));
 			model.addAttribute("categoryId",categoryId);
 			
 		}

@@ -22,12 +22,12 @@
 		<a th:unless="${sortType==2}" th:href="@{/client/item/list/2(categoryId=${categoryId})}"
 			th:text="#{sort.hotsell.str}"></a>
 
-		<p th:text="#{msg.client.item.list.none}" th:if="${!items.hasContent()}"></p>
+		<p th:text="#{msg.client.item.list.none}" th:if="${items.isEmpty()}"></p>
 
 	</div>
 
 
-	<th:block th:if="${items.hasContent()}">
+	<th:block th:if="${!items.isEmpty()}">
 		<table class="list_table item_detail">
 			<tr>
 				<th th:text="#{data.item.image}"></th>

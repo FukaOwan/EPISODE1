@@ -12,7 +12,7 @@
 				<span th:if="${sortType==2 || sortType==null}" th:text="#{sort.hotsell.title}"></span>
 		</h2>
 	</div>
-	<div th:if="${#lists.isEmpty(items)}">
+	<div th:if="${!items.hasContent()}">
 		<p th:text="#{msg.client.item.list.none}"></p>
 	</div>
 	<div class="item_list">
