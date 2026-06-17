@@ -83,6 +83,7 @@ header .container {
 
 /*ヘッダーとフッターにグラデーションを追加（伊藤）*/
 .user header {
+	height: 70px;
 	background: #fff;
 	background-image:
 		-webkit-linear-gradient(to right, #FFD6E7, #FFF6CC, #C8E7FF, #E7C6FF);
@@ -132,12 +133,11 @@ header .container {
 /*セール表示を追加（伊藤）*/
 .user .user_sale-info {
 	order: 1;
-	padding: 0 10px;
+	padding: 5px 10px;
 	background-color: rgba(255, 255, 255, 0.3);
 	border: 5px dotted #fff;
 	border-radius: 20px;
 	box-shadow: 0 6px 12px rgba(255, 182, 215, 0.4);
-	font-family: "Zen Maru Gothic", "HG丸ｺﾞｼｯｸM-PRO", "UD DigiKyokasho NK-R", sans-serif;
 }
 
 /* 中に #sale がある時だけ、親の枠線を赤くする（伊藤）*/
@@ -146,21 +146,33 @@ header .container {
 }
 
 .user .user_sale-info p {
-	font-family: 'Arial Black', 'Impact', sans-serif;
 	font-size: 1.1rem;
 	font-weight: bold;
-	color: pink;
+	color: #ff69b4;
 	letter-spacing: 2px;
-
+	margin: 0;
+	line-height: 1.5;
 	text-shadow:
-		2px 2px 0 #fff,
-		-2px 2px 0 #fff,
-		2px -2px 0 #fff,
-		-2px -2px 0 #fff,
-		2px 0px 0 #fff,
-		-2px 0px 0 #fff,
-		0px 2px 0 #fff,
-		0px -2px 0 #fff;
+		2px 2px 0 #fff, -2px -2px 0 #fff,
+		2px -2px 0 #fff, -2px 2px 0 #fff,
+		0 2px 0 #fff, 0 -2px 0 #fff,
+		2px 0 0 #fff, -2px 0 0 #fff;
+}
+
+/* 時間部分の強調 */
+.sale-time {
+  font-size: 1.2rem;
+  color: #ff55a3; /* 少し濃いめ */
+  letter-spacing: 1px;
+}
+
+/* 「タイムセール！」を最高に目立たせる */
+.sale-highlight {
+  font-size: 1.2rem;
+  color: #ff3385;
+  display: inline-block;
+  /* 文字を少し斜めにしてPOP感を演出 */
+  animation: poyoAnimation 2s infinite ease-in-out; /* ぷるぷる動かす（おまけ） */
 }
 
 /* スキルアップテクニック4
@@ -206,8 +218,6 @@ header .container {
 .user_info .pipeline {
 	padding: 0 8px;
 }
-
-
 
 /* ---- タイトル共通 ---- */
 .search_area .title,
