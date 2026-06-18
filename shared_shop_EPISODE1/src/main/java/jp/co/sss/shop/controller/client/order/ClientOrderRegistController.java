@@ -162,9 +162,7 @@ public class ClientOrderRegistController {
 					//買い物かごから削除
 					basketLists.remove(i);
 					i--;
-
 					break;
-
 				} else if (basketLists.get(i).getOrderNum() > item.getStock()) {
 					//エラーメッセージ用
 					model.addAttribute("itemNameListLessThan", item.getName());
@@ -172,7 +170,6 @@ public class ClientOrderRegistController {
 					basketLists.get(i).setOrderNum(item.getStock());
 					break;
 				}
-
 				//合計計算	
 				total += basket.getOrderNum() * item.getPrice();
 				OrderItemBean orderitem = new OrderItemBean();
@@ -230,27 +227,37 @@ public class ClientOrderRegistController {
 
 		Integer totalPoint = (Integer) session.getAttribute("totalPoint");
 
-		//在庫チェック
+		//在庫check
+		//在庫フラグ変数
+		int zaiko = 0;
 		for (int i = 0; i < basketBeans.size(); i++) {
 			Item item = itemRepository.getReferenceById(basketBeans.get(i).getId());
 			if (item.getStock() == 0) {
 				model.addAttribute("itemNameListZero", item.getName());
 				basketBeans.remove(i);
 				i--;
-				session.setAttribute("basketlists", basketBeans);
+				zaiko = 1;
 			}else if (basketBeans.get(i).getOrderNum() > item.getStock()){
 				model.addAttribute("itemNameListLessThan", item.getName());
 				BasketBean basketbean = basketBeans.get(i);
 				basketbean.setOrderNum(item.getStock());
 				basketBeans.set(i, basketbean);
+				zaiko = 1;
+			}
+			if (zaiko == 1) {
 				session.setAttribute("basketlists", basketBeans);
 			}
 			if (basketBeans.size() == 0) {
 				model.addAttribute("orderItemBeans", null);
 				session.setAttribute("orderItemBeans", null);
-			}
-			
+				zaiko = 1;
+			}	
 		}
+		//在庫情報が変わってるとき確認画面リダイレクト
+		if(zaiko == 1) {
+			return "redirect:/client/order/check";
+		}
+		
 		//DB登録用エンティティを生成
 		List<OrderItemBean> orderItemBeans = (List<OrderItemBean>) session.getAttribute("orderItemBeans");
 		List<OrderItem> orderItemsList = new ArrayList<>();
