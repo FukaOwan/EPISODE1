@@ -436,7 +436,7 @@ li.error_msg {
 }
 
 /* 買い物かごを空にする */
-.shopping_button .delete{
+.shopping_button .delete {
 	background: #ffffff;
 	color: #b8a3cd;
 	border: 2px dotted #b8a3cd;
@@ -851,10 +851,12 @@ select {
 }
 
 .list_table.item_detail img {
+	max-width: 250px;
 	height: 140px;
-	width: auto;
-	max-width: 300px;
 	vertical-align: middle;
+	overflow: hidden;
+	object-fit: cover;
+	object-position: center;
 }
 
 .detail_table.address,
