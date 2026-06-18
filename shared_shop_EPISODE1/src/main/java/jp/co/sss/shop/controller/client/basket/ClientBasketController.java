@@ -89,6 +89,11 @@ public class ClientBasketController {
 		if (RbasketList != null) {
 			int size1;
 			int size2;
+			List<String>  itemNameListLessThan= new ArrayList<>();
+			List<String>  itemNameListZero= new ArrayList<>();
+
+
+			
 			do {
 				int c = 0;
 				size1 = RbasketList.size();
@@ -102,7 +107,8 @@ public class ClientBasketController {
 					//注文数が在庫より多い場合//
 					if ((b.getOrderNum() > item.getStock()) && (item.getStock() != 0)) {
 						//該当商品をエラーメッセージ出力用のmodelに入れる//
-						model.addAttribute("itemNameListLessThan", b.getName());
+						itemNameListLessThan.add(b.getName());
+						model.addAttribute("itemNameListLessThan", itemNameListLessThan);
 						//注文数を在庫数に合わせる処理//
 						RbasketList.get(c).setOrderNum(item.getStock());
 						basketList.get(basketList.size() - 1 - c).setOrderNum(b.getStock());
@@ -110,11 +116,27 @@ public class ClientBasketController {
 
 					//買い物かご中に在庫数がゼロの商品がある場合//
 					else if (item.getStock() == 0) {
-						//該当商品をエラーメッセージ出力用のmodelに入れる//
-						model.addAttribute("itemNameListZero", b.getName());
-						RbasketList.remove(c);
-						basketList.remove(basketList.size() - 1 - c);
-						c = c - 1;
+						if (RbasketList.size() != 1) {
+							//該当商品をエラーメッセージ出力用のmodelに入れる//
+							itemNameListZero.add(b.getName());
+							model.addAttribute("itemNameListZero",itemNameListZero);
+							RbasketList.remove(c);
+							basketList.remove(basketList.size() - 1 - c);
+							c = c - 1;
+							break;
+						} else {
+							itemNameListZero.add(b.getName());
+							model.addAttribute("itemNameListZero",itemNameListZero);
+							basketList.clear();
+							session.setAttribute("BL", basketList);
+							session.removeAttribute("basketBeans");
+							List<BasketBean> RbasketList1 = (List<BasketBean>) session.getAttribute("basketBeans");
+
+							session.setAttribute("basketBeans", RbasketList1);
+
+							
+							return "/client/basket/list";
+						}
 					}
 					c++;
 				}

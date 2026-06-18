@@ -256,7 +256,7 @@ public class ClientOrderRegistController {
 			Item item = itemRepository.getReferenceById(orderItemBeans.get(i).getId());
 			OrderItem orderitem = new OrderItem();
 			orderitem.setItem(item);
-			orderitem.setPrice(orderItemBeans.get(i).getSubtotal());
+			orderitem.setPrice(orderItemBeans.get(i).getPrice());
 			orderitem.setQuantity(orderItemBeans.get(i).getOrderNum());
 			orderitem.setOrder(order);
 			orderitem = orderItemRepository.save(orderitem);
