@@ -93,6 +93,7 @@ public class ClientOrderRegistController {
 		OrderForm orderform = (@Valid OrderForm) session.getAttribute("orderForm");
 		orderForm.setPayMethod(orderform.getPayMethod());
 		//ユーザーのクーポン情報を取得
+
 		orderForm.setCouponFlag(orderform.getCouponFlag());
 		session.setAttribute("orderForm", orderForm);
 
@@ -143,7 +144,7 @@ public class ClientOrderRegistController {
 		List<BasketBean> basketLists = (List<BasketBean>) session.getAttribute("basketBeans");
 		OrderForm orderForm = (OrderForm) session.getAttribute("orderForm");
 		User user = userRepository.getReferenceById(orderForm.getId());
-
+		//合計金額表示用変数
 		Integer total = 0;
 
 		List<OrderItemBean> orderItems = new ArrayList<>();
@@ -161,11 +162,13 @@ public class ClientOrderRegistController {
 					//買い物かごから削除
 					basketLists.remove(i);
 					i--;
-
+					break;
 				} else if (basketLists.get(i).getOrderNum() > item.getStock()) {
+					//エラーメッセージ用
 					model.addAttribute("itemNameListLessThan", item.getName());
 					//買い物かごを更新
-					basket.setOrderNum(item.getStock());
+					basketLists.get(i).setOrderNum(item.getStock());
+					break;
 				}
 				//合計計算	
 				total += basket.getOrderNum() * item.getPrice();
@@ -187,18 +190,23 @@ public class ClientOrderRegistController {
 			//購入後に加算されるポイント計算//
 			Integer totalPoint;
 			if ((!now.isBefore(start) && now.isBefore(end)) || orderForm.getUseCouponFlag() == 1) {
-				totalPoint = (int)((int) orderForm.getOffTotal() * 0.1);
+				totalPoint = (int)((int) orderForm.getOffTotal() * 0.01);
 			} else {
 				totalPoint = total / 100;
 			}
+			//追記
 			model.addAttribute("total", total);
 			session.setAttribute("totalPoint", totalPoint);
 			session.setAttribute("offTotal", orderForm.getOffTotal());
-
-			session.setAttribute("basketlists", basketLists);
-			model.addAttribute("orderItemBeans", orderItems);
-			session.setAttribute("orderItemBeans", orderItems);
-			model.addAttribute("orderForm", session.getAttribute("orderForm"));
+			if (basketLists.size() == 0) {
+				model.addAttribute("orderItemBeans", null);
+				session.setAttribute("orderItemBeans", null);
+			} else {
+				session.setAttribute("basketlists", basketLists);
+				model.addAttribute("orderItemBeans", orderItems);
+				session.setAttribute("orderItemBeans", orderItems);
+				model.addAttribute("orderForm", session.getAttribute("orderForm"));
+			}
 		}
 
 		return "client/order/check";
@@ -219,14 +227,37 @@ public class ClientOrderRegistController {
 
 		Integer totalPoint = (Integer) session.getAttribute("totalPoint");
 
-		//在庫チェック
+		//在庫check
+		//在庫フラグ変数
+		int zaiko = 0;
 		for (int i = 0; i < basketBeans.size(); i++) {
 			Item item = itemRepository.getReferenceById(basketBeans.get(i).getId());
-			if (basketBeans.get(i).getOrderNum() > item.getStock()) {
+			if (item.getStock() == 0) {
+				model.addAttribute("itemNameListZero", item.getName());
+				basketBeans.remove(i);
+				i--;
+				zaiko = 1;
+			}else if (basketBeans.get(i).getOrderNum() > item.getStock()){
 				model.addAttribute("itemNameListLessThan", item.getName());
-				return "redirect:/client/order/check";
+				BasketBean basketbean = basketBeans.get(i);
+				basketbean.setOrderNum(item.getStock());
+				basketBeans.set(i, basketbean);
+				zaiko = 1;
 			}
+			if (zaiko == 1) {
+				session.setAttribute("basketlists", basketBeans);
+			}
+			if (basketBeans.size() == 0) {
+				model.addAttribute("orderItemBeans", null);
+				session.setAttribute("orderItemBeans", null);
+				zaiko = 1;
+			}	
 		}
+		//在庫情報が変わってるとき確認画面リダイレクト
+		if(zaiko == 1) {
+			return "redirect:/client/order/check";
+		}
+		
 		//DB登録用エンティティを生成
 		List<OrderItemBean> orderItemBeans = (List<OrderItemBean>) session.getAttribute("orderItemBeans");
 		List<OrderItem> orderItemsList = new ArrayList<>();
@@ -271,16 +302,7 @@ public class ClientOrderRegistController {
 			user.setCoupon(user.getCoupon() - 1);
 		}
 		user.setPoint(user.getPoint() + totalPoint);
-		
-		//追記
-		//ユーザービーンを生成→セッション"user"を呼び出して代入する
-		UserBean userBean = (UserBean) session.getAttribute("user");
-		
-		//ユーザービーンにポイント情報を入れる
-		userBean.setPoint(user.getPoint());
-		//セッション"user"にユーザービーンをセットしなおす
-		session.setAttribute("user", userBean);
-		
+
 		session.setAttribute("point", user.getPoint());
 		
 		if (user.getPoint() >= 100) {
@@ -296,7 +318,7 @@ public class ClientOrderRegistController {
 		session.removeAttribute("basketelists");
 		session.removeAttribute("basketBeans");
 		session.removeAttribute("BL");
-		
+
 		return "redirect:/client/order/complete";
 	}
 
