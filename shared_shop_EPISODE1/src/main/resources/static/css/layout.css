@@ -448,26 +448,36 @@ aside.admin_menu {
 	background-color: #3D98BF;
 }
 
-.main .title::before,
-.admin .main .title::before {
-	position: absolute;
-	content: '';
-	top: 100%;
-	left: 0;
-	border: none;
-}
-
 .user .main .title {
 	background-color: #ffdae0;
 	padding: 14px 20px;
 	border-top: 3px dotted #ffffff;
 	border-bottom: 3px dotted #ffffff;
-
 	color: #5c4747;
-	font-size: 18px;
+	font-size: 1.2rem;
 	font-weight: bold;
 	letter-spacing: 0.15em;
 	text-shadow: 1px 1px 0px #ffffff;
+}
+
+.admin .main .title::before {
+	position: absolute;
+	content: "";
+	top: 100%;
+	left: 0px;
+	border-width: medium 20px 10px medium;
+	border-style: none solid solid none;
+	border-color: currentcolor rgb(149, 158, 155) transparent currentcolor;
+	border-image: initial;
+	border-bottom: 10px solid transparent;
+	border-right: 20px solid rgb(149, 158, 155);
+}
+
+.user .main .title::before {
+	position: absolute;
+	content: "";
+	top: 100%;
+	left: 0px;
 }
 
 .admin .main .title.no_shadow::before {

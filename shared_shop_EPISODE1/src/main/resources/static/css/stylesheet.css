@@ -418,6 +418,22 @@ li.error_msg {
 	width: 100%;
 }
 
+.shopping_button .delete {
+	background: linear-gradient(135deg, #ffdee9 0%, #b5fffc 100%);
+	color: #5c4747;
+	font-weight: bold;
+	border: none;
+	padding: 10px 24px;
+	border-radius: 30px;
+	cursor: pointer;
+	box-shadow: 0 4px 10px rgba(255, 182, 193, 0.5);
+	transition: opacity 0.3s;
+}
+
+.shopping_button input:hover {
+  opacity: 0.85;
+}
+
 .detail_button_area {
 	display: block;
 	width: 100%;
@@ -772,19 +788,19 @@ select {
 	color: rgb(128, 0, 0);
 	text-decoration: underline;
 	text-decoration-color: rgb(128, 0, 0);
-	text-underline-offset: 4px; 
+	text-underline-offset: 4px;
 }
 
 /* 既読の状態 */
 .list_table.item_detail a:visited {
 	color: #d1a7bd;
-	text-decoration-color: #d1a7bd; 
+	text-decoration-color: #d1a7bd;
 }
 
 /* ホバー時（マウスを乗せたとき） */
 .list_table.item_detail a:hover {
 	color: #ffb7dd;
-	text-decoration-color: #ffb7dd; 
+	text-decoration-color: #ffb7dd;
 }
 
 .item_detail_area {
@@ -849,6 +865,10 @@ select {
 	margin: 40px auto 21px;
 }
 
+.list_table.basket th {
+	background-color: #C8E7FF;
+}
+
 .list_table.basket th:first-of-type {
 	width: 45%;
 }
@@ -862,6 +882,26 @@ select {
 	text-align: left;
 }
 
+.list_table.basket a:link {
+	color: rgb(128, 0, 0);
+	text-decoration: underline;
+	text-decoration-color: rgb(128, 0, 0);
+	text-underline-offset: 4px;
+}
+
+/* 既読の状態 */
+.list_table.basket a:visited {
+	color: #d1a7bd;
+	text-decoration-color: #d1a7bd;
+}
+
+/* ホバー時（マウスを乗せたとき） */
+.list_table.basket a:hover {
+	color: #ffb7dd;
+	text-decoration-color: #ffb7dd;
+}
+
+
 .list_table.basket [type="button"],
 .list_table.basket .delete {
 	margin: 0 3px;
@@ -870,9 +910,18 @@ select {
 .list_table.basket .delete {
 	width: 80px;
 	height: 35px;
-	padding: 0px 10px;
-	border-radius: 6px;
 	font-weight: bold;
+
+	background: #b8a3cd;
+	color: #ffffff;
+	border: none;
+	padding: 6px 16px;
+	border-radius: 6px;
+	box-shadow: 0 2px 4px rgba(184, 163, 205, 0.3);
+}
+
+.list_table.basket .delete:hover {
+	background: pink;
 }
 
 
