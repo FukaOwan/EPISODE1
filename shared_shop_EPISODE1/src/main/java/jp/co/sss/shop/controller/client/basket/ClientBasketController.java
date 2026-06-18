@@ -22,14 +22,15 @@ public class ClientBasketController {
 	//リポジトリー設定//
 	@Autowired
 	ItemRepository itemRepository;
+	@Autowired
+	HttpSession session;
 
 	//商品追加時の処理//
 	@RequestMapping(path = "/client/basket/add", method = RequestMethod.POST)
-	public String addItem(Integer id, Model model, HttpSession session) {
-
-		//basketListは注文商品が入っているリスト//
-		List<BasketBean> RbasketList = (List<BasketBean>) session.getAttribute("basketBeans");
+	public String addItem(Integer id, Model model) {
 		//RbasketListはbasketListの並び順を逆にしたリスト//
+		List<BasketBean> RbasketList = (List<BasketBean>) session.getAttribute("basketBeans");
+		//basketListは注文商品が入っているリスト//
 		List<BasketBean> basketList = (List<BasketBean>) session.getAttribute("BL");
 
 		//買い物かごが空の場合の処理//
@@ -71,7 +72,7 @@ public class ClientBasketController {
 		for (int a = basketList.size(); a > 0; a--) {
 			RbasketList.add(basketList.get(a - 1));
 		}
-		
+
 		session.setAttribute("BL", basketList);
 		session.setAttribute("basketBeans", RbasketList);
 		return "redirect:/client/basket/list";
@@ -79,29 +80,63 @@ public class ClientBasketController {
 
 	//買い物かご一覧を表示する処理//
 	@RequestMapping(path = "/client/basket/list")
-	public String listItem(Model model, ItemForm itemForm, HttpSession session) {
+	public String listItem(Model model) {
 
 		List<BasketBean> RbasketList = (List<BasketBean>) session.getAttribute("basketBeans");
 		List<BasketBean> basketList = (List<BasketBean>) session.getAttribute("BL");
 
-		//買い物かごが空の場合の処理//
+		//買い物かごが空でない場合の処理//
 		if (RbasketList != null) {
-			//注文数が在庫より多い場合//
-			if (RbasketList.get(0).getOrderNum() > RbasketList.get(0).getStock()) {
-				//該当商品をエラーメッセージ出力用のmodelに入れる//
-				model.addAttribute("itemNameListLessThan", RbasketList.get(0).getName());
-				//注文数を在庫数に合わせる処理//
-				RbasketList.get(0).setOrderNum(RbasketList.get(0).getStock());
-				basketList.get(basketList.size() - 1).setOrderNum(basketList.get(basketList.size() - 1).getStock());
-			}
+			int size1;
+			int size2;
+			List<String> itemNameListLessThan = new ArrayList<>();
+			List<String> itemNameListZero = new ArrayList<>();
+			do {
+				int c = 0;
+				size1 = RbasketList.size();
+				//買い物かごの中身ごとの在庫数を調べる
+				for (BasketBean b : RbasketList) {
+					Item item = itemRepository.getReferenceById(b.getId());
+					//買い物かごの中身の在庫数をデータベースに合わせる
+					RbasketList.get(c).setStock(item.getStock());
+					basketList.get(basketList.size() - 1 - c).setStock(item.getStock());
 
-			//買い物かご中に在庫数がゼロの商品がある場合//
-			else if (RbasketList.get(0).getStock() == 0) {
-				//該当商品をエラーメッセージ出力用のmodelに入れる//
-				model.addAttribute("itemNameListZero", RbasketList.get(0).getName());
-				RbasketList.remove(0);
-				basketList.remove(basketList.size() - 1);
-			}
+					//注文数が在庫より多い場合//
+					if ((b.getOrderNum() > item.getStock()) && (item.getStock() != 0)) {
+						//該当商品をエラーメッセージ出力用のmodelに入れる//
+						itemNameListLessThan.add(b.getName());
+						model.addAttribute("itemNameListLessThan", itemNameListLessThan);
+						//注文数を在庫数に合わせる処理//
+						RbasketList.get(c).setOrderNum(item.getStock());
+						basketList.get(basketList.size() - 1 - c).setOrderNum(b.getStock());
+					}
+
+					//買い物かご中に在庫数がゼロの商品がある場合//
+					else if (item.getStock() == 0) {
+						if (RbasketList.size() != 1) {
+							//該当商品をエラーメッセージ出力用のmodelに入れる//
+							itemNameListZero.add(b.getName());
+							model.addAttribute("itemNameListZero", itemNameListZero);
+							RbasketList.remove(c);
+							basketList.remove(basketList.size() - 1 - c);
+							c = c - 1;
+							break;
+						} else {
+							itemNameListZero.add(b.getName());
+							model.addAttribute("itemNameListZero", itemNameListZero);
+							basketList.clear();
+							session.setAttribute("BL", basketList);
+							session.removeAttribute("basketBeans");
+							List<BasketBean> RbasketList1 = (List<BasketBean>) session.getAttribute("basketBeans");
+							session.setAttribute("basketBeans", RbasketList1);
+							return "/client/basket/list";
+						}
+					}
+					c++;
+				}
+				size2 = RbasketList.size();
+				//remove処理がされていたらもう一回for文を回す
+			} while (size1 != size2);
 		}
 		session.setAttribute("basketBeans", RbasketList);
 		session.setAttribute("BL", basketList);
@@ -111,7 +146,7 @@ public class ClientBasketController {
 
 	//商品を削除する処理//
 	@RequestMapping(path = "/client/basket/delete", method = RequestMethod.POST)
-	public String deleteItem(ItemForm itemForm, HttpSession session) {
+	public String deleteItem(ItemForm itemForm) {
 
 		List<BasketBean> RbasketList = (List<BasketBean>) session.getAttribute("basketBeans");
 		List<BasketBean> basketList = (List<BasketBean>) session.getAttribute("BL");
@@ -153,7 +188,7 @@ public class ClientBasketController {
 
 	//買い物かごを空にするボタンの処理//
 	@RequestMapping(path = "/client/basket/allDelete", method = RequestMethod.POST)
-	public String allDeleteItem(ItemForm itemForm, HttpSession session) {
+	public String allDeleteItem() {
 
 		List<BasketBean> RbasketList = (List<BasketBean>) session.getAttribute("basketBeans");
 		List<BasketBean> basketList = (List<BasketBean>) session.getAttribute("BL");
