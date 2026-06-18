@@ -159,7 +159,7 @@ public class ClientOrderRegistController {
 				//在庫チェック	
 				if (item.getStock() == 0) {
 					//エラーメッセージ用
-					model.addAttribute("itemNameListLessThan", item.getName());
+					model.addAttribute("itemNameListZero", item.getName());
 					//買い物かごから削除
 					basketLists.remove(i);
 					i--;
