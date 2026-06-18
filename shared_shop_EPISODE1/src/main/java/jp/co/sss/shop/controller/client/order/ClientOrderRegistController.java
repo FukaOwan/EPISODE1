@@ -207,6 +207,9 @@ public class ClientOrderRegistController {
 			if (basketLists.size() == 0 || basketLists == null) {
 				model.addAttribute("orderItemBeans", null);
 				session.setAttribute("orderItemBeans", null);
+				session.removeAttribute("basketelists");
+				session.removeAttribute("basketBeans");
+				session.removeAttribute("BL");
 			} else {
 				session.setAttribute("basketlists", basketLists);
 				model.addAttribute("orderItemBeans", orderItems);
