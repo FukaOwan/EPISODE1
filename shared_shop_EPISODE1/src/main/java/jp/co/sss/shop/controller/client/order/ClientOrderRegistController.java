@@ -171,7 +171,6 @@ public class ClientOrderRegistController {
 					basketbean.setOrderNum(item.getStock());
 					basketLists.set(i, basketbean);
 					itemNameLess.add(item.getName());
-					continue;
 				}
 				
 			//合計計算	
@@ -202,7 +201,7 @@ public class ClientOrderRegistController {
 			model.addAttribute("total", total);
 			session.setAttribute("totalPoint", totalPoint);
 			session.setAttribute("offTotal", orderForm.getOffTotal());
-			if (basketLists.size() == 0) {
+			if (basketLists.size() == 0 || basketLists == null) {
 				model.addAttribute("orderItemBeans", null);
 				session.setAttribute("orderItemBeans", null);
 			} else {
@@ -237,6 +236,7 @@ public class ClientOrderRegistController {
 			Item item = itemRepository.getReferenceById(basketBeans.get(i).getId());
 			if (item.getStock() == 0 || basketBeans.get(i).getOrderNum() > item.getStock()) {
 				stockFlag = 1;
+				break;
 			}
 		}
 		if(stockFlag == 1) {
