@@ -49,6 +49,10 @@ public class ClientItemShowController {
 	public String index(Model model,Pageable pageable) {
 //		トップ画面の商品一覧
 		List<Item> item =itemRepository.findByDeleteFlagAndQuantity(Constant.NOT_DELETED);
+		
+//		メインコンテンツに表示する｛新着商品/売れ筋商品｝の判定に使用
+		model.addAttribute("itemjadge",item);	
+		
 		//売り上げ数が０じゃない商品の場合
 		if(item.isEmpty()) {
 			model.addAttribute("items",itemRepository.findByDeleteFlagOrderByInsertDateDescPage(Constant.NOT_DELETED, pageable));
