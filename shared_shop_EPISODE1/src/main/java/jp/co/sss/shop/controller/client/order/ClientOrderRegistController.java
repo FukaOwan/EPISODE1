@@ -240,7 +240,7 @@ public class ClientOrderRegistController {
 			}
 		}
 		if(stockFlag == 1) {
-			return "redirect:client/order/check";
+			return "redirect:/client/order/check";
 		}
 			
 		//DB登録用エンティティを生成
