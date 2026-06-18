@@ -183,14 +183,14 @@ public class ClientOrderRegistController {
 			LocalTime now = LocalTime.now();
 			if ((!now.isBefore(start) && now.isBefore(end)) || orderForm.getUseCouponFlag() == 1) {
 				orderForm.setOffTotal(total * 9 / 10);
-				model.addAttribute("now", 1);
+				model.addAttribute("couponFlag", 1);
 
 			}
 
 			//購入後に加算されるポイント計算//
 			Integer totalPoint;
 			if ((!now.isBefore(start) && now.isBefore(end)) || orderForm.getUseCouponFlag() == 1) {
-				totalPoint = total * 9 / 10 / 100;
+				totalPoint = (int)((int) orderForm.getOffTotal() * 0.01);
 			} else {
 				totalPoint = total / 100;
 			}
@@ -261,11 +261,11 @@ public class ClientOrderRegistController {
 		//DB登録用エンティティを生成
 		List<OrderItemBean> orderItemBeans = (List<OrderItemBean>) session.getAttribute("orderItemBeans");
 		List<OrderItem> orderItemsList = new ArrayList<>();
-
+		
 		Order order = new Order();
 		OrderForm orderform = (OrderForm) session.getAttribute("orderForm");
 		User user = userRepository.getReferenceById(orderform.getId());
-
+		
 		order.setAddress(orderform.getAddress());
 		order.setPostalCode(orderform.getPostalCode());
 		order.setName(orderform.getName());
@@ -278,13 +278,11 @@ public class ClientOrderRegistController {
 			order.setCouponInfo(1);
 		} else if (!now.isBefore(start) && now.isBefore(end)) {
 			order.setCouponInfo(2);
-		}
-
-		else {
+		}else {
 			order.setCouponInfo(0);
 		}
 		order = orderRepository.save(order);
-
+		
 		for (int i = 0; i < orderItemBeans.size(); i++) {
 			Item item = itemRepository.getReferenceById(orderItemBeans.get(i).getId());
 			OrderItem orderitem = new OrderItem();
@@ -306,15 +304,13 @@ public class ClientOrderRegistController {
 		user.setPoint(user.getPoint() + totalPoint);
 
 		session.setAttribute("point", user.getPoint());
-		//session.setAttribute("point", 200);
-
+		
 		if (user.getPoint() >= 100) {
 			user.setPoint(user.getPoint() - 100);
 			user.setCoupon(user.getCoupon() + 1);
 		}
 		user = userRepository.save(user);
 		//追記
-
 		//セッション破棄
 		session.removeAttribute("orderForm");
 		session.removeAttribute("orderItemBeans");
