@@ -418,7 +418,8 @@ li.error_msg {
 	width: 100%;
 }
 
-.shopping_button .delete {
+/* ご注文のお手続き */
+.shopping_button .continue {
 	background: linear-gradient(135deg, #ffdee9 0%, #b5fffc 100%);
 	color: #5c4747;
 	font-weight: bold;
@@ -430,8 +431,24 @@ li.error_msg {
 	transition: opacity 0.3s;
 }
 
-.shopping_button input:hover {
-  opacity: 0.85;
+.shopping_button .continue:hover {
+	opacity: 0.7;
+}
+
+/* 買い物かごを空にする */
+.shopping_button .delete{
+	background: #ffffff;
+	color: #b8a3cd;
+	border: 2px dotted #b8a3cd;
+	padding: 9px 23px;
+	border-radius: 30px;
+	cursor: pointer;
+	box-shadow: none;
+	transition: background 0.3s;
+}
+
+.shopping_button .delete:hover {
+	background: #fdf8ff;
 }
 
 .detail_button_area {
@@ -583,23 +600,16 @@ select {
 	text-shadow: 1px 1px 1px #d8d8d8;
 }
 
-/* スキルアップテクニック10
- * background-imageプロパティの値linear-gradientによってグラデーションを設定しています。
- * ブラウザの実装状況によりベンダープレフィックスを設定。
- * 最後にプレフィックス無しを記述することで上書きを行い実装後にも対応できる順番としています。
- * またlinear-gradientが解釈できないブラウザのために背景色を設定しています。
- * このような、誰にでも同様のデザインを届ける考え方を『プログレッシブエンハンスメント』と言います。
- */
-[type=submit].delete {
-	background: #d44444;
-	background-image: -webkit-linear-gradient(top, #d44444, #9e1818);
-	background-image: -moz-linear-gradient(top, #d44444, #9e1818);
-	background-image: -ms-linear-gradient(top, #d44444, #9e1818);
-	background-image: -o-linear-gradient(top, #d44444, #9e1818);
-	background-image: linear-gradient(to bottom, #d44444, #9e1818);
-	color: #fff;
-	text-shadow: 1px 1px 1px #616161;
-}
+/*[type=submit].delete {*/
+/*	background: #d44444;*/
+/*	background-image: -webkit-linear-gradient(top, #d44444, #9e1818);*/
+/*	background-image: -moz-linear-gradient(top, #d44444, #9e1818);*/
+/*	background-image: -ms-linear-gradient(top, #d44444, #9e1818);*/
+/*	background-image: -o-linear-gradient(top, #d44444, #9e1818);*/
+/*	background-image: linear-gradient(to bottom, #d44444, #9e1818);*/
+/*	color: #fff;*/
+/*	text-shadow: 1px 1px 1px #616161;*/
+/*}*/
 
 /*ログイン画面 送信ボタン*/
 #login_submit_button {
