@@ -527,10 +527,6 @@ li.error_msg {
 	width: 115px;
 }
 
-.search select {
-	width: 125px;
-}
-
 /*選択と検索を一体化（伊藤）*/
 .search-bar {
 	display: inline-flex;
@@ -694,6 +690,13 @@ select {
 	padding: 10px;
 }
 
+.user .list_table td,
+.user .detail_table td {
+	border-bottom: 2px dotted #FFF6CC;
+}
+
+
+
 /* ---- 個別 ---- */
 /* ---- 一覧テーブル ---- */
 .list_table {
@@ -788,10 +791,6 @@ select {
 /* ---- 商品詳細 ---- */
 .list_table.item_detail {
 	margin: 10px auto 20px;
-}
-
-.list_table.item_detail tr {
-	border-bottom: 2px dotted #FFF6CC;
 }
 
 .list_table.item_detail a:link {
