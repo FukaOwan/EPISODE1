@@ -50,12 +50,12 @@ public class ClientItemShowController {
 //		トップ画面の商品一覧
 		List<Item> item =itemRepository.findByDeleteFlagAndQuantity(Constant.NOT_DELETED);
 		//売り上げ数が０じゃない商品の場合
-		if(item !=null) {
-			model.addAttribute("items",itemRepository.findByDeleteFlagOrderByQuantityDescPage(Constant.NOT_DELETED,pageable));
+		if(item.isEmpty()) {
+			model.addAttribute("items",itemRepository.findByDeleteFlagOrderByInsertDateDescPage(Constant.NOT_DELETED, pageable));
 		}
 		//売り上げ数が０の場合
-		else if(item ==null){
-			model.addAttribute("items",itemRepository.findByDeleteFlagOrderByInsertDateDescPage(Constant.NOT_DELETED, pageable));
+		else{
+			model.addAttribute("items",itemRepository.findByDeleteFlagOrderByQuantityDescPage(Constant.NOT_DELETED,pageable));
 		}
 		return "index";
 	}
