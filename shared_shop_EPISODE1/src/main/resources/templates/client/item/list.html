@@ -23,7 +23,7 @@
 		<span th:if="${sortType==2}" th:text="#{sort.hotsell.str}"></span>
 		<a th:unless="${sortType==2}" th:href="@{/client/item/list/2(categoryId=${categoryId})}"
 			th:text="#{sort.hotsell.str}"></a>
-		</div>>
+		</div>
 
 		<p th:text="#{msg.client.item.list.none}" th:if="${!items.hasContent()}"></p>
 

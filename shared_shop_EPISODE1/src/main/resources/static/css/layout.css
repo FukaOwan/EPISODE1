@@ -160,14 +160,14 @@ header .container {
 }
 
 .sale-time {
-  color: #ff55a3;
-  letter-spacing: 1px;
+	color: #ff55a3;
+	letter-spacing: 1px;
 }
 
 .sale-highlight {
-  font-size: 1.2rem;
-  color: #ff3385;
-  display: inline-block;
+	font-size: 1.2rem;
+	color: #ff3385;
+	display: inline-block;
 }
 
 
@@ -234,11 +234,11 @@ header .container {
 	text-shadow: 1px 1px 1px gray;
 }
 
-.user .search_area .title{
+.user .search_area .title {
 	background-color: #FFD6E7;
 }
 
-.user.item_list .title{
+.user.item_list .title {
 	background-color: #FFF6CC;
 }
 
@@ -445,7 +445,7 @@ aside.admin_menu {
 	padding: 8px 15px;
 	position: relative;
 	font-size: 1.5rem;
-	background-color: #FFD6E7;
+	background-color: #3D98BF;
 }
 
 .main .title::before,
@@ -455,8 +455,19 @@ aside.admin_menu {
 	top: 100%;
 	left: 0;
 	border: none;
-	border-bottom: solid 10px transparent;
-	border-right: solid 20px rgb(149, 158, 155);
+}
+
+.user .main .title {
+	background-color: #ffdae0;
+	padding: 14px 20px;
+	border-top: 3px dotted #ffffff;
+	border-bottom: 3px dotted #ffffff;
+
+	color: #5c4747;
+	font-size: 18px;
+	font-weight: bold;
+	letter-spacing: 0.15em;
+	text-shadow: 1px 1px 0px #ffffff;
 }
 
 .admin .main .title.no_shadow::before {
@@ -605,6 +616,6 @@ small {
 	text-shadow: none;
 }
 
-item_list-title{
+item_list-title {
 	height: 30px;
 }
