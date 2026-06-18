@@ -215,26 +215,44 @@ p {
 	font-size: 1.1em;
 }
 
-.sorted_by a {
+.sorted_by .sort_tab {
+	display: inline-block;
+	padding: 8px 20px;
+	font-size: 15px;
 	text-decoration: none;
-	padding: 5px 18px;
 	font-weight: bold;
-	border: 2px solid #ffffff;
-	border-radius: 20px;
+	border-radius: 25px;
+	text-align: center;
 	transition: all 0.2s ease-in-out;
-	background: #f3efff;
-	color: #a395b8;
-	box-shadow: 0 3px 6px rgba(182, 195, 255, 0.3);
 }
 
-.sorted_by a:hover {
-	transform: translateY(-2px);
-	box-shadow: 0 5px 10px rgba(255, 182, 215, 0.5);
+/* 未選択（リンク状態）の「aタグ」のデザイン ▼ */
+.sorted_by .sort_tab a{
+  background: #f3efff;
+  color: #a395b8;
+  border: 2px solid #ffffff;
+  box-shadow: 0 4px 6px rgba(182, 195, 255, 0.2);
 }
 
-.sorted_by span{
-	color: #FFF6CC;
+/* 未選択ボタンをマウスホバーしたとき */
+.sorted_by .sort_tab a:hover {
+  transform: translateY(-2px);
+  background: #ffe6f2; 
+  color: #ff69b4;
+  box-shadow: 0 5px 10px rgba(255, 182, 215, 0.4);
 }
+
+/* 現在選択されている「spanタグ」のデザイン */
+.sorted_by .sort_tab span{
+  background: linear-gradient(135deg, #ff94c4, #ffb6d7); 
+  color: #ffffff; 
+  border: 2px solid #ffffff;
+  box-shadow: 0 4px 12px rgba(255, 110, 180, 0.5);
+  cursor: default; 
+  
+  text-shadow: 1px 1px 0px rgba(139, 50, 90, 0.2);
+}
+
 
 /* ---- 入力フォーム(検索、登録、変更、削除) ---- */
 .emp_form {
