@@ -188,7 +188,10 @@ public class ClientOrderRegistController {
 			LocalTime now = LocalTime.now();
 			if ((!now.isBefore(start) && now.isBefore(end)) || orderForm.getUseCouponFlag() == 1) {
 				orderForm.setOffTotal(total * 9 / 10);
+
 				model.addAttribute("now", 1);
+				model.addAttribute("couponFlag", 1);
+
 			}
 			//購入後に加算されるポイント計算//
 			Integer totalPoint;
