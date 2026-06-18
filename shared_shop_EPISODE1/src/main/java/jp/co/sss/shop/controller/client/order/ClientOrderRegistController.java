@@ -187,7 +187,7 @@ public class ClientOrderRegistController {
 			//購入後に加算されるポイント計算//
 			Integer totalPoint;
 			if ((!now.isBefore(start) && now.isBefore(end)) || orderForm.getUseCouponFlag() == 1) {
-				totalPoint = (int)((int) orderForm.getOffTotal() * 0.1);
+				totalPoint = (int)((int) orderForm.getOffTotal() * 0.01);
 			} else {
 				totalPoint = total / 100;
 			}
