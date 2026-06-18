@@ -159,12 +159,13 @@ public class ClientOrderRegistController {
 				//在庫チェック	
 				if (item.getStock() == 0) {
 					//エラーメッセージ用
-					model.addAttribute("itemNameListLessThan", item.getName());
+					model.addAttribute("itemNameListZero", item.getName());
 					//買い物かごから削除
 					basketLists.remove(i);
 					i--;
 
 				} else if (basketLists.get(i).getOrderNum() > item.getStock()) {
+					//エラーメッセージ用
 					model.addAttribute("itemNameListLessThan", item.getName());
 					//買い物かごを更新
 					basket.setOrderNum(item.getStock());
@@ -193,6 +194,7 @@ public class ClientOrderRegistController {
 			} else {
 				totalPoint = total / 100;
 			}
+			//追記
 			model.addAttribute("total", total);
 			session.setAttribute("totalPoint", totalPoint);
 			session.setAttribute("offTotal", orderForm.getOffTotal());

@@ -22,7 +22,7 @@
 			th:text="#{sort.latest.str}"></a>
 		<form method="get" th:if="${sortType == 2}" th:action="@{/client/item/list/2}">
 		<input th:if="${categoryId != null} "type="hidden" name="categoryId" th:value="${categoryId}">
-		<input th:if="${categoryId != null} "type="hidden" name="categoryId" th:value="0">
+		<input th:if="${categoryId == null} "type="hidden" name="categoryId" th:value="0">
 		<span th:text="#{sort.hotsell.str}"></span>
 		</form>
 		<a th:unless="${sortType==2}" th:href="@{/client/item/list/2(categoryId=${categoryId})}"
