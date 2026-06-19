@@ -55,7 +55,7 @@ public class ClientOrderShowController {
 		UserBean loginUser = (UserBean) session.getAttribute("user");
 
 		//	ログイン中の会員の注文情報を新しい順で取得
-		List<Order> orderList = orderRepository.findByUser_IdOrderByInsertDateDesc(loginUser.getId());
+		List<Order> orderList = orderRepository.findByUser_IdOrderByInsertDateDescIdDesc(loginUser.getId());
 
 		// 画面表示用の注文情報リストを生成
 		List<OrderBean> orderBeanList = new ArrayList<OrderBean>();

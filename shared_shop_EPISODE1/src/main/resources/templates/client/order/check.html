@@ -54,15 +54,13 @@
 
 
 				<!-- 割引あるときの記述 -->
-			<tr style="font-weight: bold; background-color: #FFF6CC;" th:if="${now==1}">
-				
-
+			<tr style="font-weight: bold; background-color: #FFF6CC;" th:if="${couponFlag==1}">
 				<td colspan="3"></td>
-				<td class="offTotal" th:if="${now==1}">割引適用後合計</td>
-				<td class="offTotal" th:if="${now==1}" th:text="${session.offTotal}"></td>
+				<td class="offTotal" th:if="${couponFlag==1}">割引適用後合計</td>
+				<td class="offTotal" th:if="${couponFlag==1}" th:text="${session.offTotal}"></td>
 			</tr>
-
-
+				<!-- 割引あるときの記述 -->
+				<!--ポイント表示-->
 			<tr style="font-weight: bold; background-color: #FFFFFF;">
 				<td></td>
 				<td></td>
@@ -70,7 +68,7 @@
 				<td class="pointTotai">獲得予定ポイント</td>
 				<td class="pointTotai" th:text="${session.totalPoint}+'P'"></td>
 			</tr>
-
+				<!--ポイント表示-->
 
 		</table>
 		<div class="user_info_form_area">
