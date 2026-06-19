@@ -55,7 +55,7 @@ public class ClientItemShowController {
 		
 		//売り上げ数が０じゃない商品の場合
 		if(item.isEmpty()) {
-			model.addAttribute("items",itemRepository.findByDeleteFlagOrderByInsertDateDescPage(Constant.NOT_DELETED, pageable));
+			model.addAttribute("items",itemRepository.findByDeleteFlagOrderByQuantityDescPage(Constant.NOT_DELETED, pageable));
 		}
 		//売り上げ数が０の場合
 		else{
