@@ -1,0 +1,136 @@
+--systemユーザで接続後、下記のSQLを実行する。
+-- PDBに切り替え
+ALTER SESSION SET CONTAINER = xepdb1;
+-- ユーザの作成
+CREATE USER shared_shop_user IDENTIFIED BY systemsss;
+-- 権限の付与
+GRANT ALL PRIVILEGES TO shared_shop_user;
+
+--shared_shop_userで接続した後、下記のテーブル、シーケンス作成及びデータの追加を行う
+
+-- カテゴリテーブルの作成
+CREATE TABLE categories (
+    id NUMBER(2) PRIMARY KEY,
+    name VARCHAR2(15 CHAR) NOT NULL,
+    description VARCHAR2(50 CHAR), -- 30 CHAR から 50 CHAR へ拡張
+    delete_flag NUMBER(1) DEFAULT 0 NOT NULL,
+    insert_date DATE DEFAULT SYSDATE NOT NULL
+);
+
+-- 商品テーブルの作成
+CREATE TABLE items (
+    id NUMBER(6) PRIMARY KEY,
+    name VARCHAR2(100 CHAR) NOT NULL,
+    price NUMBER(7) NOT NULL,
+    description VARCHAR2(400 CHAR),
+    stock NUMBER(4) DEFAULT 0 NOT NULL,
+    image VARCHAR2(64 CHAR),
+    category_id NUMBER(2) REFERENCES categories(id) NOT NULL,
+    delete_flag NUMBER(1) DEFAULT 0 NOT NULL,
+    insert_date DATE DEFAULT SYSDATE NOT NULL
+);
+
+-- 会員テーブルの作成
+CREATE TABLE users (
+    id NUMBER(6) PRIMARY KEY,
+    email VARCHAR2(256) UNIQUE NOT NULL,
+    password VARCHAR2(16) NOT NULL,
+    name VARCHAR2(30 CHAR) NOT NULL,
+    postal_code VARCHAR2(7) NOT NULL,
+    address VARCHAR2(150 CHAR) NOT NULL,
+    phone_number VARCHAR2(11) NOT NULL,
+    point NUMBER(10) DEFAULT 0 NOT NULL,
+    coupon NUMBER(1) DEFAULT 0 NOT NULL,
+    authority NUMBER(1) NOT NULL,
+    delete_flag NUMBER(1) DEFAULT 0 NOT NULL,
+    insert_date DATE DEFAULT SYSDATE NOT NULL
+);
+
+-- 注文テーブル
+CREATE TABLE orders (
+    id NUMBER(6) PRIMARY KEY,
+    postal_code VARCHAR2(7) NOT NULL,
+    address VARCHAR2(150 CHAR) NOT NULL,
+    name VARCHAR2(30 CHAR) NOT NULL,
+    phone_number VARCHAR2(11) NOT NULL,
+    pay_method NUMBER(1) NOT NULL,
+    user_id NUMBER(6) REFERENCES users(id) NOT NULL,
+    insert_date DATE DEFAULT SYSDATE NOT NULL,
+    couponinfo NUMBER(1) DEFAULT 0 NOT NULL
+);
+
+-- 注文商品テーブル
+CREATE TABLE order_items (
+    id NUMBER(6) PRIMARY KEY,
+    quantity NUMBER(4) NOT NULL,
+    order_id NUMBER(6) REFERENCES orders(id) NOT NULL,
+    item_id NUMBER(6) REFERENCES items(id) NOT NULL,
+    price NUMBER(7) NOT NULL
+);
+
+-- シーケンスの作成(カテゴリテーブル用)
+CREATE SEQUENCE seq_categories NOCACHE;
+
+-- シーケンスの作成(商品テーブル用)
+CREATE SEQUENCE seq_items NOCACHE;
+
+-- シーケンスの作成(会員テーブル用)
+CREATE SEQUENCE seq_users NOCACHE;
+
+-- シーケンスの作成(注文テーブル用)
+CREATE SEQUENCE seq_orders NOCACHE;
+
+-- シーケンスの作成(注文商品テーブル用)
+CREATE SEQUENCE seq_order_items NOCACHE;
+
+
+-- レコード登録(カテゴリ)
+INSERT INTO categories VALUES(seq_categories.NEXTVAL, 'アクセサリー', 'ネックレス、ピアス、リング、ヘアゴム、バッグ、カバンなどを扱います', DEFAULT, DEFAULT);
+INSERT INTO categories VALUES(seq_categories.NEXTVAL, '洋服', 'カーディガン、ブルゾン、ワンピース、ジャンスカ、ブラウスなどを扱います', DEFAULT, DEFAULT);
+INSERT INTO categories VALUES(seq_categories.NEXTVAL, '美容', '香水、リップ、チーク、アイシャドウパレット、リップグロスなどを扱います', DEFAULT, DEFAULT);
+INSERT INTO categories VALUES(seq_categories.NEXTVAL, '雑貨', 'スマホケース、ボールペン、メモ帳、ミラー、ぬいぐるみ、バスボムなどを扱います', DEFAULT, DEFAULT);
+
+-- レコード登録(商品)
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'キー型ネックレス', 2500, 'かわいい鍵がついたネックレス', 100, 'keyneckles.jpg', 1, DEFAULT, DEFAULT);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'セーラーカーディガン', 10000, 'パステルグラデーションのカーディガン', 100, 'pastelgradation.jpg', 2, DEFAULT, DEFAULT);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'エンジェルピアス', 1000, '天使の羽の形をしたピアス', 100, 'engelpirce.jpg', 1, DEFAULT, DEFAULT);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'ジェル入りスマホケース', 1500, '動く流砂入りのスマホケース', 30, 'gelcase.jpg', 4, DEFAULT, DEFAULT);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'ユニコーンピアス', 1000, 'ユニコーンの形をしたピアス', 40, 'unicornpierce.jpg', 1, DEFAULT, DEFAULT);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'ハートリング', 600, 'TikTokで話題！ハートがついたリング', 5, 'heartring.jpg', 1, DEFAULT, DEFAULT);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'ファーブルゾン', 5000, 'ネコ耳フードのファーブルゾン', 50, 'catear.jpg', 2, DEFAULT, DEFAULT);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'リボンネックレス', 1000, 'リボンのネックレス', 100, 'ribbonneckles.jpg', 1, DEFAULT, DEFAULT);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'リボンピアス', 1000, 'リボンのピアス', 20, 'ribbonpierce.jpg', 1, DEFAULT, DEFAULT);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'カプセルボールペン', 130, '当ショップ売上NO.1！シャカシャカパーツ入りボールペン', 3, 'shakashaka.jpg', 4, DEFAULT, DEFAULT);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'リボンヘアゴム', 300, 'リボンのヘアゴム', 10, 'ribbonhairrubber.jpg', 1, DEFAULT, DEFAULT);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'フリルバッグ', 5000, 'フリフリのかわいいバッグ', 17, 'furifuribag.jpg',1,DEFAULT, DEFAULT);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'ダイカットメモ帳', 700, 'ホログラム加工のくまさん型メモ帳', 17, 'bairmemo.jpg',4,DEFAULT, DEFAULT);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'リボン型カバン', 5000, 'リボン型のカバン', 43, 'ribbonbag.jpg',1, DEFAULT, DEFAULT);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'ドリームキャッチャー', 3000, '星屑グリッター入りのドリームキャッチャー', 12, 'dreamcatcher.jpg',4, DEFAULT, DEFAULT);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'わたあめパフューム', 1200, 'ゆめかわな香水。わたあめの香り', 2, 'wataameperfume.jpg',3, DEFAULT, DEFAULT);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'ミラー', 600, 'ハート型のミラー', 5, 'heartmirror.jpg',4, DEFAULT, DEFAULT);
+INSERT INTO items VALUES(seq_items.NEXTVAL, '天使のはねシフォンワンピース', 15000, 'レースの羽があしらわれた、シフォンのワンピース', 14, 'onepiece.jpg',2, DEFAULT, DEFAULT);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'うさぎチーク', 800, 'うさぎみたいになれちゃうピンクチーク', 55, 'pinkcheek.jpg',3, DEFAULT, DEFAULT);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'キャンディアイシャドウパレット', 1800, 'キャンディみたいに甘い色のアイシャドウパレット', 70, 'eyeshadow.jpg', 3, DEFAULT, DEFAULT);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'おねむうさちゃんのジャンスカ', 18000, 'エプロン風のフリルと、うさぎの刺繍入りジャンパースカート', 100, 'rabbitskirt.jpg', 2, DEFAULT, DEFAULT);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'ユニコーンリップグロス', 800, 'ユニコーンみたいに輝くリップグロス。', 1000, 'unicornlip.jpg', 3, DEFAULT, DEFAULT);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'うさみみセーラーフリルブラウス', 5000, '後ろ襟がうさぎの耳の形になった、ガーリーブラウス', 321, 'girlyrabit.jpg', 2, DEFAULT, DEFAULT);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'あまいドリームバスボム', 200, '溶けるとお風呂がたちまちゆめかわ空間に。中からはランダムでゆめかわな動物がでてくる', 43, 'bathbomb.jpg', 4, DEFAULT, DEFAULT);
+
+
+-- レコード登録(会員)
+INSERT INTO users VALUES(seq_users.NEXTVAL, 'tanaka_taro@test.co.jp', 'Testtest0', 'システム管理太郎', '1111111', '東京都台東区1-2-3 ABCビル10階', '0123456789', 0, 0, 0, DEFAULT, DEFAULT);
+INSERT INTO users VALUES(seq_users.NEXTVAL, 'unyo_jiro@test.co.jp', 'Testtest1', '運用管理二郎', '1111111', '東京都台東区1-2-3 ABCビル10階', '0123456789', 0, 0, 1, DEFAULT, DEFAULT);
+INSERT INTO users VALUES(seq_users.NEXTVAL, 'ippan_saburo@test.co.jp', 'Testtest2', '一般三郎', '1111111', '東京都台東区4-5-6 ABCマンション5階', '0123456789', 0, 0, 2, DEFAULT, DEFAULT);
+
+-- レコード登録(注文)
+INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都台東区4-5-6 ABCマンション5階', '一般三郎', '0123456789', 2, 3, DEFAULT, 0);
+INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都台東区4-5-6 ABCマンション5階', '一般三郎', '0123456789', 2, 3, DEFAULT, 1);
+INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都台東区4-5-6 ABCマンション5階', '一般三郎', '0123456789', 2, 3, DEFAULT, 2);
+
+-- レコード登録(商品注文)
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 4, 1, 1, 100);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 4, 2, 1, 100);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 4, 3, 1, 100);
+
+-- コミット
+COMMIT;
