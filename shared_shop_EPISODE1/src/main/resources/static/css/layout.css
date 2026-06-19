@@ -41,7 +41,7 @@ form {
 }
 
 table {
-	width:100%;
+	width: 100%;
 	background-color: #fff;
 	border-collapse: collapse;
 	margin: 0px auto 20px;
@@ -52,9 +52,10 @@ li {
 	margin: 0;
 	padding: 0;
 }
+
 li {
 	list-style-type: none;
-	
+
 }
 
 
@@ -64,22 +65,42 @@ li {
 	margin: 0 auto;
 	justify-content: space-between;
 }
-body > .container {
+
+body>.container {
 	margin-top: 15px;
 }
+
 .content {
-	padding:30px 0 60px;
+	padding: 30px 0 60px;
 }
 
 /* ---- ヘッダー ---- */
 header .container {
 	display: flex;
 	justify-content: space-between;
+	align-items: center;
 }
-header {
-	background: #87ceeb;
+
+/*ヘッダーとフッターにグラデーションを追加（伊藤）*/
+.user header {
+	height: 70px;
+	background: #fff;
+	background-image:
+		-webkit-linear-gradient(to right, #FFD6E7, #FFF6CC, #C8E7FF, #E7C6FF);
+	background-image:
+		-moz-linear-gradient(to right, #FFD6E7, #FFF6CC, #C8E7FF, #E7C6FF);
+	background-image:
+		-ms-linear-gradient(to right, #FFD6E7, #FFF6CC, #C8E7FF, #E7C6FF);
+	background-image:
+		-o-linear-gradient(to right, #FFD6E7, #FFF6CC, #C8E7FF, #E7C6FF);
+	background-image:
+		linear-gradient(to right, #FFD6E7, #FFF6CC, #C8E7FF, #E7C6FF);
+
 	padding: 10px 0;
+	color: #fff;
 }
+
+
 .admin header {
 	background: #ff8669;
 }
@@ -91,23 +112,93 @@ header {
  * その様な場合、em指定をしておくと便利です。
  * 基本サイズが変更になったとしても、比例して大きさが変化します。
  */
+
 .site_title {
-	font-size: 1.8em;
+	font-size: 1.8rem;
 	font-weight: normal;
-	margin:0;
+	margin: 0;
 }
 
-/* スキルアップテクニック4
- * 横幅の％指定はブロックの数が決まっている際、設定が容易に行えます。
- * また、レスポンシブにも対応できるため、px指定と比べ柔軟性に優れます。
- */
+/*ユーザー画面のサイトタイトル*/
+.user .site_title {
+	font-family: "DynaPuff", sans-serif;
+	font-size: 3em;
+	font-weight: 600;
+	margin: 0;
+	text-shadow:
+		0 0 4px rgba(0, 0, 0, 0.4),
+		0 0 8px rgba(0, 0, 0, 0.2);
+}
+
+/*セール表示を追加（伊藤）*/
+.user .user_sale-info {
+	order: 1;
+	padding: 5px 10px;
+	background-color: rgba(255, 255, 255, 0.3);
+	border: 5px dotted #fff;
+	border-radius: 20px;
+	box-shadow: 0 6px 12px rgba(255, 182, 215, 0.4);
+}
+
+/* 中に #sale がある時だけ、親の枠線を赤くする（伊藤）*/
+.user_sale-info:has(#sale:not(:empty)) {
+	border: 5px dotted pink;
+}
+
+.user .user_sale-info p {
+	font-size: 1.1rem;
+	font-weight: bold;
+	color: #ff69b4;
+	letter-spacing: 2px;
+	margin: 0;
+	line-height: 1.5;
+	text-shadow:
+		2px 2px 0 #fff, -2px -2px 0 #fff,
+		2px -2px 0 #fff, -2px 2px 0 #fff,
+		0 2px 0 #fff, 0 -2px 0 #fff,
+		2px 0 0 #fff, -2px 0 0 #fff;
+}
+
+.sale-time {
+	color: #ff55a3;
+	letter-spacing: 1px;
+}
+
+.sale-highlight {
+	font-size: 1.2rem;
+	color: #ff3385;
+	display: inline-block;
+}
+
+
+/* --ログイン画面-- */
 .user_info {
+	order: 2;
 	text-align: right;
 	padding-top: 15px;
 }
+
+/* ボタン */
 .user_info a {
 	text-decoration: none;
+	color: rgb(128, 0, 0);
+	padding: 10px;
+	border-radius: 100px;
+	transition: transform 0.2s ease;
 }
+
+.user_info .login_button,
+.user_info .user-detail_button {
+	border: 2px solid #FFF6CC;
+	background-color: rgba(255, 255, 255, 0.3);
+}
+
+.user_info .regist_button,
+.user_info .logout_button {
+	background-color: #FFF6CC;
+}
+
+.user_info .logout_button {}
 
 /* スキルアップテクニック5
  * :hoverは擬似クラスの一種で、カーソルをその要素に重ねることで動作します。
@@ -115,19 +206,17 @@ header {
  * 下線が表示されます。
  */
 .user_info a:hover {
-	text-decoration: underline;
+	transform: scale(1.1);
+	box-shadow: 0 4px 15px rgba(255, 77, 148, 0.4);
 }
 
 .user_info .pipeline {
-	padding:0 8px;
+	padding: 0 8px;
 }
-
-
 
 /* ---- タイトル共通 ---- */
 .search_area .title,
-.main .title
- {
+.main .title {
 	background-color: #3d98bf;
 	margin: 0;
 	padding: 5px 8px;
@@ -135,48 +224,145 @@ header {
 	text-shadow: 1px 1px 1px #12526d;
 }
 
+/*ユーザータイトルの色変え（伊藤）*/
+.user .search_area .title,
+.user .main .title {
+	font-weight: 600;
+	margin: 0;
+	padding: 5px 8px;
+	color: #fff;
+	text-shadow: 1px 1px 1px gray;
+}
+
+.user .search_area .title {
+	background-color: #FFD6E7;
+}
+
+.user.item_list .title {
+	background-color: #FFF6CC;
+}
+
 
 /* ---- ナビゲーションバー ---- */
+/*グラデーション追加（伊藤）*/
 .navi_area {
-	background: #edf9fe;
+	background: #fff;
+
+	background-image:
+		-webkit-linear-gradient(to bottom, transparent 0%, #ffffff 30%),
+		-webkit-linear-gradient(to right, #FFD6E7, #FFF6CC, #C8E7FF, #E7C6FF);
+	background-image:
+		-moz-linear-gradient(to bottom, transparent 0%, #ffffff 30%),
+		-moz-linear-gradient(to right, #FFD6E7, #FFF6CC, #C8E7FF, #E7C6FF);
+	background-image:
+		-ms-linear-gradient(to bottom, transparent 0%, #ffffff 30%),
+		-ms-linear-gradient(to right, #FFD6E7, #FFF6CC, #C8E7FF, #E7C6FF);
+	background-image:
+		-o-linear-gradient(to bottom, transparent 0%, #ffffff 30%),
+		-o-linear-gradient(to right, #FFD6E7, #FFF6CC, #C8E7FF, #E7C6FF);
+	background-image:
+		linear-gradient(to bottom, transparent 0%, #ffffff 30%),
+		linear-gradient(to right, #FFD6E7, #FFF6CC, #C8E7FF, #E7C6FF);
 }
+
 .navi_menu {
 	width: 960px;
-	padding:12px 0;
+	padding: 12px 0;
 	margin: 0 auto;
+	color: #fff;
+	display: flex;
+	justify-content: space-around;
+	box-shadow: 0 6px 10px -4px rgba(231, 198, 255, 0.45);
 }
+
 .navi_menu li {
 	display: inline-block;
-	width: 24%;
 }
+
+/*編集（伊藤）*/
 .navi_menu a {
 	display: inline-block;
-	width: 100%;
+	padding: 0em 2.5em;
 	font-size: 1.5em;
 	line-height: 2.5em;
-	border: 1px solid #5fb4d9;
+	border-right: 1px solid #000;
 	text-align: center;
 	text-decoration: none;
-	background: #fff;
-	transition: 0.18s;
+	color: #ffffff;
+	/* 白文字 */
+	font-weight: bold;
+
+	text-shadow:
+		1px 1px 0 rgba(0, 0, 0, 0.20), -1px 1px 0 rgba(0, 0, 0, 0.20),
+		1px -1px 0 rgba(0, 0, 0, 0.20), -1px -1px 0 rgba(0, 0, 0, 0.20),
+		0px 1px 0 rgba(0, 0, 0, 0.20), 0px -1px 0 rgba(0, 0, 0, 0.20),
+		1px 0px 0 rgba(0, 0, 0, 0.20), -1px 0px 0 rgba(0, 0, 0, 0.20);
 }
-.navi_menu a:hover {
-	background: #3d98bf;
-	color: #fff;
-	text-shadow: 1px 1px 1px #12526d;
-	border-color : #3d98bf;
+
+.navi_menu a:last-child {
+	border-right: none;
 }
-.navi_menu li:first-of-type a{
+
+/*選択されているメニューごとに色変更*/
+.navi_menu a.current_top {
+	color: #FFD6E7;
+}
+
+.navi_menu a.current_item-list {
+	color: #FFF6CC;
+}
+
+.navi_menu a.current_basket-list {
+	color: #C8E7FF;
+}
+
+.navi_menu a.current_order-list {
+	color: #E7C6FF;
+}
+
+.hover-underline {
+	/*	相対位置を指定（伊藤）*/
+	position: relative;
+	display: inline-block;
+}
+
+.hover-underline::after {
+	content: '';
+	position: absolute;
+	width: 100%;
+	transform: scaleX(0);
+	height: 2px;
+	bottom: -2px;
+	left: 0;
+
+	background-color: pink;
+	transform-origin: bottom left;
+	transition: transform 0.2s ease-out;
+}
+
+.navi_menu a:hover .hover-underline::after {
+	transform: scaleX(1);
+}
+
+.navi_menu li:first-of-type a {
 	border-radius: 6px 0px 0px 6px;
 }
-.navi_menu li:last-of-type a{
+
+.navi_menu li:last-of-type a {
 	border-radius: 0px 6px 6px 0px;
 }
 
-/* ---- サイドバー ---- */
-.search .search_area{
-	flex:1;
+.main-visual img {
+	width: 100%;
+	object-fit: cover;
+	object-position: center;
 }
+
+/* ---- サイドバー ---- */
+.search .search_area {
+	flex: 1;
+}
+
 .search,
 aside.admin_menu {
 	width: 20%;
@@ -188,7 +374,8 @@ aside.admin_menu {
 	text-align: center;
 	font-size: 1.1em;
 }
-.search_area .title{
+
+.search_area .title {
 	border-radius: 6px 6px 6px 6px;
 	text-align: center;
 	font-size: 1.1em;
@@ -198,12 +385,15 @@ aside.admin_menu {
 	background: #ff6c49;
 	padding: 5px;
 }
+
 .admin_menu_list .title {
 	background: #ff6c49;
 }
+
 .search .form {
 	padding: 15px 0 50px 5px;
 }
+
 .admin_menu .display_list {
 	display: block;
 	padding: 10px;
@@ -225,6 +415,7 @@ aside.admin_menu {
 .admin_menu .display_list:hover {
 	background: #ffc6b9;
 }
+
 .admin_menu li:last-of-type .display_list {
 	border-radius: 0 0 6px 6px;
 }
@@ -236,11 +427,11 @@ aside.admin_menu {
 
 }
 
-.container content{
+.container content {
 	display: flex;
 }
 
-.admin > .container.content{
+.admin>.container.content {
 	display: flex;
 	justify-content: center;
 }
@@ -254,34 +445,60 @@ aside.admin_menu {
 	padding: 8px 15px;
 	position: relative;
 	font-size: 1.5rem;
-	}
-.main .title::before,
+	background-color: #3D98BF;
+}
+
+.user .main .title {
+	background-color: #ffdae0;
+	padding: 14px 20px;
+	border-top: 3px dotted #ffffff;
+	border-bottom: 3px dotted #ffffff;
+	color: #5c4747;
+	font-size: 1.2rem;
+	font-weight: bold;
+	letter-spacing: 0.15em;
+	text-shadow: 1px 1px 0px #ffffff;
+}
+
 .admin .main .title::before {
 	position: absolute;
-	content: '';
+	content: "";
 	top: 100%;
-	left: 0;
-	border: none;
-	border-bottom: solid 10px transparent;
-	border-right: solid 20px rgb(149, 158, 155);
+	left: 0px;
+	border-width: medium 20px 10px medium;
+	border-style: none solid solid none;
+	border-color: currentcolor rgb(149, 158, 155) transparent currentcolor;
+	border-image: initial;
+	border-bottom: 10px solid transparent;
+	border-right: 20px solid rgb(149, 158, 155);
 }
+
+.user .main .title::before {
+	position: absolute;
+	content: "";
+	top: 100%;
+	left: 0px;
+}
+
 .admin .main .title.no_shadow::before {
 	display: none;
 }
+
 .admin .main .title {
 	background: #ff6c49;
 }
 
-.container.content > .admin_menu{
+.container.content>.admin_menu {
 	display: flex;
 	width: 50%;
 }
-.admin_menu .admin_menu_list{
+
+.admin_menu .admin_menu_list {
 	padding: 5px 10px;
 	font-size: 1.5em;
 	margin: 80px auto 0;
 	flex: 1;
-	
+
 }
 
 .admin_menu_list .title_area {
@@ -294,6 +511,7 @@ aside.admin_menu {
 	text-shadow: 1px 1px 1px #333;
 	padding: 5px 0;
 }
+
 .admin_menu_list .title_area_no_shadow {
 	background: #ff6c49;
 	text-align: center;
@@ -306,21 +524,23 @@ aside.admin_menu {
 .admin_menu_list .link_area {
 	margin: 0;
 }
-.admin_menu_list .link_area a{
-    display: block;
-    padding: 10px;
-    border-right: 1px solid #aaa;
-    border-bottom: 1px solid #aaa;
-    border-left: 1px solid #aaa;
-    text-align: center;
-    text-decoration: none;
-    transition: background-color 0.18s;
+
+.admin_menu_list .link_area a {
+	display: block;
+	padding: 10px;
+	border-right: 1px solid #aaa;
+	border-bottom: 1px solid #aaa;
+	border-left: 1px solid #aaa;
+	text-align: center;
+	text-decoration: none;
+	transition: background-color 0.18s;
 }
 
-.admin_menu_list .link_area a:hover{
+.admin_menu_list .link_area a:hover {
 	background: #ffc6b9;
 }
-.admin_menu_list .link_area:last-of-type a{
+
+.admin_menu_list .link_area:last-of-type a {
 	border-radius: 0 0 6px 6px;
 }
 
@@ -331,17 +551,21 @@ aside.admin_menu {
 	padding-top: 20px;
 	font-size: 1.2em;
 }
+
 .check_error_message {
 	padding-top: 20px;
 	font-size: 1.2em;
-	color:#C00;
+	color: #C00;
 }
+
 .complete_message,
 .complete_link {
 	font-size: 1.2em;
+	color: #a0a0a0;
 	margin-top: 30px;
 	padding-left: 30px;
 }
+
 .complete_link a:hover {
 	color: #d34320;
 }
@@ -367,13 +591,41 @@ footer {
 	width: 100%;
 }
 
+.user footer {
+	color: #ff69b4;
+	text-shadow:
+		2px 2px 0 #fff, -2px -2px 0 #fff,
+		2px -2px 0 #fff, -2px 2px 0 #fff,
+		0 2px 0 #fff, 0 -2px 0 #fff,
+		2px 0 0 #fff, -2px 0 0 #fff;
+	background-color: #fff;
+	background-image:
+		-webkit-linear-gradient(to right, #FFD6E7, #FFF6CC, #C8E7FF, #E7C6FF);
+	background-image:
+		-moz-linear-gradient(to right, #FFD6E7, #FFF6CC, #C8E7FF, #E7C6FF);
+	background-image:
+		-ms-linear-gradient(to right, #FFD6E7, #FFF6CC, #C8E7FF, #E7C6FF);
+	background-image:
+		-o-linear-gradient(to right, #FFD6E7, #FFF6CC, #C8E7FF, #E7C6FF);
+	background-image:
+		linear-gradient(to right, #FFD6E7, #FFF6CC, #C8E7FF, #E7C6FF);
+}
+
 .admin footer {
 	background: #ff8669;
 }
 
 small {
 	height: 30px;
-	line-height:30px;
+	line-height: 30px;
 	text-shadow: 1px 1px 1px #fff;
 	font-size: 8pt;
+}
+
+.user small {
+	text-shadow: none;
+}
+
+item_list-title {
+	height: 30px;
 }

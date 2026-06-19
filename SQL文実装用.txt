@@ -39,8 +39,8 @@ CREATE TABLE users (
     postal_code VARCHAR2(7) NOT NULL,
     address VARCHAR2(150 CHAR) NOT NULL,
     phone_number VARCHAR2(11) NOT NULL,
-    point NUMBER(10) DEFAULT 0 NOT NULL,
-    coupon NUMBER(1) DEFAULT 0 NOT NULL,
+    point NUMBER(4) DEFAULT 0 NOT NULL,
+    coupon NUMBER(3) DEFAULT 0 NOT NULL,
     authority NUMBER(1) NOT NULL,
     delete_flag NUMBER(1) DEFAULT 0 NOT NULL,
     insert_date DATE DEFAULT SYSDATE NOT NULL

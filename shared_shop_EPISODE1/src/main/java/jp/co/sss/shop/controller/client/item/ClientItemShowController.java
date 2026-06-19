@@ -61,6 +61,8 @@ public class ClientItemShowController {
 		else{
 			model.addAttribute("items",itemRepository.findByDeleteFlagOrderByQuantityDescPage(Constant.NOT_DELETED,pageable));
 		}
+//		画面の名前（伊藤）
+		model.addAttribute("currentPage", "top");
 		return "index";
 	}
 	
@@ -88,6 +90,8 @@ public class ClientItemShowController {
 			
 		}
 		
+//		画面の名前（伊藤）
+		model.addAttribute("currentPage", "item-list");
 		return "client/item/list";	
 	}
 
