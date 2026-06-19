@@ -294,9 +294,12 @@ public class ClientOrderRegistController {
 
 		session.setAttribute("point", user.getPoint());
 		
+		
 		if (user.getPoint() >= 100) {
+			while (user.getPoint() > 100){
 			user.setPoint(user.getPoint() - 100);
 			user.setCoupon(user.getCoupon() + 1);
+			}
 		}
 		user = userRepository.save(user);
 		//追記
