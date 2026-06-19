@@ -84,7 +84,7 @@ public class ClientBasketController {
 
 	//買い物かご一覧を表示する処理//
 	@RequestMapping(path = "/client/basket/list")
-
+	public String listItem(Model model) {
 
 		List<BasketBean> RbasketList = (List<BasketBean>) session.getAttribute("basketBeans");
 		List<BasketBean> basketList = (List<BasketBean>) session.getAttribute("BL");
