@@ -79,7 +79,7 @@ public class ClientUserUpdateController {
 			session.removeAttribute("result");
 		}
 		// 変更入力画面表示
-		return "/client/user/update_input";
+		return "client/user/update_input";
 	}
 	/**
 	 * 処理3 確認ボタン 押下時処理(東山)
@@ -122,7 +122,7 @@ public class ClientUserUpdateController {
 		// 入力フォーム情報をリクエストスコープに設定
 		model.addAttribute("userForm", userForm);
 		// 登録確認画面表示
-		return "/client/user/update_check";
+		return "client/user/update_check";
 	}
 	
 	/**
@@ -159,6 +159,6 @@ public class ClientUserUpdateController {
 	@GetMapping("/client/user/update/complete")
 	public String show_complete() {
 		// 登録完了画面表示
-		return "/client/user/update_complete";
+		return "client/user/update_complete";
 	}
 }

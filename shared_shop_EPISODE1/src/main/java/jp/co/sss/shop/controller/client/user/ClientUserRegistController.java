@@ -153,6 +153,6 @@ public class ClientUserRegistController {
 	@GetMapping("/client/user/regist/complete")
 	public String show_complete() {
 		// 登録完了画面表示
-		return "/client/user/regist_complete";
+		return "client/user/regist_complete";
 	}
 }
