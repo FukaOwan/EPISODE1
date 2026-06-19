@@ -134,7 +134,7 @@ public class ClientBasketController {
 							session.removeAttribute("basketBeans");
 							List<BasketBean> RbasketList1 = (List<BasketBean>) session.getAttribute("basketBeans");
 							session.setAttribute("basketBeans", RbasketList1);
-							return "/client/basket/list";
+							return "client/basket/list";
 						}
 					}
 					c++;
@@ -149,7 +149,7 @@ public class ClientBasketController {
 //		画面の名前を入れる（伊藤）
 		model.addAttribute("currentPage", "basket-list");
 		
-		return "/client/basket/list";
+		return "client/basket/list";
 	}
 
 	//商品を削除する処理//
