@@ -75,6 +75,10 @@ public class ClientBasketController {
 
 		session.setAttribute("BL", basketList);
 		session.setAttribute("basketBeans", RbasketList);
+		
+//		画面の名前を入れる（伊藤）
+		model.addAttribute("currentPage", "basket-list");
+
 		return "redirect:/client/basket/list";
 	}
 
@@ -85,6 +89,7 @@ public class ClientBasketController {
 		List<BasketBean> RbasketList = (List<BasketBean>) session.getAttribute("basketBeans");
 		List<BasketBean> basketList = (List<BasketBean>) session.getAttribute("BL");
 
+	
 		//買い物かごが空でない場合の処理//
 		if (RbasketList != null) {
 			int size1;
@@ -141,12 +146,15 @@ public class ClientBasketController {
 		session.setAttribute("basketBeans", RbasketList);
 		session.setAttribute("BL", basketList);
 
+//		画面の名前を入れる（伊藤）
+		model.addAttribute("currentPage", "basket-list");
+		
 		return "/client/basket/list";
 	}
 
 	//商品を削除する処理//
 	@RequestMapping(path = "/client/basket/delete", method = RequestMethod.POST)
-	public String deleteItem(ItemForm itemForm) {
+	public String deleteItem(ItemForm itemForm, HttpSession session, Model model) {
 
 		List<BasketBean> RbasketList = (List<BasketBean>) session.getAttribute("basketBeans");
 		List<BasketBean> basketList = (List<BasketBean>) session.getAttribute("BL");
@@ -183,12 +191,16 @@ public class ClientBasketController {
 		}
 		session.setAttribute("BL", basketList);
 		session.setAttribute("basketBeans", RbasketList);
+		
+//		画面の名前を入れる（伊藤）
+		model.addAttribute("currentPage", "basket-list");
+		
 		return "redirect:/client/basket/list";
 	}
 
 	//買い物かごを空にするボタンの処理//
 	@RequestMapping(path = "/client/basket/allDelete", method = RequestMethod.POST)
-	public String allDeleteItem() {
+	public String allDeleteItem(ItemForm itemForm, HttpSession session,Model model) {
 
 		List<BasketBean> RbasketList = (List<BasketBean>) session.getAttribute("basketBeans");
 		List<BasketBean> basketList = (List<BasketBean>) session.getAttribute("BL");
@@ -196,6 +208,9 @@ public class ClientBasketController {
 		basketList.clear();
 		session.setAttribute("BL", basketList);
 		session.removeAttribute("basketBeans");
+		
+//		画面の名前を入れる（伊藤）
+		model.addAttribute("currentPage", "basket-list");
 
 		return "redirect:/client/basket/list";
 

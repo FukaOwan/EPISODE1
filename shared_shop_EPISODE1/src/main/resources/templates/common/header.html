@@ -6,11 +6,14 @@
 </head>
 
 <body>
-
 	<div th:fragment="layout-header" class="container">
 		<h1 th:class="site_title" th:text="#{shop.title}"></h1>
-		<h2 id="notSale"></h2>
-		<h2 id="sale" style="color:red;"></h2>
+
+		<!--セール、一般権限のみ-->
+		<div class="user_sale-info">
+			<div id="notSale"></div>
+			<div id="sale"></div>
+		</div>
 
 		<script>
 			/**
@@ -18,17 +21,22 @@
 			 */
 			function showCurrentTime() {
 				const now = new Date(); // 現在日時を取得
-				const hours = String(now.getHours()).padStart(2, '0');
+
+				/*--時間を強制的に設定中（テスト）--*/
+				/*const hours = String(now.getHours()).padStart(2, '0');*/
+				const hours = 1;
 				const minutes = String(now.getMinutes()).padStart(2, '0');
 				const seconds = String(now.getSeconds()).padStart(2, '0');
 				//セールは何時から何時か指定
 				if (hours >= 19 && hours <= 22) {
 					//セール時に表示するメッセージ
-					document.getElementById("sale").innerHTML = "19時から22時までタイムセール中！合計金額から10％オフ！";
+					document.getElementById("sale").innerHTML = 
+					'<p class="sale_text"><span class="sale-time">19:00 〜 22:00</span>まで<span class="sale-highlight">タイムセール中！</span><br>合計金額から<span class="sale-highlight">10％オフ！</span></p>';
 
 				}
 				else {
-					document.getElementById("notSale").innerHTML = "19時から22時はタイムセール！お楽しみに！";
+					document.getElementById("notSale").innerHTML = 
+					'<p class="not-sale_text"><span class="sale-time">19:00 〜 22:00</span>は<span class="sale-highlight">タイムセール！</span><br>お楽しみに！</p>';
 
 				}
 			}
@@ -40,20 +48,23 @@
 			setInterval(showCurrentTime, 1000);
 		</script>
 
+		<!--一般画面-->
 		<div th:if="${session.user != null and session.user.authority == 2}" class="user_info">
-			<a th:href="@{/client/user/detail}" th:text="${session.user.name}"></a>さん | <a th:href="@{/logout}"
-				th:text="#{logout}"></a>
+			<a th:href="@{/client/user/detail}" th:text="${session.user.name}" class="user-detail_button"></a>さん | <a th:href="@{/logout}"
+				th:text="#{logout}" class="logout_button"></a>
 		</div>
+		<!--管理者画面-->
 		<div th:if="${session.user != null and (session.user.authority == 0 or session.user.authority == 1)}"
 			class="user_info">
 			<a th:href="@{/admin/user/detail/{id}(id=${session.user.id})}" th:text="${session.user.name}"></a>さん | <a
 				th:href="@{/logout}" th:text="#{logout}"></a>
 		</div>
 		<div th:if="${session.user == null}" class="user_info">
-			<a th:href="@{/login}" th:text="#{login}"></a> | <a th:href="@{/client/user/regist/input/init}"
-				th:text="#{client.regist}"></a>
+			<a th:href="@{/login}" th:text="#{login}" class="login_button"></a> | <a
+				th:href="@{/client/user/regist/input/init}" th:text="#{client.regist}" class="regist_button"></a>
 		</div>
 	</div>
+
 </body>
 
 </html>

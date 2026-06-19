@@ -1,13 +1,21 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-    th:fragment="layout(title,body)">
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="layout(title,body)">
+
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="stylesheet" type="text/css" th:href="@{/css/layout.css}" />
-<link rel="stylesheet" type="text/css" th:href="@{/css/stylesheet.css}" />
-<title  th:replace="${title}"></title>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/layout.css}" />
+	<link rel="stylesheet" type="text/css" th:href="@{/css/stylesheet.css}" />
+	<!-- グーグルフォントの利用（一般権限画面） -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link
+		href="https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&family=Tsukimi+Rounded:wght@400;700&family=Zen+Maru+Gothic:wght@400;700&display=swap"
+		rel="stylesheet">
+
+	<title th:replace="${title}"></title>
 </head>
+
 <body class="user">
 	<!--/* ヘッダー */-->
 	<header>
@@ -17,9 +25,15 @@
 	<nav th:if="${session.user == null or session.user.authority == 2}" class="navi_area">
 		<div th:replace="~{common/menu :: layout-menu}"></div>
 	</nav>
+	<!--メインビジュアル追加（伊藤）-->
+	<section class="main-visual" th:if="${currentPage == 'top'}">
+		<img th:src="@{/images/main-visual.jpg}" alt="メインビジュアル">
+	</section>
+
 	<div class="container">
 		<!--/* サイドバー */-->
 		<aside th:replace="~{common/sidebar :: layout-sidebar}"></aside>
+
 		<!--/* メイン */-->
 		<article class="main">
 			<div th:replace="${body}"></div>
@@ -30,4 +44,5 @@
 		<div th:replace="~{common/footer :: layout-footer}"></div>
 	</footer>
 </body>
+
 </html>

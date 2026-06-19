@@ -53,13 +53,13 @@
 			</tr>
 		</table>
 		<div class="user_info_form_area shopping_button">
-			<!--/* 注文手続きフォーム */-->
-			<form th:action="@{/client/order/address/input}" method="post">
-				<input type="submit" value="ご注文のお手続き" />
-			</form>
 			<!--/* 買い物かごを空にするフォーム */-->
 			<form th:action="@{/client/basket/allDelete}" method="post">
 				<input type="submit" value="買い物かごを空にする" class="delete" />
+			</form>
+			<!--/* 注文手続きフォーム */-->
+			<form th:action="@{/client/order/address/input}" method="post">
+				<input type="submit" value="ご注文のお手続き" class="continue"/>
 			</form>
 		</div>
 	</th:block>
