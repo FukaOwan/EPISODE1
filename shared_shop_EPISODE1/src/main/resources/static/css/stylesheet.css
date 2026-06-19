@@ -543,6 +543,10 @@ li.error_msg {
 	border-radius: 30px;
 }
 
+.detail_button_area .back_button:hover {
+	background-color: rgba(184, 163, 205, 0.2);
+}
+
 .card_info {
 	padding-top: 10px;
 	border-top: 1px solid #e8e8e8;
@@ -573,6 +577,15 @@ li.error_msg {
 
 .item_detail_list {
 	width: 50%;
+}
+
+.item_detail_list dt{
+	color: #5c4747;
+	margin-top: 10px;
+}
+
+.item_detail_list dd{
+	margin-left: 60px;
 }
 
 .item_detail_area+.user_info_form {
