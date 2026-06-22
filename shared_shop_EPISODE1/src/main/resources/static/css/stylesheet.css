@@ -130,10 +130,43 @@ p {
 }
 
 /* ---- ボタン(削除) ---- */
-[type=submit].delete {
-	background: #d22222;
-	color: white;
+.user [type=submit].delete {
+	color: #ffffff;
+
+	background:
+		linear-gradient(135deg,
+			#ef7895 0%,
+			#e9567c 55%,
+			#dd426c 100%);
+
+	border: 2px solid #d93662;
+
+	box-shadow:
+		0 4px 8px rgba(206, 54, 94, 0.25),
+		inset 0 1px 0 rgba(255, 255, 255, 0.35);
+		
+	transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
 }
+
+.user [type=submit].delete:hover {
+  background:
+    linear-gradient(
+      135deg,
+      #f286a1 0%,
+      #ee5d82 55%,
+      #e14770 100%
+    );
+
+  transform: translateY(3px);
+
+  box-shadow:
+    0 8px 16px rgba(206, 54, 94, 0.3),
+    0 0 12px rgba(242, 134, 161, 0.45);
+}
+
 
 [type=submit].delete:disabled {
 	background: #ccc;
@@ -579,12 +612,12 @@ li.error_msg {
 	width: 50%;
 }
 
-.item_detail_list dt{
+.item_detail_list dt {
 	color: #5c4747;
 	margin-top: 10px;
 }
 
-.item_detail_list dd{
+.item_detail_list dd {
 	margin-left: 60px;
 }
 
