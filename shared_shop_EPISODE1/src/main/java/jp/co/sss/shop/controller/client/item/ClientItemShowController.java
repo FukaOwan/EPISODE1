@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import jp.co.sss.shop.bean.ItemBean;
 import jp.co.sss.shop.entity.Item;
+import jp.co.sss.shop.entity.OrderItem;
 import jp.co.sss.shop.repository.ItemRepository;
+import jp.co.sss.shop.repository.OrderItemRepository;
 import jp.co.sss.shop.service.BeanTools;
 import jp.co.sss.shop.util.Constant;
 
@@ -31,7 +34,8 @@ public class ClientItemShowController {
 	 */
 	@Autowired
 	ItemRepository itemRepository;
-
+	@Autowired
+	OrderItemRepository orderItemRepository;
 
 	/**
 	 * Entity、Form、Bean間のデータコピーサービス
@@ -45,22 +49,17 @@ public class ClientItemShowController {
 	 * @param model    Viewとの値受渡し
 	 * @return "index" トップ画面
 	 */
-	@RequestMapping(path = "/" , method = { RequestMethod.GET, RequestMethod.POST })
-	public String index(Model model,Pageable pageable) {
-//		トップ画面の商品一覧
-		List<Item> item =itemRepository.findByDeleteFlagAndQuantity(Constant.NOT_DELETED);
-		
-//		メインコンテンツに表示する｛新着商品/売れ筋商品｝の判定に使用
-		model.addAttribute("itemjadge",item);	
-		
-		//売り上げ数が０じゃない商品の場合
-		if(item.isEmpty()) {
-			model.addAttribute("items",itemRepository.findByDeleteFlagOrderByQuantityDescPage(Constant.NOT_DELETED, pageable));
-		}
-		//売り上げ数が０の場合
-		else{
-			model.addAttribute("items",itemRepository.findByDeleteFlagOrderByQuantityDescPage(Constant.NOT_DELETED,pageable));
-		}
+	@RequestMapping(path = "/", method = { RequestMethod.GET, RequestMethod.POST })
+	public String index(Model model, Pageable pageable) {
+	    // 売れ筋順（売上がないものは新着順）でデータを取得(追記：春山)
+	    Page<Item> item = itemRepository.findByDeleteFlagOrderByQuantityDescPage(Constant.NOT_DELETED, pageable);
+	    
+	    model.addAttribute("items", item);
+	    
+//	    トップ画面のサブタイトル表示用
+	    List<OrderItem> orderItem = orderItemRepository.findAll();
+	    model.addAttribute("orderItem", orderItem);
+	    
 //		画面の名前（伊藤）
 		model.addAttribute("currentPage", "top");
 		return "index";
