@@ -129,7 +129,16 @@ p {
 	width: 80px;
 }
 
-/* ---- ボタン(削除) ---- */
+/* ---- ボタン(削除、管理者) ---- */
+[type=submit].delete {
+	background: #d22222;
+	color: white;
+}
+[type=submit].delete:disabled {
+  background: #ccc;
+}
+
+/* ---- ボタン(削除、一般) ---- */
 .user [type=submit].delete {
 	color: #ffffff;
 
@@ -548,6 +557,12 @@ li.error_msg {
 	/* padding: 0.6em 1.8em; */
 	font-size: 1.2em;
 }
+
+/*【変更】ボタン*/
+.user .detail_button_area [type="submit"] {
+	
+}
+
 
 /* 【買い物かごに入れる】ボタン */
 .detail_button_area .send_button {
