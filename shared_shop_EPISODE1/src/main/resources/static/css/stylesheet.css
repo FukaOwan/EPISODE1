@@ -134,8 +134,9 @@ p {
 	background: #d22222;
 	color: white;
 }
+
 [type=submit].delete:disabled {
-  background: #ccc;
+	background: #ccc;
 }
 
 /* ---- ボタン(削除、一般) ---- */
@@ -153,27 +154,38 @@ p {
 	box-shadow:
 		0 4px 8px rgba(206, 54, 94, 0.25),
 		inset 0 1px 0 rgba(255, 255, 255, 0.35);
-		
+
 	transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease,
-    background 0.2s ease;
+		transform 0.2s ease,
+		box-shadow 0.2s ease,
+		background 0.2s ease;
 }
 
 .user [type=submit].delete:hover {
-  background:
-    linear-gradient(
-      135deg,
-      #f286a1 0%,
-      #ee5d82 55%,
-      #e14770 100%
-    );
+	background:
+		linear-gradient(135deg,
+			#f286a1 0%,
+			#ee5d82 55%,
+			#e14770 100%);
 
-  transform: translateY(3px);
+	transform: translateY(-2px);
 
-  box-shadow:
-    0 8px 16px rgba(206, 54, 94, 0.3),
-    0 0 12px rgba(242, 134, 161, 0.45);
+	box-shadow:
+		0 8px 16px rgba(206, 54, 94, 0.3),
+		0 0 12px rgba(242, 134, 161, 0.45);
+}
+
+.user [type=submit].delete:active {
+	transform: translateY(1px);
+
+	background:
+		linear-gradient(135deg,
+			#dc607f,
+			#cc355f);
+
+	box-shadow:
+		0 2px 4px rgba(180, 37, 74, 0.3),
+		inset 0 3px 6px rgba(150, 30, 60, 0.18);
 }
 
 
@@ -466,7 +478,25 @@ li.error_msg {
 	padding: 10px 35px;
 	border-radius: 30px;
 	box-shadow: 0 4px 10px rgba(255, 182, 193, 0.5);
-	cursor: pointer;
+	transition:
+		transform 0.15s ease,
+		box-shadow 0.15s ease,
+		filter 0.15s ease;
+}
+
+.user_info_form_area .send_button:hover {
+	/* 少しだけ紫寄り・鮮やかにする */
+	filter: hue-rotate(8deg) saturate(1.08);
+
+	transform: translateY(-1px);
+
+	box-shadow: 0 8px 17px rgba(175, 140, 205, 0.23);
+}
+
+.user_info_form_area .send_button:active {
+	transform: translateY(1px);
+
+	box-shadow: 0 3px 8px rgba(175, 140, 205, 0.18);
 }
 
 /* 【戻る】ボタン */
@@ -474,14 +504,28 @@ li.error_msg {
 	position: absolute;
 	bottom: 20px;
 	left: calc(50% - 170px);
-	border: none;
 	background: #ffffff;
 	color: #b8a3cd;
 	border: 2px dotted #b8a3cd;
 	padding: 8px 33px;
 	border-radius: 30px;
-	cursor: pointer;
-	font-weight: bold;
+	box-shadow: 0 3px 5px rgba(120, 90, 150, 0.15);
+	transition: transform 0.1s ease, background-color 0.1s ease, box-shadow 0.1s ease;
+}
+
+.user_info_form_area .back_button:hover {
+	background-color: #faf5ff;
+	transform: translateY(-2px);
+	box-shadow: 0 5px 8px rgba(120, 90, 150, 0.2);
+}
+
+.user_info_form_area .back_button:active {
+	transform: translateY(1px);
+	box-shadow: 0 1px 3px rgba(120, 90, 150, 0.15);
+}
+
+.user_info_form_area .confirmed_button:hover {
+	transform: translateY(-2px);
 }
 
 .info_form_area .back_button {
@@ -501,17 +545,27 @@ li.error_msg {
 	color: #5c4747;
 	font-weight: bold;
 	border: none;
-	padding: 10px 24px;
+	padding: 10px 35px;
 	border-radius: 30px;
-	box-shadow: 0 4px 10px rgba(255, 182, 193, 0.5);
-	transition: all 0.1s ease-in-out;
+	box-shadow: 0 8px 20px rgba(190, 135, 200, 0.28);
+	transition:
+		background-position 0.3s ease,
+		transform 0.2s ease,
+		box-shadow 0.2s ease;
 }
 
 .shopping_button .continue:hover {
-	background: #d1a7bd;
-	color: #ffffff;
-	box-shadow: 0 2px 5px rgba(209, 167, 189, 0.6);
+	background-position: right center;
+	transform: translateY(-2px);
+	box-shadow:
+		0 13px 25px rgba(157, 119, 200, 0.3),
+		0 0 14px rgba(207, 183, 238, 0.3);
+}
+
+.shopping_button .continue:active {
 	transform: translateY(1px);
+	box-shadow:
+		0 4px 9px rgba(167, 133, 205, 0.2);
 }
 
 /* 買い物かごを空にする */
@@ -558,11 +612,6 @@ li.error_msg {
 	font-size: 1.2em;
 }
 
-/*【変更】ボタン*/
-.user .detail_button_area [type="submit"] {
-	
-}
-
 
 /* 【買い物かごに入れる】ボタン */
 .detail_button_area .send_button {
@@ -573,14 +622,26 @@ li.error_msg {
 	padding: 10px 35px;
 	border-radius: 30px;
 	box-shadow: 0 4px 10px rgba(255, 182, 193, 0.5);
+	transition:
+		background-position 0.3s ease,
+		transform 0.2s ease,
+		box-shadow 0.2s ease;
 }
 
 .detail_button_area .send_button:hover {
-	background: #d1a7bd;
-	color: #ffffff;
-	box-shadow: 0 2px 5px rgba(209, 167, 189, 0.6);
-	transform: translateY(1px);
+	background-position: right center;
+	transform: translateY(-2px);
+	box-shadow:
+		0 11px 22px rgba(167, 133, 205, 0.25),
+		0 0 12px rgba(207, 183, 238, 0.2);
 }
+
+.detail_button_area .send_button:active {
+	transform: translateY(1px);
+	box-shadow:
+		0 4px 9px rgba(167, 133, 205, 0.2);
+}
+
 
 /* 【戻る】ボタン */
 .detail_button_area .back_button {
@@ -589,10 +650,69 @@ li.error_msg {
 	border: 2px dotted #b8a3cd;
 	padding: 8px 33px;
 	border-radius: 30px;
+	box-shadow: 0 3px 5px rgba(120, 90, 150, 0.15);
+
+	transition:
+		transform 0.1s ease,
+		background-color 0.1s ease,
+		box-shadow 0.1s ease;
 }
 
 .detail_button_area .back_button:hover {
-	background-color: rgba(184, 163, 205, 0.2);
+	background-color: #faf5ff;
+	transform: translateY(-2px);
+	box-shadow: 0 5px 8px rgba(120, 90, 150, 0.2);
+}
+
+.detail_button_area .back_button:active {
+	transform: translateY(1px);
+	box-shadow: 0 1px 3px rgba(120, 90, 150, 0.15);
+}
+
+/*【変更】ボタン*/
+.detail_button_area .change_button {
+	color: #5c62b8;
+
+	background:
+		linear-gradient(135deg,
+			#ffffff 0%,
+			#f1f4ff 45%,
+			#eee5ff 100%);
+
+	border: 2px solid #b8bcef;
+
+	box-shadow:
+		0 4px 8px rgba(125, 132, 210, 0.18),
+		inset 0 0 10px rgba(255, 255, 255, 0.9);
+
+	transition:
+		transform 0.2s ease,
+		box-shadow 0.2s ease,
+		background 0.2s ease;
+}
+
+.detail_button_area .change_button:hover {
+	color: #5157ad;
+
+	background:
+		linear-gradient(135deg,
+			#ffffff 0%,
+			#e9f4ff 45%,
+			#e8dcff 100%);
+
+	transform: translateY(-3px);
+
+	box-shadow:
+		0 8px 16px rgba(125, 132, 210, 0.25),
+		0 0 12px rgba(190, 174, 240, 0.4);
+}
+
+.detail_button_area .change_button:active {
+	transform: translateY(1px);
+
+	box-shadow:
+		0 2px 5px rgba(125, 132, 210, 0.2),
+		inset 0 2px 5px rgba(125, 132, 210, 0.12);
 }
 
 .card_info {
@@ -949,8 +1069,27 @@ select {
 	margin-top: 50px;
 }
 
+/*日付ボタン*/
 .list_table.order a {
+	color: #a684b5;
+	font-weight: 600;
 	text-decoration: underline;
+	text-decoration-color: #d7bddc;
+	text-decoration-thickness: 1px;
+	text-underline-offset: 3px;
+
+	transition:
+		color 0.15s ease,
+		text-decoration-color 0.15s ease;
+}
+
+.list_table.order a:hover {
+  color: #85649a;
+  text-decoration-color: #85649a;
+}
+
+.list_table.order a:visited {
+  color: #a684b5;
 }
 
 /* ---- カテゴリ一覧 ---- */
