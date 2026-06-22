@@ -1070,7 +1070,7 @@ select {
 }
 
 /*日付ボタン*/
-.list_table.order a {
+.user .list_table.order a {
 	color: #a684b5;
 	font-weight: 600;
 	text-decoration: underline;
