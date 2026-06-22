@@ -10,8 +10,8 @@
 		<h2 class="title">
 <!--				<span th:if="${sortType==1 and sortType==null}" th:text="#{sort.latest.title}"></span>-->
 <!--				<span th:if="${sortType==2}" th:text="#{sort.hotsell.title}"></span>-->
-				<span th:if="${#lists.isEmpty(itemjadge)}" th:text="#{sort.latest.title}"></span>
-				<span th:if="${!#lists.isEmpty(itemjadge)}" th:text="#{sort.hotsell.title}"></span>
+				<span th:if="${orderItem == null or orderItem.isEmpty()}" th:text="#{sort.latest.title}"></span>
+				<span th:unless="${orderItem == null or orderItem.isEmpty()}" th:text="#{sort.hotsell.title}"></span>
 				
 		</h2>
 	</div>
