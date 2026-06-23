@@ -19,9 +19,12 @@
 				<img th:if="*{image == null}" th:src="@{/images/common/no_image.jpg}"></img>
 			</div>
 			<dl class="item_detail_list">
-				
+
 				<dt>[[#{data.item.price}]]</dt>
-				<dd th:text="*{price}"></dd>
+				<dd th:with="
+      				priceValue=*{price},
+      				formattedPrice=${#numbers.formatInteger(priceValue, 1, 'COMMA')}" th:text="|${formattedPrice}円|">
+				</dd>
 				<dt>[[#{data.item.stock}]]</dt>
 				<dd th:if="*{stock > 5}" th:text="#{data.in.stock}"></dd>
 				<dd th:if="*{stock >= 1 and 5 >= stock }" th:text="*{stock}"></dd>

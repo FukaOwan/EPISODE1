@@ -743,11 +743,9 @@ li.error_msg {
 
 .item_image_area img {
 	display: block;
-	width: 200%;
-	max-width: 500px;
+	width: 100%;
 	height: auto;
-	max-height: 500px;
-	border:2px solid #ffdae0;
+	border: 2px solid #ffdae0;
 	border-radius: 10px;
 }
 
@@ -759,16 +757,19 @@ li.error_msg {
 }
 
 .item_detail_list {
-	width: 50%;
+	width: 100%;
+	display: grid;
+	grid-template-columns: 120px 1fr;
+	gap: 12px 20px;
 }
 
 .item_detail_list dt {
 	color: #5c4747;
-	margin-top: 10px;
+	font-weight: bold;
 }
 
 .item_detail_list dd {
-	margin-left: 60px;
+	margin-left: 0;
 }
 
 .item_detail_area+.user_info_form {
@@ -1100,12 +1101,12 @@ select {
 }
 
 .list_table.order a:hover {
-  color: #85649a;
-  text-decoration-color: #85649a;
+	color: #85649a;
+	text-decoration-color: #85649a;
 }
 
 .list_table.order a:visited {
-  color: #a684b5;
+	color: #a684b5;
 }
 
 /* ---- カテゴリ一覧 ---- */
