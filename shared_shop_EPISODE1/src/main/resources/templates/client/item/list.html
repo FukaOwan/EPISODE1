@@ -35,7 +35,11 @@
 			<tr>
 				<th th:text="#{data.item.image}"></th>
 				<th th:text="#{data.item.name}"></th>
-				<th th:text="#{data.item.price}"></th>
+				<th th:with="
+					priceValue=#{data.item.price},
+      				formattedPrice=${#numbers.formatInteger(priceValue, 1, 'COMMA')}" 
+      				th:text="|${formattedPrice}円|">
+      			</th>
 				<th th:text="#{category}"></th>
 			</tr>
 			<!--/* 商品一覧 */-->

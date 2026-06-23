@@ -743,7 +743,7 @@ li.error_msg {
 
 .item_image_area img {
 	display: block;
-	width: 100%;
+	width: 120%;
 	height: auto;
 	border: 2px solid #ffdae0;
 	border-radius: 10px;
