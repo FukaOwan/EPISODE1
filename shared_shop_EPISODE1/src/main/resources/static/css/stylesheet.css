@@ -734,7 +734,7 @@ li.error_msg {
 	font-weight: bold;
 	margin-bottom: 15px;
 	padding-left: 0.5rem;
-	border-left: 2px solid #ffdae0;
+	border-left: 3px solid #ffdae0;
 }
 
 .item_image_area {
