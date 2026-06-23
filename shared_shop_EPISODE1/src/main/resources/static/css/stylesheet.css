@@ -383,6 +383,12 @@ li.error_msg {
 	color: #FF0000;
 }
 
+span.error_msg {
+	display: list-item;
+	font-size: 0.8rem;
+	color: #C00;
+}
+
 .error_list li {
 	color: #C00;
 	padding-left: 10px;
