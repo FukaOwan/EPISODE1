@@ -1,6 +1,7 @@
 package jp.co.sss.shop.controller.client.order;
 
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,7 +57,7 @@ public class ClientOrderRegistController {
 		BeanUtils.copyProperties(user, orderForm);
 		orderForm.setPayMethod(1);
 		//時間でも判断する処理を書く
-		LocalTime now = LocalTime.now();
+		LocalTime now = LocalTime.now(ZoneId.of("Asia/Tokyo"));
 		if (!now.isBefore(start) && now.isBefore(end)) {
 			orderForm.setCouponFlag(0);
 		} else {
@@ -187,7 +188,7 @@ public class ClientOrderRegistController {
 			model.addAttribute("itemNameListZero", itemNameZero);
 			model.addAttribute("itemNameListLessThan", itemNameLess);
 			//割引後合計計算//
-			LocalTime now = LocalTime.now();
+			LocalTime now = LocalTime.now(ZoneId.of("Asia/Tokyo"));
 			if ((!now.isBefore(start) && now.isBefore(end)) || orderForm.getUseCouponFlag() == 1) {
 				orderForm.setOffTotal(total * 9 / 10);
 				model.addAttribute("couponFlag", 1);
@@ -264,7 +265,7 @@ public class ClientOrderRegistController {
 		order.setPayMethod(orderform.getPayMethod());
 		order.setUser(user);
 		//オリジナル機能追記クーポン、タイムセールなし→0、2タイムセール時、1クーポンあり
-		LocalTime now = LocalTime.now();
+		LocalTime now = LocalTime.now(ZoneId.of("Asia/Tokyo"));
 		if (orderform.getUseCouponFlag() == 1) {
 			order.setCouponInfo(1);
 		} else if (!now.isBefore(start) && now.isBefore(end)) {
