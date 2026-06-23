@@ -23,7 +23,8 @@
 				<dt>[[#{data.item.price}]]</dt>
 				<dd th:with="
       				priceValue=*{price},
-      				formattedPrice=${#numbers.formatInteger(priceValue, 1, 'COMMA')}" th:text="|${formattedPrice}円|">
+      				formattedPrice=${#numbers.formatInteger(priceValue, 1, 'COMMA')}" 
+      				th:text="|${formattedPrice}円|">
 				</dd>
 				<dt>[[#{data.item.stock}]]</dt>
 				<dd th:if="*{stock > 5}" th:text="#{data.in.stock}"></dd>

@@ -35,11 +35,7 @@
 			<tr>
 				<th th:text="#{data.item.image}"></th>
 				<th th:text="#{data.item.name}"></th>
-				<th th:with="
-					priceValue=#{data.item.price},
-      				formattedPrice=${#numbers.formatInteger(priceValue, 1, 'COMMA')}" 
-      				th:text="|${formattedPrice}円|">
-      			</th>
+				<th th:text="#{data.item.price}"></th>
 				<th th:text="#{category}"></th>
 			</tr>
 			<!--/* 商品一覧 */-->
@@ -50,7 +46,11 @@
 
 				</td>
 				<td><a th:href="@{/client/item/detail/{id}(id=${item.id})}" th:text="${item.name}"></a></td>
-				<td th:text="${item.price}"></td>
+				<td th:with="
+      				priceValue=${item.price},
+      				formattedPrice=${#numbers.formatInteger(priceValue, 1, 'COMMA')}" 
+      				th:text="|${formattedPrice}円|">
+				</td>
 				<td th:text="${item.category.name}"></td>
 			</tr>
 		</table>

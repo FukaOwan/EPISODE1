@@ -13,10 +13,6 @@ body {
 	/* 文字の間隔を少し広げる */
 }
 
-body.user {
-	font-size: 16px;
-}
-
 /* ---- テキスト系 ---- */
 .container .text {
 	font-weight: bold;
@@ -266,6 +262,65 @@ p {
 	padding: 5px;
 	color: #4169e1;
 	font-weight: bold;
+}
+
+.user .more_button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+
+	min-width: 160px;
+	padding: 12px 26px;
+
+	color: #8d5caf;
+	background: linear-gradient(110deg,
+			#fffaff 0%,
+			#f7ecff 55%,
+			#eef8ff 100%);
+
+	border: 2px solid #d8b8eb;
+	border-radius: 999px;
+
+	font-size: 16px;
+	font-weight: 700;
+	letter-spacing: 0.08em;
+
+	text-decoration: none;
+
+	box-shadow:
+		0 4px 10px rgba(151, 105, 180, 0.13);
+
+	cursor: pointer;
+
+	transition:
+		transform 0.18s ease,
+		box-shadow 0.18s ease,
+		color 0.18s ease,
+		background 0.25s ease;
+}
+
+.user .more_button:hover {
+  color: #76469b;
+
+  background: linear-gradient(
+    110deg,
+    #f9efff 0%,
+    #eee3ff 55%,
+    #e5f7fb 100%
+  );
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 7px 15px rgba(151, 105, 180, 0.2);
+}
+
+.user .more_button:active {
+  transform: translateY(1px);
+
+  box-shadow:
+    0 2px 5px rgba(151, 105, 180, 0.15);
 }
 
 .sorted_by {
