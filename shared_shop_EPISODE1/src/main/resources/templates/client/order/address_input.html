@@ -23,22 +23,22 @@
 			<ul class="input_list">
 				<li>
 					<label><span class="input_title">[[#{orderForm.postalCode}]]</span></label>
-					<span class="error_msg" th:errors="*{postalCode}"></span>
+					<span style="color: #C00;" th:errors="*{postalCode}"></span>
 					<input type="text" th:field="*{postalCode}" />
 				</li>
 				<li>
 					<label><span class="input_title">[[#{orderForm.address}]]</span></label>
-					<span class="error_msg" th:errors="*{address}"></span>
+					<span style="color: #C00;" th:errors="*{address}"></span>
 					<textarea rows="6" th:field="*{address}"></textarea>
 				</li>
 				<li>
 					<label><span class="input_title">[[#{orderForm.name}]]</span></label>
-					<span class="error_msg" th:errors="*{name}"></span>
+					<span style="color: #C00;" th:errors="*{name}"></span>
 					<input type="text" th:field="*{name}" />
 				</li>
 				<li>
 					<label><span class="input_title">[[#{orderForm.phoneNumber}]]</span></label>
-					<span class="error_msg" th:errors="*{phoneNumber}"></span>
+					<span style="color: #C00;" th:errors="*{phoneNumber}"></span>
 					<input type="text" th:field="*{phoneNumber}" />
 				</li>
 			</ul>
