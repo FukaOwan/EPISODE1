@@ -13,6 +13,10 @@ body {
 	/* 文字の間隔を少し広げる */
 }
 
+body.user {
+	font-size: 16px;
+}
+
 /* ---- テキスト系 ---- */
 .container .text {
 	font-weight: bold;
@@ -725,15 +729,26 @@ li.error_msg {
 	margin: 30px auto 0;
 }
 
+.item_detail_area h3 {
+	font-size: 1.1rem;
+	font-weight: bold;
+	margin-bottom: 15px;
+	padding-left: 0.5rem;
+	border-left: 2px solid #ffdae0;
+}
+
 .item_image_area {
 	width: 45%;
 }
 
 .item_image_area img {
-	width: 100%;
-	max-width: 300px;
+	display: block;
+	width: 200%;
+	max-width: 500px;
 	height: auto;
-	max-height: 300px;
+	max-height: 500px;
+	border:2px solid #ffdae0;
+	border-radius: 10px;
 }
 
 .item_input_area img {
@@ -1062,6 +1077,7 @@ select {
 .item_detail_area {
 	display: flex;
 	justify-content: space-between;
+	flex-direction: column;
 }
 
 /* ---- 注文一覧 ---- */

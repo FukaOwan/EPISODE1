@@ -13,13 +13,13 @@
 
 	<div class="info_form_area" th:object="${item}">
 		<div class="item_detail_area">
+			<h3 th:text="*{name}"></h3>
 			<div class="item_image_area">
 				<img th:if="*{image != null}" th:src="@{/images/{image}(image=*{image})}"></img>
 				<img th:if="*{image == null}" th:src="@{/images/common/no_image.jpg}"></img>
 			</div>
 			<dl class="item_detail_list">
-				<dt>[[#{data.item.name}]]</dt>
-				<dd th:text="*{name}"></dd>
+				
 				<dt>[[#{data.item.price}]]</dt>
 				<dd th:text="*{price}"></dd>
 				<dt>[[#{data.item.stock}]]</dt>
