@@ -265,8 +265,11 @@ p {
 }
 
 .user .more_button {
-	display: inline-flex;
+	display: block;
+	width: fit-content;
 	align-items: center;
+	text-align: center;
+	margin-left: auto;
 	justify-content: center;
 	gap: 10px;
 
@@ -301,26 +304,24 @@ p {
 }
 
 .user .more_button:hover {
-  color: #76469b;
+	color: #76469b;
 
-  background: linear-gradient(
-    110deg,
-    #f9efff 0%,
-    #eee3ff 55%,
-    #e5f7fb 100%
-  );
+	background: linear-gradient(110deg,
+			#f9efff 0%,
+			#eee3ff 55%,
+			#e5f7fb 100%);
 
-  transform: translateY(-2px);
+	transform: translateY(-2px);
 
-  box-shadow:
-    0 7px 15px rgba(151, 105, 180, 0.2);
+	box-shadow:
+		0 7px 15px rgba(151, 105, 180, 0.2);
 }
 
 .user .more_button:active {
-  transform: translateY(1px);
+	transform: translateY(1px);
 
-  box-shadow:
-    0 2px 5px rgba(151, 105, 180, 0.15);
+	box-shadow:
+		0 2px 5px rgba(151, 105, 180, 0.15);
 }
 
 .sorted_by {
@@ -1256,6 +1257,7 @@ select {
 	margin: 0 3px;
 }
 
+/*削除ボタン*/
 .list_table.basket .delete {
 	width: 80px;
 	height: 35px;
@@ -1271,6 +1273,10 @@ select {
 
 .list_table.basket .delete:hover {
 	background: pink;
+}
+
+.list_table.basket .add {
+	
 }
 
 
