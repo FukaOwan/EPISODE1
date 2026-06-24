@@ -35,11 +35,17 @@
 		</div>
 
 		<div class="ad_area" th:if="${session.user == null or session.user.authority == 2}">
-			<div th:if="${currentPage == 'top'}">
+			<div th:if="${currentPage == 'top'}" class="ad_top">
 				<img th:src="@{/images/ad_usagi.jpg}" alt="USAGIシリーズの広告">
+				<img th:src="@{/images/ad_constellation.jpg}" alt="星座の広告">
+				<img th:src="@{/images/ad_jellyfish.jpg}" alt="クラゲの広告">
 			</div>
-			<div th:if="${currentPage == 'item-list'}">
-				<img th:src="@{/images/ad_usagi.jpg}" alt="USAGIシリーズの広告">
+			<div th:if="${currentPage == 'item-list'}" class="ad_list">
+				<img th:src="@{/images/ad_unicorn.jpg}" alt="ユニコーンの広告">
+
+				<img th:src="@{/images/ad_fourleaf.jpg}" alt="四つ葉の広告">
+				<img th:src="@{/images/ad_floralnail.jpg}" alt="ネイルの広告">
+				<img th:src="@{/images/ad_cake.jpg}" alt="ケーキの広告">
 			</div>
 		</div>
 

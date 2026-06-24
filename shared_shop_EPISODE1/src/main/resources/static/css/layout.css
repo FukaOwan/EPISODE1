@@ -398,6 +398,13 @@ aside.admin_menu {
 	width: 100%;
 }
 
+.ad_area .ad_top,
+.ad_area .ad_list {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
 .ad_area img {
 	width: 100%;
 	height: auto;
