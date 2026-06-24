@@ -1,6 +1,7 @@
 package jp.co.sss.shop.controller.client.order;
 
 import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,10 +42,10 @@ public class ClientOrderRegistController {
 	@Autowired
 	OrderItemRepository orderItemRepository;
 
-	LocalTime start = LocalTime.of(19, 0); // メイン
-	// LocalTime start = LocalTime.of(10, 0); // サブ
-	LocalTime end = LocalTime.of(22, 0); // メイン
-	// LocalTime end = LocalTime.of(13, 0); // サブ
+	// LocalTime start = LocalTime.of(19, 0); // メイン
+	LocalTime start = LocalTime.of(10, 0); // サブ
+	// LocalTime end = LocalTime.of(22, 0); // メイン
+	LocalTime end = LocalTime.of(13, 0); // サブ
 
 	//注文入力フォーム情報初期化処理（届け先入力前に）
 	@RequestMapping(path = "/client/order/address/input", method = RequestMethod.POST)
@@ -56,7 +57,7 @@ public class ClientOrderRegistController {
 		BeanUtils.copyProperties(user, orderForm);
 		orderForm.setPayMethod(1);
 		//時間でも判断する処理を書く
-		LocalTime now = LocalTime.now();
+		LocalTime now = LocalTime.now(ZoneId.of("Asia/Tokyo"));
 		if (!now.isBefore(start) && now.isBefore(end)) {
 			orderForm.setCouponFlag(0);
 		} else {
@@ -73,7 +74,7 @@ public class ClientOrderRegistController {
 
 	//届け先入力画面表示
 	@RequestMapping(path = "/client/order/address/input", method = RequestMethod.GET)
-	public String showAddressInput(Model model) {
+	public String showAddressInput(@Valid @ModelAttribute OrderForm orderForm, BindingResult result, Model model) {
 		OrderForm form = (OrderForm) session.getAttribute("orderForm");
 
 		model.addAttribute("orderForm", form);
@@ -147,6 +148,7 @@ public class ClientOrderRegistController {
 		User user = userRepository.getReferenceById(orderForm.getId());
 		//合計金額表示用変数
 		Integer total = 0;
+		Integer shippingFee = 800;
 		//在庫不足メッセージ用リスト
 		List<String> itemNameZero = new ArrayList<>();
 		List<String> itemNameLess = new ArrayList<>();
@@ -187,7 +189,7 @@ public class ClientOrderRegistController {
 			model.addAttribute("itemNameListZero", itemNameZero);
 			model.addAttribute("itemNameListLessThan", itemNameLess);
 			//割引後合計計算//
-			LocalTime now = LocalTime.now();
+			LocalTime now = LocalTime.now(ZoneId.of("Asia/Tokyo"));
 			if ((!now.isBefore(start) && now.isBefore(end)) || orderForm.getUseCouponFlag() == 1) {
 				orderForm.setOffTotal(total * 9 / 10);
 				model.addAttribute("couponFlag", 1);
@@ -200,6 +202,11 @@ public class ClientOrderRegistController {
 			} else {
 				totalPoint = total / 100;
 			}
+			// 送料
+			if (total >= 10000) {
+				shippingFee = 0;
+			}
+			model.addAttribute("shippingFee", shippingFee);
 			//追記
 			model.addAttribute("total", total);
 			session.setAttribute("totalPoint", totalPoint);
@@ -264,7 +271,7 @@ public class ClientOrderRegistController {
 		order.setPayMethod(orderform.getPayMethod());
 		order.setUser(user);
 		//オリジナル機能追記クーポン、タイムセールなし→0、2タイムセール時、1クーポンあり
-		LocalTime now = LocalTime.now();
+		LocalTime now = LocalTime.now(ZoneId.of("Asia/Tokyo"));
 		if (orderform.getUseCouponFlag() == 1) {
 			order.setCouponInfo(1);
 		} else if (!now.isBefore(start) && now.isBefore(end)) {

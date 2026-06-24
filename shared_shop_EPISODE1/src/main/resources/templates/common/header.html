@@ -7,8 +7,10 @@
 
 <body>
 	<div th:fragment="layout-header" class="container">
+<!--		大湾がタイトルをリンクに-->
+		<a class="headlink"th:href="@{/}">
 		<h1 th:class="site_title" th:text="#{shop.title}"></h1>
-
+		</a>
 		<!--セール、一般権限のみ-->
 		<div class="user_sale-info">
 			<div id="notSale"></div>
@@ -26,19 +28,19 @@
 				const minutes = String(now.getMinutes()).padStart(2, '0');
 				const seconds = String(now.getSeconds()).padStart(2, '0');
 				//セールは何時から何時か指定
-				if (hours >= 19 && hours <= 22) { // メイン
-				//if (hours >= 10 && hours <= 13) { // サブ
+				// if (hours >= 19 && hours <= 22) { // メイン
+				if (hours >= 10 && hours <= 13) { // サブ
 					//セール時に表示するメッセージ
 					document.getElementById("sale").innerHTML = 
-					'<p class="sale_text"><span class="sale-time">19:00 〜 22:00</span>まで<span class="sale-highlight">タイムセール中！</span><br>合計金額から<span class="sale-highlight">10％オフ！</span></p>';
-					//'<p class="sale_text"><span class="sale-time">10:00 〜 13:00</span>まで<span class="sale-highlight">タイムセール中！</span><br>合計金額から<span class="sale-highlight">10％オフ！</span></p>';
+					// '<p class="sale_text"><span class="sale-time">19:00 〜 22:00</span>まで<span class="sale-highlight">タイムセール中！</span><br>合計金額から<span class="sale-highlight">10％オフ！</span></p>';
+					'<p class="sale_text"><span class="sale-time">10:00 〜 13:00</span>まで<span class="sale-highlight">タイムセール中！</span><br>合計金額から<span class="sale-highlight">10％オフ！</span></p>';
 
 
 				}
 				else {
 					document.getElementById("notSale").innerHTML = 
-					'<p class="not-sale_text"><span class="sale-time">19:00 〜 22:00</span>は<span class="sale-highlight">タイムセール！</span><br>お楽しみに！</p>';
-					//'<p class="not-sale_text"><span class="sale-time">10:00 〜 13:00</span>は<span class="sale-highlight">タイムセール！</span><br>お楽しみに！</p>';
+					// '<p class="not-sale_text"><span class="sale-time">19:00 〜 22:00</span>は<span class="sale-highlight">タイムセール！</span><br>お楽しみに！</p>';
+					'<p class="not-sale_text"><span class="sale-time">10:00 〜 13:00</span>は<span class="sale-highlight">タイムセール！</span><br>お楽しみに！</p>';
 
 				}
 			}
