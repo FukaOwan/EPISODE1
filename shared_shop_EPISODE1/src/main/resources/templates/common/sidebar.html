@@ -26,6 +26,13 @@
 				</select> <input type="submit" th:value="#{select}" class="category_submit_button" />
 			</form>
 		</div>
+		<h2 th:class="title">商品検索</h2>
+		<div class="form">
+			<form th:action="@{/client/item/search}" class="search-bar">
+				<input type="search" name="name">
+				<input type="submit" th:value="#{select}" class="category_submit_button">
+			</form>
+		</div>
 	</div>
 
 	<!--/* メニュー(運用管理者、及びシステム管理者用) */-->

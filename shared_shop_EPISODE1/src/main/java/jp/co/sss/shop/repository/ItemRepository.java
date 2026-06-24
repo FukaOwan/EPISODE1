@@ -76,5 +76,10 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 //	@Query("SELECT i FROM Item i INNER JOIN i.orderItemList o WHERE i.deleteFlag =:deleteFlag  And o.quantity != 0 ")
 //	List<Item> findByDeleteFlagAndQuantity(
 //	        @Param(value = "deleteFlag") int deleteFlag);
+	
+//  商品を 曖昧検索 (東山)
+	@Query("SELECT i FROM Item i INNER JOIN i.category c WHERE i.deleteFlag =:deleteFlag AND i.name LIKE %:name%")
+	List<Item>findByDeleteFlagAndNameContaining(
+			@Param(value = "deleteFlag") int deleteFlag, @Param (value = "name") String name);
 }
 
