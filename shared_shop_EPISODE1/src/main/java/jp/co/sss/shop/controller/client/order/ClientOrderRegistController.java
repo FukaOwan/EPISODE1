@@ -73,7 +73,7 @@ public class ClientOrderRegistController {
 
 	//届け先入力画面表示
 	@RequestMapping(path = "/client/order/address/input", method = RequestMethod.GET)
-	public String showAddressInput(Model model) {
+	public String showAddressInput(@Valid @ModelAttribute OrderForm orderForm, BindingResult result, Model model) {
 		OrderForm form = (OrderForm) session.getAttribute("orderForm");
 
 		model.addAttribute("orderForm", form);

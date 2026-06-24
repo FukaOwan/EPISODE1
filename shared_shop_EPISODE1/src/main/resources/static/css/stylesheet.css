@@ -1411,3 +1411,8 @@ p.link_center {
 .paging a {
 	display: block;
 }
+/*大湾追記*/
+.headlink{
+  color: inherit;        /* 親要素の文字色を引き継ぐ */
+  text-decoration: none; /* 下線を消す */
+}
