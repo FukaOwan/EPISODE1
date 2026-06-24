@@ -7,8 +7,10 @@
 
 <body>
 	<div th:fragment="layout-header" class="container">
+<!--		大湾がタイトルをリンクに-->
+		<a class="headlink"th:href="@{/}">
 		<h1 th:class="site_title" th:text="#{shop.title}"></h1>
-
+		</a>
 		<!--セール、一般権限のみ-->
 		<div class="user_sale-info">
 			<div id="notSale"></div>
