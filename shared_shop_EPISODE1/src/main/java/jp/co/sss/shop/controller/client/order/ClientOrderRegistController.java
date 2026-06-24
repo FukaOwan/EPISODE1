@@ -148,6 +148,7 @@ public class ClientOrderRegistController {
 		User user = userRepository.getReferenceById(orderForm.getId());
 		//合計金額表示用変数
 		Integer total = 0;
+		Integer shippingFee = 800;
 		//在庫不足メッセージ用リスト
 		List<String> itemNameZero = new ArrayList<>();
 		List<String> itemNameLess = new ArrayList<>();
@@ -201,6 +202,11 @@ public class ClientOrderRegistController {
 			} else {
 				totalPoint = total / 100;
 			}
+			// 送料
+			if (total >= 10000) {
+				shippingFee = 0;
+			}
+			model.addAttribute("shippingFee", shippingFee);
 			//追記
 			model.addAttribute("total", total);
 			session.setAttribute("totalPoint", totalPoint);

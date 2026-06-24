@@ -69,6 +69,24 @@
 				<td class="pointTotai" th:text="${session.totalPoint}+'P'"></td>
 			</tr>
 				<!--ポイント表示-->
+				<!--送料表示-->
+			<tr style="background-color: #FFF6CC;" th:if="${shippingFee != 0}">
+				<td></td>
+				<td colspan="2" style="text-align: right;" th:text="'送料 800円（送料無料まで '+${10000-total}+'円）'" th:if="${couponFlag==0}"></td>
+				<td colspan="2" style="text-align: right;" th:text="'送料 800円（送料無料まで '+${10000-session.offTotal}+'円）'" th:if="${couponFlag==1}"></td>
+				<td>送料込み合計</td>
+				<td th:text="${total+shippingFee}" th:if="${couponFlag==0}"></td>
+				<td th:text="${session.offTotal+shippingFee}" th:if="${couponFlag==1}"></td>
+			</tr>
+			<tr style="background-color: #FFF6CC;" th:if="${shippingFee == 0}">
+				<td></td>
+				<td colspan="2" style="text-align: right;" th:text="'10,000円以上のご購入につき送料無料'" th:if="${couponFlag==0}"></td>
+				<td colspan="2" style="text-align: right;" th:text="'10,000円以上のご購入につき送料無料'" th:if="${couponFlag==1}"></td>
+				<td>送料込み合計</td>
+				<td th:text="${total}" th:if="${couponFlag==0}"></td>
+				<td th:text="${session.offTotal}" th:if="${couponFlag==1}"></td>
+			</tr>
+				<!--送料表示-->
 
 		</table>
 		<div class="user_info_form_area">
