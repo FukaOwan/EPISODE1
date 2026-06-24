@@ -570,6 +570,48 @@ aside.admin_menu {
 	color: #d34320;
 }
 
+/* ---- 下部のバナー ---- */
+.shipping_banner {
+  position: fixed;
+  width: 100%;
+  bottom: 0px;
+  z-index: 100;
+  padding: 5px;
+
+  text-align: center;
+
+  color: #694c70;
+  background: linear-gradient(
+    110deg,
+    #fce7f0,
+    #e7f7ff
+  );
+
+  border: 1px solid #dfc1e6;
+  font-weight: bold;
+  letter-spacing: 0.04em;
+
+  box-shadow: 0 4px 12px rgba(145, 105, 160, 0.18);
+
+  opacity: 1;
+  transform: translateY(0);
+
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+}
+
+.shipping_banner p{
+	margin :0;
+}
+
+.shipping-banner.is-hidden {
+  opacity: 0;
+  transform: translateY(15px);
+  pointer-events: none;
+}
+
+
 /* ---- フッター ---- */
 
 /* スキルアップテクニック1-3
