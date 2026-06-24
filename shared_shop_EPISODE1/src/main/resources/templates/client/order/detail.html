@@ -66,6 +66,12 @@
 				</td>
 				<td class="total" th:text="${total}"></td>
 			</tr>
+			<tr>
+				<td colspan="2" ></td>
+				<td>送料込み合計</td>
+				<td class="total" th:text="${total}" th:if="${total>=10000}"></td>
+				<td class="total" th:text="${total+800}" th:if="${total<10000}"></td>
+			</tr>
 		</table>
 		<form th:action="@{/client/order/list}" method="post" class="detail_button_area">
 			<input type="submit" value="戻る" class="back_button" />
