@@ -39,9 +39,18 @@
 		</ul>
 
 
-		<form th:action="@{/client/user/regist/complete}" method="post" class="user_info_form">
+		<form id=userForm th:action="@{/client/user/regist/complete}" method="post" class="user_info_form">
 			<input type="submit" value="登録" class="send_button" />
 		</form>
+					
+<script>
+document.getElementById("userForm").addEventListener("submit", function(e) {
+    if (!confirm("本当によろしいですか？")) {
+        e.preventDefault(); // ← キャンセル時に送信を止める
+    }
+});
+</script>
+
 		<form th:action="@{/client/user/regist/input}" method="post" class="update">
 			<input type="submit" value="戻る" class="back_button" />
 		</form>
