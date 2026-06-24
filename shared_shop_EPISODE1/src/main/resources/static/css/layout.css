@@ -394,6 +394,16 @@ aside.admin_menu {
 	padding: 15px 0 50px 5px;
 }
 
+.ad_area {
+	width: 100%;
+}
+
+.ad_area img {
+	max-width: 100%;
+	height: auto;
+	display: block;
+}
+
 .admin_menu .display_list {
 	display: block;
 	padding: 10px;
@@ -572,52 +582,50 @@ aside.admin_menu {
 
 /* ---- 下部のバナー ---- */
 .shipping-banner {
-  position: fixed;
-  width: 100%;
-  bottom: 0px;
-  z-index: 100;
-  padding: 10px;
+	position: fixed;
+	width: 100%;
+	bottom: 0px;
+	z-index: 100;
+	padding: 10px;
 
-  text-align: center;
+	text-align: center;
 
-  color: #694c70;
-  background: linear-gradient(
-    110deg,
-    #fce7f0,
-    #e7f7ff
-  );
+	color: #694c70;
+	background: linear-gradient(110deg,
+			#fce7f0,
+			#e7f7ff);
 
-  border: 1px solid #dfc1e6;
-  font-size: 16px;
-  font-weight: bold;
-  letter-spacing: 0.04em;
+	border: 1px solid #dfc1e6;
+	font-size: 16px;
+	font-weight: bold;
+	letter-spacing: 0.04em;
 
-  box-shadow: 0 4px 12px rgba(145, 105, 160, 0.18);
+	box-shadow: 0 4px 12px rgba(145, 105, 160, 0.18);
 
-  opacity: 1;
-  transform: translateY(0);
+	opacity: 1;
+	transform: translateY(0);
 
-  transition:
-    opacity 0.25s ease,
-    transform 0.25s ease;
+	transition:
+		opacity 0.25s ease,
+		transform 0.25s ease;
 }
 
-.shipping-banner p{
-	margin :0;
+.shipping-banner p {
+	margin: 0;
 }
 
-.shipping-banner p .under-line{
+.shipping-banner p .under-line {
 	text-decoration: underline;
 }
 
-.shipping-banner p .highlight{
+.shipping-banner p .highlight {
 	color: #ff69b4;
 }
 
 .shipping-banner.is-hidden {
-  opacity: 0;
-  transform: translateY(15px);
-  pointer-events: none;
+	opacity: 0;
+	transform: translateY(15px);
+	pointer-events: none;
 }
 
 
