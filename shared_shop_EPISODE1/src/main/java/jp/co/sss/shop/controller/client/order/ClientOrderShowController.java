@@ -76,6 +76,10 @@ public class ClientOrderShowController {
 				total = (int) ((int)total * 0.9);
 			}
 			
+			// 送料計算(東山)
+			if (total<10000) {
+				total += 800;
+			}
 
 			//合計金額のセット
 			orderBean.setTotal(total);
