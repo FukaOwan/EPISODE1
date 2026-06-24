@@ -11,7 +11,37 @@ body {
 	color: #000;
 	letter-spacing: 0.1em;
 	/* 文字の間隔を少し広げる */
+
+/*(追加06/23)*/
+	cursor: url('/shared_shop/images/cat.png')12 18, default !important;
+	
 }
+
+/* 通常時のカーソル */
+.cursor-nikukyu {
+    cursor: url('/shared_shop/images/cat.png') 12 18, pointer !important;
+}
+
+a, button, input[type="button"], .back_button {
+    cursor: url('/shared_shop/images/cat.png') 12 18, pointer !important;
+}
+
+
+
+/* 足跡（これが重要：マウスに追従する足跡のスタイル） */
+.footprint {
+    position: fixed;
+    pointer-events: none; /* クリックを邪魔しないようにする */
+    font-size: 20px;
+    z-index: 9999;
+    animation: fadeOut 1s forwards; /* 1秒で消える */
+}
+
+@keyframes fadeOut {
+    to { opacity: 0; transform: translateY(-20px); }
+}
+
+
 
 /* ---- テキスト系 ---- */
 .container .text {
@@ -246,6 +276,7 @@ p {
 	background: #ffe6f2;
 	color: #ff69b4;
 	box-shadow: 0 5px 10px rgba(255, 182, 215, 0.4);
+	
 }
 
 /* 現在選択されている「spanタグ」のデザイン */
@@ -255,6 +286,7 @@ p {
 	box-shadow: 0 4px 12px rgba(255, 110, 180, 0.5);
 	cursor: default;
 	text-shadow: 1px 1px 0px rgba(139, 50, 90, 0.2);
+	cursor: url('/shared_shop/images/cat.png')12 18, default !important;
 }
 
 
@@ -431,6 +463,7 @@ span.error_msg {
 	border-radius: 30px;
 	box-shadow: 0 4px 10px rgba(255, 182, 193, 0.5);
 	cursor: pointer;
+	cursor: url('/shared_shop/images/cat.png')12 18, default !important;
 }
 
 /* 【戻る】ボタン */
@@ -446,6 +479,7 @@ span.error_msg {
 	border-radius: 30px;
 	cursor: pointer;
 	font-weight: bold;
+	cursor: url('/shared_shop/images/cat.png')12 18, default !important;
 }
 
 .info_form_area .back_button {
@@ -469,6 +503,7 @@ span.error_msg {
 	border-radius: 30px;
 	box-shadow: 0 4px 10px rgba(255, 182, 193, 0.5);
 	transition: all 0.1s ease-in-out;
+	cursor: url('/shared_shop/images/cat.png')12 18, default !important;
 }
 
 .shopping_button .continue:hover {
@@ -488,6 +523,7 @@ span.error_msg {
 	cursor: pointer;
 	box-shadow: 0 4px 10px rgba(255, 182, 193, 0.5);
 	transition: all 0.1s ease-in-out;
+	cursor: url('/shared_shop/images/cat.png')12 18, default !important;
 }
 
 .shopping_button .delete:hover {
@@ -531,6 +567,7 @@ span.error_msg {
 	padding: 10px 35px;
 	border-radius: 30px;
 	box-shadow: 0 4px 10px rgba(255, 182, 193, 0.5);
+	cursor: url('/shared_shop/images/cat.png')12 18, default !important;
 }
 
 .detail_button_area .send_button:hover {
@@ -547,6 +584,7 @@ span.error_msg {
 	border: 2px dotted #b8a3cd;
 	padding: 8px 33px;
 	border-radius: 30px;
+	cursor: url('/shared_shop/images/cat.png')12 18, default !important;
 }
 
 .detail_button_area .back_button:hover {
@@ -632,6 +670,8 @@ span.error_msg {
 	color: #555;
 	font-weight: bold;
 	outline: none;
+	cursor: url('/shared_shop/images/cat.png')12 18, default !important;
+
 }
 
 .category_select option {
@@ -640,6 +680,7 @@ span.error_msg {
 	color: #6c5a75;
 	padding: 12px;
 	font-size: 15px;
+	cursor: url('/shared_shop/images/cat.png')12 18, default !important;
 }
 
 
@@ -668,6 +709,8 @@ span.error_msg {
 select {
 	padding: 2px 5px 5px;
 	color: #12526d;
+
+	
 }
 
 /* ---- ボタン全般 ---- */
@@ -679,6 +722,8 @@ select {
 	background: #fff;
 	box-shadow: 1px 2px 2px #eee;
 	text-shadow: 1px 1px 1px #d8d8d8;
+	
+	
 }
 
 /*[type=submit].delete {*/
@@ -704,6 +749,7 @@ select {
 	font-weight: bold;
 	font-size: 16px;
 	transition: transform 0.2s;
+	cursor: url('/shared_shop/images/cat.png')12 18, default !important;
 }
 
 #login_submit_button:hover {
@@ -729,6 +775,7 @@ select {
 	color: #4a3c00;
 	font-weight: bold;
 	transition: transform 0.1s;
+	cursor: url('/shared_shop/images/cat.png')12 18, default !important;
 }
 
 .category_submit_button:hover {
@@ -1014,6 +1061,7 @@ select {
 	padding: 6px 16px;
 	border-radius: 6px;
 	box-shadow: 0 2px 4px rgba(184, 163, 205, 0.3);
+	cursor: url('/shared_shop/images/cat.png')12 18, default !important;
 }
 
 .list_table.basket .delete:hover {
