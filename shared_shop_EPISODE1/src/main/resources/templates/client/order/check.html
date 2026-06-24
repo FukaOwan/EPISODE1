@@ -122,9 +122,18 @@
 					</td>
 				</tr>
 			</table>
-			<form th:action="@{/client/order/complete}" method="post">
-				<input class="send_button confirmed_button" type="submit" value="ご注文の確定" th:if="${orderItemBeans != null}" />
+			<form id="orderForm" th:action="@{/client/order/complete}" method="post">
+				<input class="send_button confirmed_button" type="submit" value="ご注文の確定" 
+				th:if="${orderItemBeans != null}"/>
 			</form>
+			
+<script>
+document.getElementById("orderForm").addEventListener("submit", function(e) {
+    if (!confirm("本当に注文を確定しますか？")) {
+        e.preventDefault(); // ← キャンセル時に送信を止める
+    }
+});
+</script>
 			<form th:action="@{/client/order/payment/back}" method="post" class="update">
 				<input type="submit" value="戻る" class="back_button" />
 			</form>
