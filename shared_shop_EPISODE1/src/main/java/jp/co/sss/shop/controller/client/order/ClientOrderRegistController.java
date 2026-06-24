@@ -41,8 +41,10 @@ public class ClientOrderRegistController {
 	@Autowired
 	OrderItemRepository orderItemRepository;
 
-	LocalTime start = LocalTime.of(19, 0);
-	LocalTime end = LocalTime.of(22, 0);
+	LocalTime start = LocalTime.of(19, 0); // メイン
+	// LocalTime start = LocalTime.of(10, 0); // サブ
+	LocalTime end = LocalTime.of(22, 0); // メイン
+	// LocalTime end = LocalTime.of(13, 0); // サブ
 
 	//注文入力フォーム情報初期化処理（届け先入力前に）
 	@RequestMapping(path = "/client/order/address/input", method = RequestMethod.POST)

@@ -12,21 +12,21 @@
 
 	<th:block th:if="${itemNameListLessThan != null || itemNameListZero != null}">
 		<br />
-				<!--/* 在庫不足商品 */-->
+		<!--/* 在庫不足商品 */-->
 		<ul class="error_list_no_mark" th:if="${itemNameListLessThan != null}">
 			<li th:each="err : ${itemNameListLessThan}" th:text="#{msg.basket.stock.short(${err})}"></li>
 
 		</ul>
-				<!--/* 在庫なし商品 */-->
+		<!--/* 在庫なし商品 */-->
 		<ul class="error_list_no_mark" th:if="${itemNameListZero != null}">
 			<li th:each="err : ${itemNameListZero}" th:text="#{msg.basket.stock.none(${err})}"></li>
 		</ul>
 		<br />
 	</th:block>
-	
+
 	<!--/* 買い物かごが空のとき */-->
 	<div th:if="${session.basketBeans == null}">
-	
+
 		<p th:text="#{msg.basket.list.none}"></p>
 	</div>
 
@@ -42,6 +42,11 @@
 				<td><a th:href="@{/client/item/detail/{id}(id=${item.id})}" th:text="${item.name}"></a></td>
 				<td th:text="${item.orderNum}"></td>
 				<td>
+					<!--/* 追加ボタン追加 */-->
+					<form th:action="@{/client/basket/add}" method="post">
+						<input type="hidden" name="id" th:value="${item.id}" /> <input type="submit" value="追加"
+							class="add" />
+					</form>
 					<form th:action="@{/client/basket/delete}" method="post">
 						<input type="hidden" name="id" th:value="${item.id}" /> <input type="submit" value="削除"
 							class="delete" />
@@ -59,7 +64,7 @@
 			</form>
 			<!--/* 注文手続きフォーム */-->
 			<form th:action="@{/client/order/address/input}" method="post">
-				<input type="submit" value="ご注文のお手続き" class="continue"/>
+				<input type="submit" value="ご注文のお手続き" class="continue" />
 			</form>
 		</div>
 	</th:block>
