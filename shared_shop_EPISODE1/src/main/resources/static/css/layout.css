@@ -205,7 +205,7 @@ header .container {
  * user_infoクラスがつけられた要素の子要素であるa要素にカーソルが重なると、
  * 下線が表示されます。
  */
-.user_info a:hover {
+.user .user_info a:hover {
 	transform: scale(1.1);
 	box-shadow: 0 4px 15px rgba(255, 77, 148, 0.4);
 }
