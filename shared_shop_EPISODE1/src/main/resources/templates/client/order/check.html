@@ -69,6 +69,24 @@
 				<td class="pointTotai" th:text="${session.totalPoint}+'P'"></td>
 			</tr>
 				<!--ポイント表示-->
+				<!--送料表示-->
+			<tr style="background-color: #FFF6CC;" th:if="${shippingFee != 0}">
+				<td></td>
+				<td colspan="2" style="text-align: right;" th:text="|送料 800円（送料無料まで ${10000-total}円）|" th:unless="${couponFlag==1}"></td>
+				<td colspan="2" style="text-align: right;" th:text="|送料 800円（送料無料まで ${10000-session.offTotal}円）|" th:if="${couponFlag==1}"></td>
+				<td>送料込み合計</td>
+				<td th:text="${total+shippingFee}" th:unless="${couponFlag==1}"></td>
+				<td th:text="${session.offTotal+shippingFee}" th:if="${couponFlag==1}"></td>
+			</tr>
+			<tr style="background-color: #FFF6CC;" th:if="${shippingFee == 0}">
+				<td></td>
+				<td colspan="2" style="text-align: right;" th:text="'10,000円以上のご購入につき送料無料'" th:unless="${couponFlag==1}"></td>
+				<td colspan="2" style="text-align: right;" th:text="'10,000円以上のご購入につき送料無料'" th:if="${couponFlag==1}"></td>
+				<td>送料込み合計</td>
+				<td th:text="${total}" th:unless="${couponFlag==1}"></td>
+				<td th:text="${session.offTotal}" th:if="${couponFlag==1}"></td>
+			</tr>
+				<!--送料表示-->
 
 		</table>
 		<div class="user_info_form_area">
@@ -104,9 +122,18 @@
 					</td>
 				</tr>
 			</table>
-			<form th:action="@{/client/order/complete}" method="post">
-				<input class="send_button" type="submit" value="ご注文の確定" th:if="${orderItemBeans != null}" />
+			<form id="orderForm" th:action="@{/client/order/complete}" method="post">
+				<input class="send_button confirmed_button" type="submit" value="ご注文の確定" 
+				th:if="${orderItemBeans != null}"/>
 			</form>
+			
+<script>
+document.getElementById("orderForm").addEventListener("submit", function(e) {
+    if (!confirm("本当に注文を確定しますか？")) {
+        e.preventDefault(); // ← キャンセル時に送信を止める
+    }
+});
+</script>
 			<form th:action="@{/client/order/payment/back}" method="post" class="update">
 				<input type="submit" value="戻る" class="back_button" />
 			</form>

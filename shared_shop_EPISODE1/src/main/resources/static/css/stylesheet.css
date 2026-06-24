@@ -129,11 +129,65 @@ p {
 	width: 80px;
 }
 
-/* ---- ボタン(削除) ---- */
+/* ---- ボタン(削除、管理者) ---- */
 [type=submit].delete {
 	background: #d22222;
 	color: white;
 }
+
+[type=submit].delete:disabled {
+	background: #ccc;
+}
+
+/* ---- ボタン(削除、一般) ---- */
+.user [type=submit].delete {
+	color: #ffffff;
+
+	background:
+		linear-gradient(135deg,
+			#ef7895 0%,
+			#e9567c 55%,
+			#dd426c 100%);
+
+	border: 2px solid #d93662;
+
+	box-shadow:
+		0 4px 8px rgba(206, 54, 94, 0.25),
+		inset 0 1px 0 rgba(255, 255, 255, 0.35);
+
+	transition:
+		transform 0.2s ease,
+		box-shadow 0.2s ease,
+		background 0.2s ease;
+}
+
+.user [type=submit].delete:hover {
+	background:
+		linear-gradient(135deg,
+			#f286a1 0%,
+			#ee5d82 55%,
+			#e14770 100%);
+
+	transform: translateY(-2px);
+
+	box-shadow:
+		0 8px 16px rgba(206, 54, 94, 0.3),
+		0 0 12px rgba(242, 134, 161, 0.45);
+}
+
+.user [type=submit].delete:active {
+	transform: translateY(1px);
+
+	background:
+		linear-gradient(135deg,
+			#dc607f,
+			#cc355f);
+
+	box-shadow:
+		0 2px 4px rgba(180, 37, 74, 0.3),
+		inset 0 3px 6px rgba(150, 30, 60, 0.18);
+}
+
 
 [type=submit].delete:disabled {
 	background: #ccc;
@@ -208,6 +262,66 @@ p {
 	padding: 5px;
 	color: #4169e1;
 	font-weight: bold;
+}
+
+.user .more_button {
+	display: block;
+	width: fit-content;
+	align-items: center;
+	text-align: center;
+	margin-left: auto;
+	justify-content: center;
+	gap: 10px;
+
+	min-width: 160px;
+	padding: 12px 26px;
+
+	color: #8d5caf;
+	background: linear-gradient(110deg,
+			#fffaff 0%,
+			#f7ecff 55%,
+			#eef8ff 100%);
+
+	border: 2px solid #d8b8eb;
+	border-radius: 999px;
+
+	font-size: 16px;
+	font-weight: 700;
+	letter-spacing: 0.08em;
+
+	text-decoration: none;
+
+	box-shadow:
+		0 4px 10px rgba(151, 105, 180, 0.13);
+
+	cursor: pointer;
+
+	transition:
+		transform 0.18s ease,
+		box-shadow 0.18s ease,
+		color 0.18s ease,
+		background 0.25s ease;
+}
+
+.user .more_button:hover {
+	color: #76469b;
+
+	background: linear-gradient(110deg,
+			#f9efff 0%,
+			#eee3ff 55%,
+			#e5f7fb 100%);
+
+	transform: translateY(-2px);
+
+	box-shadow:
+		0 7px 15px rgba(151, 105, 180, 0.2);
+}
+
+.user .more_button:active {
+	transform: translateY(1px);
+
+	box-shadow:
+		0 2px 5px rgba(151, 105, 180, 0.15);
 }
 
 .sorted_by {
@@ -430,7 +544,25 @@ span.error_msg {
 	padding: 10px 35px;
 	border-radius: 30px;
 	box-shadow: 0 4px 10px rgba(255, 182, 193, 0.5);
-	cursor: pointer;
+	transition:
+		transform 0.15s ease,
+		box-shadow 0.15s ease,
+		filter 0.15s ease;
+}
+
+.user_info_form_area .send_button:hover {
+	/* 少しだけ紫寄り・鮮やかにする */
+	filter: hue-rotate(8deg) saturate(1.08);
+
+	transform: translateY(-1px);
+
+	box-shadow: 0 8px 17px rgba(175, 140, 205, 0.23);
+}
+
+.user_info_form_area .send_button:active {
+	transform: translateY(1px);
+
+	box-shadow: 0 3px 8px rgba(175, 140, 205, 0.18);
 }
 
 /* 【戻る】ボタン */
@@ -438,14 +570,28 @@ span.error_msg {
 	position: absolute;
 	bottom: 20px;
 	left: calc(50% - 170px);
-	border: none;
 	background: #ffffff;
 	color: #b8a3cd;
 	border: 2px dotted #b8a3cd;
 	padding: 8px 33px;
 	border-radius: 30px;
-	cursor: pointer;
-	font-weight: bold;
+	box-shadow: 0 3px 5px rgba(120, 90, 150, 0.15);
+	transition: transform 0.1s ease, background-color 0.1s ease, box-shadow 0.1s ease;
+}
+
+.user_info_form_area .back_button:hover {
+	background-color: #faf5ff;
+	transform: translateY(-2px);
+	box-shadow: 0 5px 8px rgba(120, 90, 150, 0.2);
+}
+
+.user_info_form_area .back_button:active {
+	transform: translateY(1px);
+	box-shadow: 0 1px 3px rgba(120, 90, 150, 0.15);
+}
+
+.user_info_form_area .confirmed_button:hover {
+	transform: translateY(-2px);
 }
 
 .info_form_area .back_button {
@@ -465,17 +611,27 @@ span.error_msg {
 	color: #5c4747;
 	font-weight: bold;
 	border: none;
-	padding: 10px 24px;
+	padding: 10px 35px;
 	border-radius: 30px;
-	box-shadow: 0 4px 10px rgba(255, 182, 193, 0.5);
-	transition: all 0.1s ease-in-out;
+	box-shadow: 0 8px 20px rgba(190, 135, 200, 0.28);
+	transition:
+		background-position 0.3s ease,
+		transform 0.2s ease,
+		box-shadow 0.2s ease;
 }
 
 .shopping_button .continue:hover {
-	background: #d1a7bd;
-	color: #ffffff;
-	box-shadow: 0 2px 5px rgba(209, 167, 189, 0.6);
+	background-position: right center;
+	transform: translateY(-2px);
+	box-shadow:
+		0 13px 25px rgba(157, 119, 200, 0.3),
+		0 0 14px rgba(207, 183, 238, 0.3);
+}
+
+.shopping_button .continue:active {
 	transform: translateY(1px);
+	box-shadow:
+		0 4px 9px rgba(167, 133, 205, 0.2);
 }
 
 /* 買い物かごを空にする */
@@ -522,6 +678,7 @@ span.error_msg {
 	font-size: 1.2em;
 }
 
+
 /* 【買い物かごに入れる】ボタン */
 .detail_button_area .send_button {
 	background: linear-gradient(135deg, #ffdee9 0%, #b5fffc 100%);
@@ -531,14 +688,26 @@ span.error_msg {
 	padding: 10px 35px;
 	border-radius: 30px;
 	box-shadow: 0 4px 10px rgba(255, 182, 193, 0.5);
+	transition:
+		background-position 0.3s ease,
+		transform 0.2s ease,
+		box-shadow 0.2s ease;
 }
 
 .detail_button_area .send_button:hover {
-	background: #d1a7bd;
-	color: #ffffff;
-	box-shadow: 0 2px 5px rgba(209, 167, 189, 0.6);
-	transform: translateY(1px);
+	background-position: right center;
+	transform: translateY(-2px);
+	box-shadow:
+		0 11px 22px rgba(167, 133, 205, 0.25),
+		0 0 12px rgba(207, 183, 238, 0.2);
 }
+
+.detail_button_area .send_button:active {
+	transform: translateY(1px);
+	box-shadow:
+		0 4px 9px rgba(167, 133, 205, 0.2);
+}
+
 
 /* 【戻る】ボタン */
 .detail_button_area .back_button {
@@ -547,10 +716,69 @@ span.error_msg {
 	border: 2px dotted #b8a3cd;
 	padding: 8px 33px;
 	border-radius: 30px;
+	box-shadow: 0 3px 5px rgba(120, 90, 150, 0.15);
+
+	transition:
+		transform 0.1s ease,
+		background-color 0.1s ease,
+		box-shadow 0.1s ease;
 }
 
 .detail_button_area .back_button:hover {
-	background-color: rgba(184, 163, 205, 0.2);
+	background-color: #faf5ff;
+	transform: translateY(-2px);
+	box-shadow: 0 5px 8px rgba(120, 90, 150, 0.2);
+}
+
+.detail_button_area .back_button:active {
+	transform: translateY(1px);
+	box-shadow: 0 1px 3px rgba(120, 90, 150, 0.15);
+}
+
+/*【変更】ボタン*/
+.detail_button_area .change_button {
+	color: #5c62b8;
+
+	background:
+		linear-gradient(135deg,
+			#ffffff 0%,
+			#f1f4ff 45%,
+			#eee5ff 100%);
+
+	border: 2px solid #b8bcef;
+
+	box-shadow:
+		0 4px 8px rgba(125, 132, 210, 0.18),
+		inset 0 0 10px rgba(255, 255, 255, 0.9);
+
+	transition:
+		transform 0.2s ease,
+		box-shadow 0.2s ease,
+		background 0.2s ease;
+}
+
+.detail_button_area .change_button:hover {
+	color: #5157ad;
+
+	background:
+		linear-gradient(135deg,
+			#ffffff 0%,
+			#e9f4ff 45%,
+			#e8dcff 100%);
+
+	transform: translateY(-3px);
+
+	box-shadow:
+		0 8px 16px rgba(125, 132, 210, 0.25),
+		0 0 12px rgba(190, 174, 240, 0.4);
+}
+
+.detail_button_area .change_button:active {
+	transform: translateY(1px);
+
+	box-shadow:
+		0 2px 5px rgba(125, 132, 210, 0.2),
+		inset 0 2px 5px rgba(125, 132, 210, 0.12);
 }
 
 .card_info {
@@ -563,15 +791,24 @@ span.error_msg {
 	margin: 30px auto 0;
 }
 
+.item_detail_area h3 {
+	font-size: 1.1rem;
+	font-weight: bold;
+	margin-bottom: 15px;
+	padding-left: 0.5rem;
+	border-left: 3px solid #ffdae0;
+}
+
 .item_image_area {
 	width: 45%;
 }
 
 .item_image_area img {
-	width: 100%;
-	max-width: 300px;
+	display: block;
+	width: 120%;
 	height: auto;
-	max-height: 300px;
+	border: 2px solid #ffdae0;
+	border-radius: 10px;
 }
 
 .item_input_area img {
@@ -582,16 +819,19 @@ span.error_msg {
 }
 
 .item_detail_list {
-	width: 50%;
+	width: 100%;
+	display: grid;
+	grid-template-columns: 120px 1fr;
+	gap: 12px 20px;
 }
 
-.item_detail_list dt{
+.item_detail_list dt {
 	color: #5c4747;
-	margin-top: 10px;
+	font-weight: bold;
 }
 
-.item_detail_list dd{
-	margin-left: 60px;
+.item_detail_list dd {
+	margin-left: 0;
 }
 
 .item_detail_area+.user_info_form {
@@ -900,6 +1140,7 @@ select {
 .item_detail_area {
 	display: flex;
 	justify-content: space-between;
+	flex-direction: column;
 }
 
 /* ---- 注文一覧 ---- */
@@ -907,8 +1148,27 @@ select {
 	margin-top: 50px;
 }
 
-.list_table.order a {
+/*日付ボタン*/
+.user .list_table.order a {
+	color: #a684b5;
+	font-weight: 600;
 	text-decoration: underline;
+	text-decoration-color: #d7bddc;
+	text-decoration-thickness: 1px;
+	text-underline-offset: 3px;
+
+	transition:
+		color 0.15s ease,
+		text-decoration-color 0.15s ease;
+}
+
+.list_table.order a:hover {
+	color: #85649a;
+	text-decoration-color: #85649a;
+}
+
+.list_table.order a:visited {
+	color: #a684b5;
 }
 
 /* ---- カテゴリ一覧 ---- */
@@ -1003,21 +1263,72 @@ select {
 	margin: 0 3px;
 }
 
-.list_table.basket .delete {
+/*削除ボタン、追加ボタンの共通*/
+.list_table.basket .delete,
+.list_table.basket .add {
 	width: 80px;
 	height: 35px;
 	font-weight: bold;
 	text-shadow: none;
-	background: #b8a3cd;
-	color: #ffffff;
 	border: none;
 	padding: 6px 16px;
 	border-radius: 6px;
-	box-shadow: 0 2px 4px rgba(184, 163, 205, 0.3);
+	transition:
+		transform 0.18s ease,
+		box-shadow 0.18s ease,
+		background 0.18s ease;
+}
+
+.list_table.basket .delete {
+	color: #a95773;
+	background-color: #fff5f8;
+	border: 2px solid #e6a8bc;
+	box-shadow: 0 4px 9px rgba(205, 115, 145, 0.13);
 }
 
 .list_table.basket .delete:hover {
-	background: pink;
+  color: #ffffff;
+  background-color: #d982a0;
+
+  transform: translateY(-2px);
+
+  box-shadow: 0 7px 13px rgba(205, 115, 145, 0.23);
+}
+
+.list_table.basket .delete:active {
+  transform: translateY(1px);
+
+  background-color: #c86d8c;
+  box-shadow: 0 2px 5px rgba(190, 90, 125, 0.18);
+}
+
+
+.list_table.basket .add {
+	color: #5c527f;
+
+	background: linear-gradient(110deg,
+			#dff5ff 0%,
+			#e8dcff 100%);
+
+	border: 2px solid #b9b6e8;
+
+	box-shadow: 0 4px 9px rgba(130, 125, 190, 0.16);
+}
+
+.list_table.basket .add:hover {
+	background: linear-gradient(110deg,
+			#d2f2ff 0%,
+			#ddcefa 100%);
+
+	transform: translateY(-2px);
+
+	box-shadow: 0 7px 13px rgba(130, 125, 190, 0.23);
+}
+
+.list_table.basket .add:active {
+	transform: translateY(1px);
+
+	box-shadow: 0 2px 5px rgba(130, 125, 190, 0.16);
 }
 
 
@@ -1099,4 +1410,9 @@ p.link_center {
 
 .paging a {
 	display: block;
+}
+/*大湾追記*/
+.headlink{
+  color: inherit;        /* 親要素の文字色を引き継ぐ */
+  text-decoration: none; /* 下線を消す */
 }
