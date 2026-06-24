@@ -571,12 +571,12 @@ aside.admin_menu {
 }
 
 /* ---- 下部のバナー ---- */
-.shipping_banner {
+.shipping-banner {
   position: fixed;
   width: 100%;
   bottom: 0px;
   z-index: 100;
-  padding: 5px;
+  padding: 10px;
 
   text-align: center;
 
@@ -588,6 +588,7 @@ aside.admin_menu {
   );
 
   border: 1px solid #dfc1e6;
+  font-size: 16px;
   font-weight: bold;
   letter-spacing: 0.04em;
 
@@ -601,8 +602,16 @@ aside.admin_menu {
     transform 0.25s ease;
 }
 
-.shipping_banner p{
+.shipping-banner p{
 	margin :0;
+}
+
+.shipping-banner p .under-line{
+	text-decoration: underline;
+}
+
+.shipping-banner p .highlight{
+	color: #ff69b4;
 }
 
 .shipping-banner.is-hidden {

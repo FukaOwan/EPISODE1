@@ -39,13 +39,83 @@
 			<div th:replace="${body}"></div>
 		</article>
 	</div>
-	<div class="shipping_banner">
-		<p>平日・土曜<span class="under-line">14時まで</span>のご注文は<span class="highlight">当日発送！</span></p>
+	<div class="shipping-banner">
+		<p>平日・土曜 <span class="under-line">14時まで</span>のご注文は<span class="highlight">当日発送！</span></p>
 	</div>
 	<!--/* フッター */-->
-	<footer>
+	<footer class="footer">
 		<div th:replace="~{common/footer :: layout-footer}"></div>
 	</footer>
+
+	<script>
+		document.addEventListener("DOMContentLoaded", () => {
+			const banner = document.querySelector(".shipping-banner");
+			const mainVisual = document.querySelector(".main-visual");
+			const footer = document.querySelector("footer");
+
+			if (!banner) {
+				return;
+			}
+
+			let isFooterVisible = false;
+			let ticking = false;
+
+			const updateBanner = () => {
+				let overlapsMainVisual = false;
+
+				// メインビジュアルがあるページだけ重なりを判定
+				if (mainVisual) {
+					const bannerTop =
+						window.innerHeight - banner.offsetHeight;
+
+					const mainVisualBottom =
+						mainVisual.getBoundingClientRect().bottom;
+
+					overlapsMainVisual =
+						mainVisualBottom > bannerTop;
+				}
+
+				const shouldHide =
+					overlapsMainVisual || isFooterVisible;
+
+				banner.classList.toggle("is-hidden", shouldHide);
+
+				ticking = false;
+			};
+
+			// footerが存在するページだけ監視
+			if (footer) {
+				const footerObserver = new IntersectionObserver(
+					([entry]) => {
+						isFooterVisible = entry.isIntersecting;
+						updateBanner();
+					},
+					{
+						threshold: 0.01
+					}
+				);
+
+				footerObserver.observe(footer);
+			}
+
+			window.addEventListener(
+				"scroll",
+				() => {
+					if (!ticking) {
+						requestAnimationFrame(updateBanner);
+						ticking = true;
+					}
+				},
+				{
+					passive: true
+				}
+			);
+
+			window.addEventListener("resize", updateBanner);
+
+			updateBanner();
+		});
+	</script>
 </body>
 
 </html>
