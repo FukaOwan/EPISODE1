@@ -710,6 +710,11 @@ span.error_msg {
 
 
 /* 【戻る】ボタン */
+.admin .detail_button_area .back_button {
+	
+}
+
+
 .detail_button_area .back_button {
 	background: #ffffff;
 	color: #b8a3cd;
@@ -1201,6 +1206,7 @@ select {
 	overflow: hidden;
 	object-fit: cover;
 	object-position: center;
+	border-radius: 5px;
 }
 
 .detail_table.address,
