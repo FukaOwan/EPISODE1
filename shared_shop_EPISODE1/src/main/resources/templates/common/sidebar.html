@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 </head>
+
 <body>
 <aside th:fragment="layout-sidebar" th:class="${session.user == null or session.user.authority == 2} ? ${'search'} : ${'admin_menu'}" >
 	<!--/* 検索メニュー(非会員、一般会員用) */-->
@@ -24,6 +25,13 @@
 					<option th:each="category: ${categories}"
 						th:value="${category.id}" th:text="${category.name}" th:selected="${category.id} == ${categoryId}"></option>
 				</select> <input type="submit" th:value="#{select}" class="category_submit_button" />
+			</form>
+		</div>
+		<h2 th:class="title">商品検索</h2>
+		<div class="form">
+			<form th:action="@{/client/item/search}" class="search-bar">
+				<input type="search" name="name">
+				<input type="submit" th:value="#{select}" class="category_submit_button">
 			</form>
 		</div>
 	</div>

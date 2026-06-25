@@ -6,8 +6,8 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-
 import jp.co.sss.shop.annotation.EmailCheck;
+import jp.co.sss.shop.validator.NoBlank;
 
 /**
  * 会員情報入力フォーム
@@ -41,7 +41,7 @@ public class UserForm implements Serializable {
 	/**
 	 * 会員名
 	 */
-	@NotBlank
+	@NoBlank
 	@Size(min = 1, max = 30, message = "{text.maxsize.message}")
 	private String	name;
 
@@ -56,7 +56,7 @@ public class UserForm implements Serializable {
 	/**
 	 * 住所
 	 */
-	@NotBlank
+	@NoBlank
 	@Size(min = 1, max = 150, message = "{text.maxsize.message}")
 	private String	address;
 
