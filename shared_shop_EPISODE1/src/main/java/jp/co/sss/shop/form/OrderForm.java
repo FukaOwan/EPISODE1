@@ -5,6 +5,7 @@ import java.io.Serializable;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
+import jp.co.sss.shop.validator.NoBlank;
 
 /**
  * 注文情報入力フォーム
@@ -32,15 +33,16 @@ public class OrderForm implements Serializable {
 	/**
 	 * 送付先住所
 	 */
-	@NotBlank
+	@NoBlank
 	@Size(min = 1, max = 150, message = "{text.maxsize.message}")
 	private String address;
 
 	/**
 	 * 送付先氏名
 	 */
-	@NotBlank
+	@NoBlank
 	@Size(min = 1, max = 30, message = "{text.maxsize.message}")
+	@Pattern(regexp = "^(?!\\s+$).*$", message = "空白のみの入力はできません")
 	private String name;
 
 	/**

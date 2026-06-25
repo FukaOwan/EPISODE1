@@ -15,12 +15,12 @@
 		
 		<form th:action="@{/client/order/payment/input}" method="post" th:object="${orderForm}">
 		
-		<th:block th:if="${#fields.hasErrors()}">
+<!--		<th:block th:if="${#fields.hasErrors()}">
 				<ul class="error_list">
 					<li th:each="err:${#fields.detailedErrors()}" th:text="${err.message}"></li>
 				</ul>
 				<br />
-		</th:block>	
+		</th:block>	-->
 
 			<ul class="input_list">
 				<li>
