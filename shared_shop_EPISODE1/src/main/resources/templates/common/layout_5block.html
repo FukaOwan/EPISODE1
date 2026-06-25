@@ -39,20 +39,38 @@
 			<div th:replace="${body}"></div>
 		</article>
 	</div>
+	<!--発送情報バナー（伊藤）-->
 	<div class="shipping-banner">
 		<p>平日・土曜 <span class="under-line">14時まで</span>のご注文は<span class="highlight">当日発送！</span></p>
 	</div>
+
+	<!--topへ戻るボタン（伊藤）-->
+	<button type="button" class="page-top_button" aria-label="ページ上部へ戻る">
+		↑
+	</button>
+
 	<!--/* フッター */-->
 	<footer class="footer">
 		<div th:replace="~{common/footer :: layout-footer}"></div>
 	</footer>
 
+	<!--JS（伊藤）-->
 	<script>
 		document.addEventListener("DOMContentLoaded", () => {
+			initShippingBanner();
+			initPageTopButton();
+		});
+
+		/* ========================================
+		   当日発送バナー
+		======================================== */
+
+		function initShippingBanner() {
 			const banner = document.querySelector(".shipping-banner");
 			const mainVisual = document.querySelector(".main-visual");
 			const footer = document.querySelector("footer");
 
+			// バナーがないページでは何もしない
 			if (!banner) {
 				return;
 			}
@@ -63,7 +81,7 @@
 			const updateBanner = () => {
 				let overlapsMainVisual = false;
 
-				// メインビジュアルがあるページだけ重なりを判定
+				// メインビジュアルがあるページだけ判定
 				if (mainVisual) {
 					const bannerTop =
 						window.innerHeight - banner.offsetHeight;
@@ -75,15 +93,14 @@
 						mainVisualBottom > bannerTop;
 				}
 
-				const shouldHide =
-					overlapsMainVisual || isFooterVisible;
-
-				banner.classList.toggle("is-hidden", shouldHide);
+				banner.classList.toggle(
+					"is-hidden",
+					overlapsMainVisual || isFooterVisible
+				);
 
 				ticking = false;
 			};
 
-			// footerが存在するページだけ監視
 			if (footer) {
 				const footerObserver = new IntersectionObserver(
 					([entry]) => {
@@ -114,7 +131,47 @@
 			window.addEventListener("resize", updateBanner);
 
 			updateBanner();
-		});
+		}
+
+
+		/* ========================================
+		   ページ上部へ戻るボタン
+		======================================== */
+
+		function initPageTopButton() {
+			const pageTopButton =
+				document.querySelector(".page-top_button");
+
+			// ボタンがないページでは何もしない
+			if (!pageTopButton) {
+				return;
+			}
+
+			const updatePageTopButton = () => {
+				// 500px以上スクロールしたら表示
+				pageTopButton.classList.toggle(
+					"is-visible",
+					window.scrollY >= 500
+				);
+			};
+
+			window.addEventListener(
+				"scroll",
+				updatePageTopButton,
+				{
+					passive: true
+				}
+			);
+
+			pageTopButton.addEventListener("click", () => {
+				window.scrollTo({
+					top: 0,
+					behavior: "smooth"
+				});
+			});
+
+			updatePageTopButton();
+		}
 	</script>
 </body>
 

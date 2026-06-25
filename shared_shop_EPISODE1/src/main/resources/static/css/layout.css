@@ -410,6 +410,7 @@ aside.admin_menu {
 	width: 100%;
 	height: auto;
 	display: block;
+	border-radius: 5px;
 }
 
 .admin_menu .display_list {
@@ -587,6 +588,66 @@ aside.admin_menu {
 .complete_link a:hover {
 	color: #d34320;
 }
+
+/* ---- TOPに戻るボタン ---- */
+.user .page-top_button {
+  position: fixed;
+  right: 24px;
+  bottom: 64px;
+  z-index: 200;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 50px;
+  height: 50px;
+  padding: 0;
+
+  color: #76558f;
+  background: linear-gradient(
+    135deg,
+    #fff7fc,
+    #e9e0ff
+  );
+
+  border: 2px solid #d3b7e5;
+  border-radius: 50%;
+
+  font-size: 24px;
+  font-weight: bold;
+
+  box-shadow:
+    0 5px 12px rgba(126, 92, 150, 0.2);
+
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+
+  transition:
+    opacity 0.2s ease,
+    visibility 0.2s ease,
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.user .page-top_button.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.user .page-top_button:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 8px 16px rgba(126, 92, 150, 0.27);
+}
+
+.user .page-top_button:active {
+  transform: translateY(1px);
+}
+
 
 /* ---- 下部のバナー ---- */
 .shipping-banner {

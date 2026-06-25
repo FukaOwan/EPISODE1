@@ -34,12 +34,15 @@
 			</div>
 		</div>
 
+		<!--広告エリア（伊藤）-->
 		<div class="ad_area" th:if="${session.user == null or session.user.authority == 2}">
+			<!--トップページのときの広告-->
 			<div th:if="${currentPage == 'top'}" class="ad_top">
 				<img th:src="@{/images/ad_usagi.jpg}" alt="USAGIシリーズの広告">
 				<img th:src="@{/images/ad_constellation.jpg}" alt="星座の広告">
 				<img th:src="@{/images/ad_jellyfish.jpg}" alt="クラゲの広告">
 			</div>
+			<!--商品一覧のときの広告-->
 			<div th:if="${currentPage == 'item-list'}" class="ad_list">
 				<img th:src="@{/images/ad_unicorn.jpg}" alt="ユニコーンの広告">
 
