@@ -94,9 +94,15 @@ public class ClientItemShowController {
 		return "client/item/list";	
 	}
 	
+	/**
+	 * 商品検索　表示処理
+	 * @param name
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping(path = "/client/item/search",  method = { RequestMethod.GET, RequestMethod.POST })
-	public String itemSearch(String name, Model model) {
-		model.addAttribute("items", itemRepository.findByDeleteFlagAndNameContaining(Constant.NOT_DELETED, name));
+	public String itemSearch(String itemName, Model model) {
+		model.addAttribute("items", itemRepository.findByDeleteFlagAndNameContaining(Constant.NOT_DELETED, itemName));
 		return "client/item/list";
 	}
 
