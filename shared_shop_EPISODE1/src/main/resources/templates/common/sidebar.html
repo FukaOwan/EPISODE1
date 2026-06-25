@@ -32,6 +32,13 @@
 					</select> <input type="submit" th:value="#{select}" class="category_submit_button" />
 				</form>
 			</div>
+			<h2 th:class="title">商品検索</h2>
+			<div class="form">
+				<form th:action="@{/client/item/search}" class="search-bar">
+					<input type="search" name="itemName">
+					<input type="submit" th:value="#{select}" class="category_submit_button">
+				</form>
+			</div>
 		</div>
 
 		<!--広告エリア（伊藤）-->
