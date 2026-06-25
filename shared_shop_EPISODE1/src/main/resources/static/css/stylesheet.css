@@ -710,12 +710,8 @@ span.error_msg {
 
 
 /* 【戻る】ボタン */
-.admin .detail_button_area .back_button {
-	
-}
 
-
-.detail_button_area .back_button {
+.user .detail_button_area .back_button {
 	background: #ffffff;
 	color: #b8a3cd;
 	border: 2px dotted #b8a3cd;
@@ -729,13 +725,13 @@ span.error_msg {
 		box-shadow 0.1s ease;
 }
 
-.detail_button_area .back_button:hover {
+.user .detail_button_area .back_button:hover {
 	background-color: #faf5ff;
 	transform: translateY(-2px);
 	box-shadow: 0 5px 8px rgba(120, 90, 150, 0.2);
 }
 
-.detail_button_area .back_button:active {
+.user .detail_button_area .back_button:active {
 	transform: translateY(1px);
 	box-shadow: 0 1px 3px rgba(120, 90, 150, 0.15);
 }
