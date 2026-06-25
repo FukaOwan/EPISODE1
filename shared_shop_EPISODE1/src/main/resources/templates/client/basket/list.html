@@ -42,12 +42,21 @@
 				<td><a th:href="@{/client/item/detail/{id}(id=${item.id})}" th:text="${item.name}"></a></td>
 				<td th:text="${item.orderNum}"></td>
 				<td>
-					<!--/* 追加ボタン追加 */-->
-					<form th:action="@{/client/basket/add}" method="post">
-						<input type="hidden" name="id" th:value="${item.id}" /> <input type="submit" value="追加"
-							class="add" />
-					</form>
-					<form th:action="@{/client/basket/delete}" method="post">
+					<!--商品増減ボタン追加（伊藤）-->
+					<div class="quantity_button_area">
+						<!--/* ＋ボタン */-->
+						<form th:action="@{/client/basket/add}" method="post">
+							<input type="hidden" name="id" th:value="${item.id}" /> <input type="submit" value="＋"
+								class="add" />
+						</form>
+						<!--/* -ボタン */-->
+						<form th:action="@{/client/basket/delete}" method="post">
+							<input type="hidden" name="id" th:value="${item.id}" /> <input type="submit" value="−"
+								class="decrease" />
+						</form>
+					</div>
+					<!--/* 一つのアイテム全個数削除ボタン */-->
+					<form th:action="@{/client/basket/deleteItem}" method="post">
 						<input type="hidden" name="id" th:value="${item.id}" /> <input type="submit" value="削除"
 							class="delete" />
 					</form>

@@ -39,52 +39,140 @@
 			<div th:replace="${body}"></div>
 		</article>
 	</div>
+	<!--発送情報バナー（伊藤）-->
+	<div class="shipping-banner">
+		<p>平日・土曜 <span class="under-line">14時まで</span>のご注文は<span class="highlight">当日発送！</span></p>
+	</div>
+
+	<!--topへ戻るボタン（伊藤）-->
+	<button type="button" class="page-top_button" aria-label="ページ上部へ戻る">
+		↑
+	</button>
+
 	<!--/* フッター */-->
-	<footer>
+	<footer class="footer">
 		<div th:replace="~{common/footer :: layout-footer}"></div>
 	</footer>
-	
-	
+
+	<!--JS（伊藤）-->
 	<script>
-    const body = document.body;
-    let lastX = 0; 
-    let lastY = 0; 
-    const distanceThreshold = 70; 
-    document.addEventListener('mousemove', (e) => {
-		
-        // 現在のマウス位置との距離を計算
-        const deltaX = e.clientX - lastX;
-        const deltaY = e.clientY - lastY;
-        const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
+		document.addEventListener("DOMContentLoaded", () => {
+			initShippingBanner();
+			initPageTopButton();
+		});
 
-        // 一定の距離を超えたら足跡を作成
-        if (distance > distanceThreshold) {
-            const footprint = document.createElement('div');
-            footprint.className = 'footprint';
-            
-            const img = document.createElement('img');
-            img.src = '/shared_shop/images/nikukyu.png'; 
-            img.style.width = '20px'; 
-            footprint.appendChild(img);
+		/* ========================================
+		   当日発送バナー
+		======================================== */
 
-            footprint.style.position = 'fixed';
-            footprint.style.left = e.clientX + 'px';
-            footprint.style.top = e.clientY + 'px';
-            footprint.style.pointerEvents = 'none';
-            body.appendChild(footprint);
+		function initShippingBanner() {
+			const banner = document.querySelector(".shipping-banner");
+			const mainVisual = document.querySelector(".main-visual");
+			const footer = document.querySelector("footer");
 
-            // 1秒後に消去
-            setTimeout(() => footprint.remove(), 1000);
+			// バナーがないページでは何もしない
+			if (!banner) {
+				return;
+			}
 
-            // 最後に足跡を置いた位置を更新
-            lastX = e.clientX;
-            lastY = e.clientY;
-        }
-    });
+			let isFooterVisible = false;
+			let ticking = false;
 
-    // 初期設定
-    body.classList.add('cursor-nikukyu');
-</script>
+			const updateBanner = () => {
+				let overlapsMainVisual = false;
+
+				// メインビジュアルがあるページだけ判定
+				if (mainVisual) {
+					const bannerTop =
+						window.innerHeight - banner.offsetHeight;
+
+					const mainVisualBottom =
+						mainVisual.getBoundingClientRect().bottom;
+
+					overlapsMainVisual =
+						mainVisualBottom > bannerTop;
+				}
+
+				banner.classList.toggle(
+					"is-hidden",
+					overlapsMainVisual || isFooterVisible
+				);
+
+				ticking = false;
+			};
+
+			if (footer) {
+				const footerObserver = new IntersectionObserver(
+					([entry]) => {
+						isFooterVisible = entry.isIntersecting;
+						updateBanner();
+					},
+					{
+						threshold: 0.01
+					}
+				);
+
+				footerObserver.observe(footer);
+			}
+
+			window.addEventListener(
+				"scroll",
+				() => {
+					if (!ticking) {
+						requestAnimationFrame(updateBanner);
+						ticking = true;
+					}
+				},
+				{
+					passive: true
+				}
+			);
+
+			window.addEventListener("resize", updateBanner);
+
+			updateBanner();
+		}
+
+
+		/* ========================================
+		   ページ上部へ戻るボタン
+		======================================== */
+
+		function initPageTopButton() {
+			const pageTopButton =
+				document.querySelector(".page-top_button");
+
+			// ボタンがないページでは何もしない
+			if (!pageTopButton) {
+				return;
+			}
+
+			const updatePageTopButton = () => {
+				// 500px以上スクロールしたら表示
+				pageTopButton.classList.toggle(
+					"is-visible",
+					window.scrollY >= 500
+				);
+			};
+
+			window.addEventListener(
+				"scroll",
+				updatePageTopButton,
+				{
+					passive: true
+				}
+			);
+
+			pageTopButton.addEventListener("click", () => {
+				window.scrollTo({
+					top: 0,
+					behavior: "smooth"
+				});
+			});
+
+			updatePageTopButton();
+		}
+	</script>
 </body>
 
 </html>
