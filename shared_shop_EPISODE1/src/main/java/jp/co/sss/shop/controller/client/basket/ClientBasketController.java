@@ -197,6 +197,45 @@ public class ClientBasketController {
 		
 		return "redirect:/client/basket/list";
 	}
+	
+	//一つの商品を全削除する処理//
+		@RequestMapping(path = "/client/basket/deleteItem", method = RequestMethod.POST)
+		public String deleteItemAll(ItemForm itemForm, HttpSession session, Model model) {
+
+			List<BasketBean> RbasketList = (List<BasketBean>) session.getAttribute("basketBeans");
+			List<BasketBean> basketList = (List<BasketBean>) session.getAttribute("BL");
+
+			int i = 0;
+
+			//買い物かごの中の削除対象商品を探す//
+			for (BasketBean b : RbasketList) {
+				if (b.getId() == itemForm.getId()) {
+				
+						//買い物かご中にその商品しかない場合//
+						if (RbasketList.size() == 1) {
+							basketList.clear();
+							session.setAttribute("BL", basketList);
+							session.removeAttribute("basketBeans");
+							return "redirect:/client/basket/list";
+						}
+						//その他の商品もある場合//
+						basketList.remove(RbasketList.size() - 1 - i);
+						RbasketList.remove(i);
+						session.setAttribute("BL", basketList);
+						session.setAttribute("basketBeans", RbasketList);
+						return "redirect:/client/basket/list";
+
+				}
+				i++;
+			}
+			session.setAttribute("BL", basketList);
+			session.setAttribute("basketBeans", RbasketList);
+			
+//			画面の名前を入れる（伊藤）
+			model.addAttribute("currentPage", "basket-list");
+			
+			return "redirect:/client/basket/list";
+		}
 
 	//買い物かごを空にするボタンの処理//
 	@RequestMapping(path = "/client/basket/allDelete", method = RequestMethod.POST)
