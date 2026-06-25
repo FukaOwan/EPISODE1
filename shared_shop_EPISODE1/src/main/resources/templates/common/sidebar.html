@@ -1,60 +1,79 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
-<meta charset="UTF-8" />
+	<meta charset="UTF-8" />
 </head>
 
 <body>
-<aside th:fragment="layout-sidebar" th:class="${session.user == null or session.user.authority == 2} ? ${'search'} : ${'admin_menu'}" >
-	<!--/* 検索メニュー(非会員、一般会員用) */-->
-	<div  class="search_area" th:if="${session.user == null or session.user.authority == 2}">
-		<h2 th:class="title" th:text="#{category.select.title}"></h2>
-		<div class="form">
-			<!-- 商品一覧画面以外で表示 -->
-			<form th:if="${sortType == null}" th:action="@{/client/item/list/1}" class="search-bar">
-				<select name="categoryId" class="category_select">
-					<option th:value="#{constants.category.select.none.no}" th:text="#{constants.category.select.none}"></option>
-					<option th:each="category: ${categories}"
-						th:value="${category.id}" th:text="${category.name}"></option>
-				</select> <input type="submit" th:value="#{select}"  class="category_submit_button"/>
-			</form>
-			<!-- 商品一覧画面上で表示 -->
-			<form th:unless="${sortType == null}" th:action="@{/client/item/list/} + ${sortType}" class="search-bar">
-				<select name="categoryId" class="category_select">
-					<option th:value="#{constants.category.select.none.no}" th:text="#{constants.category.select.none}"></option>
-					<option th:each="category: ${categories}"
-						th:value="${category.id}" th:text="${category.name}" th:selected="${category.id} == ${categoryId}"></option>
-				</select> <input type="submit" th:value="#{select}" class="category_submit_button" />
-			</form>
+	<aside th:fragment="layout-sidebar"
+		th:class="${session.user == null or session.user.authority == 2} ? ${'search'} : ${'admin_menu'}">
+		<!--/* 検索メニュー(非会員、一般会員用) */-->
+		<div class="search_area" th:if="${session.user == null or session.user.authority == 2}">
+			<h2 th:class="title" th:text="#{category.select.title}"></h2>
+			<div class="form">
+				<!-- 商品一覧画面以外で表示 -->
+				<form th:if="${sortType == null}" th:action="@{/client/item/list/1}" class="search-bar">
+					<select name="categoryId" class="category_select">
+						<option th:value="#{constants.category.select.none.no}"
+							th:text="#{constants.category.select.none}"></option>
+						<option th:each="category: ${categories}" th:value="${category.id}" th:text="${category.name}">
+						</option>
+					</select> <input type="submit" th:value="#{select}" class="category_submit_button" />
+				</form>
+				<!-- 商品一覧画面上で表示 -->
+				<form th:unless="${sortType == null}" th:action="@{/client/item/list/} + ${sortType}"
+					class="search-bar">
+					<select name="categoryId" class="category_select">
+						<option th:value="#{constants.category.select.none.no}"
+							th:text="#{constants.category.select.none}"></option>
+						<option th:each="category: ${categories}" th:value="${category.id}" th:text="${category.name}"
+							th:selected="${category.id} == ${categoryId}"></option>
+					</select> <input type="submit" th:value="#{select}" class="category_submit_button" />
+				</form>
+			</div>
 		</div>
-		<h2 th:class="title">商品検索</h2>
-		<div class="form">
-			<form th:action="@{/client/item/search}" class="search-bar">
-				<input type="search" name="itemName">
-				<input type="submit" th:value="#{select}" class="category_submit_button">
-			</form>
+
+		<!--広告エリア（伊藤）-->
+		<div class="ad_area" th:if="${session.user == null or session.user.authority == 2}">
+			<!--トップページのときの広告-->
+			<div th:if="${currentPage == 'top'}" class="ad_top">
+				<img th:src="@{/images/ad_usagi.jpg}" alt="USAGIシリーズの広告">
+				<img th:src="@{/images/ad_constellation.jpg}" alt="星座の広告">
+				<img th:src="@{/images/ad_jellyfish.jpg}" alt="クラゲの広告">
+			</div>
+			<!--商品一覧のときの広告-->
+			<div th:if="${currentPage == 'item-list'}" class="ad_list">
+				<img th:src="@{/images/ad_unicorn.jpg}" alt="ユニコーンの広告">
+
+				<img th:src="@{/images/ad_fourleaf.jpg}" alt="四つ葉の広告">
+				<img th:src="@{/images/ad_floralnail.jpg}" alt="ネイルの広告">
+				<img th:src="@{/images/ad_cake.jpg}" alt="ケーキの広告">
+			</div>
 		</div>
-	</div>
 
-	<!--/* メニュー(運用管理者、及びシステム管理者用) */-->
-	<div th:if="${session.user != null and session.user.authority != 2}">
 
-		<h2 th:class="title" th:text="#{admin.menu}"></h2>
-		<ul class="menu">
-			<li>
-				<a th:href="@{/admin/user/list}" th:class="display_list" th:text="#{admin.menu.user.list}"></a>
-			</li>
-			<li th:if="${session.user.authority == 1}">
-				<a th:href="@{/admin/order/list}" th:class="display_list" th:text="#{admin.menu.order.list}"></a>
-			</li>
-			<li th:if="${session.user.authority == 1}">
-				<a th:href="@{/admin/item/list}" th:class="display_list" th:text="#{admin.menu.item.list}"></a>
-			</li>
-			<li th:if="${session.user.authority == 1}">
-				<a th:href="@{/admin/category/list}" th:class="display_list" th:text="#{admin.menu.category.list}"></a>
-			</li>
-		</ul>
-	</div>
-</aside>
+		<!--/* メニュー(運用管理者、及びシステム管理者用) */-->
+		<div th:if="${session.user != null and session.user.authority != 2}">
+
+			<h2 th:class="title" th:text="#{admin.menu}"></h2>
+			<ul class="menu">
+				<li>
+					<a th:href="@{/admin/user/list}" th:class="display_list" th:text="#{admin.menu.user.list}"></a>
+				</li>
+				<li th:if="${session.user.authority == 1}">
+					<a th:href="@{/admin/order/list}" th:class="display_list" th:text="#{admin.menu.order.list}"></a>
+				</li>
+				<li th:if="${session.user.authority == 1}">
+					<a th:href="@{/admin/item/list}" th:class="display_list" th:text="#{admin.menu.item.list}"></a>
+				</li>
+				<li th:if="${session.user.authority == 1}">
+					<a th:href="@{/admin/category/list}" th:class="display_list"
+						th:text="#{admin.menu.category.list}"></a>
+				</li>
+			</ul>
+		</div>
+	</aside>
 </body>
+
 </html>
