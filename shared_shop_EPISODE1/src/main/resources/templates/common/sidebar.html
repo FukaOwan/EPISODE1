@@ -13,7 +13,7 @@
 			<h2 th:class="title" th:text="#{category.select.title}"></h2>
 			<div class="form">
 				<!-- 商品一覧画面以外で表示 -->
-				<form th:if="${sortType == null}" th:action="@{/client/item/list/1}" class="search-bar">
+				<form th:if="${sortType == null}" th:action="@{/client/item/list/1}" class="search-bar category">
 					<select name="categoryId" class="category_select">
 						<option th:value="#{constants.category.select.none.no}"
 							th:text="#{constants.category.select.none}"></option>
@@ -23,7 +23,7 @@
 				</form>
 				<!-- 商品一覧画面上で表示 -->
 				<form th:unless="${sortType == null}" th:action="@{/client/item/list/} + ${sortType}"
-					class="search-bar">
+					class="search-bar category">
 					<select name="categoryId" class="category_select">
 						<option th:value="#{constants.category.select.none.no}"
 							th:text="#{constants.category.select.none}"></option>
@@ -34,8 +34,8 @@
 			</div>
 			<h2 th:class="title">商品検索</h2>
 			<div class="form">
-				<form th:action="@{/client/item/search}" class="search-bar">
-					<input type="search" name="itemName">
+				<form th:action="@{/client/item/search}" class="search-bar name">
+					<input type="search" name="itemName" class="category_input" aria-label="商品を検索">
 					<input type="submit" th:value="#{select}" class="category_submit_button">
 				</form>
 			</div>
