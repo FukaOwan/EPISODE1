@@ -68,14 +68,11 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	        @Param(value = "deleteFlag") int deleteFlag, @Param (value = "categoryId") Integer categoryId);
 
 //	商品を カテゴリ別 ＋ 売れ筋順 で検索（追記：春山）
-	@Query("SELECT i FROM Item i INNER JOIN i.category c LEFT JOIN i.orderItemList o WHERE i.deleteFlag =:deleteFlag AND c.id = :categoryId ORDER BY o.quantity ASC,i.id DESC")
+	
+	@Query("SELECT i FROM Item i INNER JOIN i.category c LEFT JOIN i.orderItemList o WHERE i.deleteFlag =:deleteFlag AND c.id = :categoryId GROUP BY i ORDER BY COALESCE(SUM(o.quantity),0) DESC,i.id DESC")
 	List<Item>findByDeleteFlagAndCategoryOrderByQuantityDesc(
 	        @Param(value = "deleteFlag") int deleteFlag,  @Param (value = "categoryId") Integer categoryId);
 
-//	OderItemから販売個数が0以上の商品を取得
-//	@Query("SELECT i FROM Item i INNER JOIN i.orderItemList o WHERE i.deleteFlag =:deleteFlag  And o.quantity != 0 ")
-//	List<Item> findByDeleteFlagAndQuantity(
-//	        @Param(value = "deleteFlag") int deleteFlag);
 	
 //  商品を 曖昧検索 (東山)
 	@Query("SELECT i FROM Item i INNER JOIN i.category c WHERE i.deleteFlag =:deleteFlag AND i.name LIKE %:name%")
