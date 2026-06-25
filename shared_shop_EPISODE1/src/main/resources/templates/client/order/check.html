@@ -127,13 +127,13 @@
 				th:if="${orderItemBeans != null}"/>
 			</form>
 			
-<script>
-document.getElementById("orderForm").addEventListener("submit", function(e) {
-    if (!confirm("本当に注文を確定しますか？")) {
-        e.preventDefault(); // ← キャンセル時に送信を止める
-    }
-});
-</script>
+			<script>
+				document.getElementById("orderForm").addEventListener("submit", function(e) {
+    				if (!confirm("本当に注文を確定しますか？")) {
+    			    e.preventDefault(); // ← キャンセル時に送信を止める
+					}
+				});
+			</script>
 			<form th:action="@{/client/order/payment/back}" method="post" class="update">
 				<input type="submit" value="戻る" class="back_button" />
 			</form>
