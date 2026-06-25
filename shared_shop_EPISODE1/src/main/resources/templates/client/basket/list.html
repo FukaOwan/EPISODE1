@@ -60,6 +60,11 @@
 						<input type="hidden" name="id" th:value="${item.id}" /> <input type="submit" value="削除"
 							class="delete" />
 					</form>
+					<!--/* 一つのアイテム全個数削除ボタン */-->
+					<form th:action="@{/client/basket/deleteItem}" method="post">
+						<input type="hidden" name="id" th:value="${item.id}" /> <input type="submit" value="全削除"
+							class="delete" />
+					</form>
 				</td>
 				<td th:if="${item.stock == 0}" th:text="#{data.out.of.stock}"></td>
 				<td th:if="${item.stock > 5}" th:text="#{data.in.stock}"></td>
