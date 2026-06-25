@@ -93,6 +93,12 @@ public class ClientItemShowController {
 		model.addAttribute("currentPage", "item-list");
 		return "client/item/list";	
 	}
+	
+	@RequestMapping(path = "/client/item/search",  method = { RequestMethod.GET, RequestMethod.POST })
+	public String itemSearch(String name, Model model) {
+		model.addAttribute("items", itemRepository.findByDeleteFlagAndNameContaining(Constant.NOT_DELETED, name));
+		return "client/item/list";
+	}
 
 /**
 	 * 商品詳細画面 表示処理

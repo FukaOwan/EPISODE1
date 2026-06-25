@@ -46,13 +46,13 @@ public class ClientBasketController {
 		//買い物かごに物が入っているときの商品追加処理//
 		if (basketList != null) {
 			//basketListに追加したい商品が入っているか探す//
-			for (BasketBean b : basketList) {
+			for (BasketBean b : RbasketList) {
 				//すでに籠に追加商品が入ってる場合//
 				if (b.getId() == id) {
 					//追加商品の注文数を1増やす//
-					BasketBean basketBean = new BasketBean(b.getId(), b.getName(), b.getStock(), b.getOrderNum() + 1);
-					basketList.remove(i);
-					basketList.add(basketBean);
+					BasketBean basketBean = new BasketBean(b.getId(), b.getName(), b.getStock(), (b.getOrderNum() + 1));
+					RbasketList.set(i, basketBean);
+					basketList.set(RbasketList.size() - 1 - i, basketBean);
 					break;
 				}
 				i++;
