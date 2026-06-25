@@ -12,33 +12,41 @@ body {
 	letter-spacing: 0.1em;
 	/* 文字の間隔を少し広げる */
 
-/*(追加06/23)*/
+	/*(追加06/23)*/
 	cursor: url('/shared_shop/images/cat.png')12 18, default !important;
-	
+
 }
 
 /* 通常時のカーソル */
 .cursor-nikukyu {
-    cursor: url('/shared_shop/images/cat.png') 12 18, pointer !important;
+	cursor: url('/shared_shop/images/cat.png') 12 18, pointer !important;
 }
 
-a, button, input[type="button"], .back_button {
-    cursor: url('/shared_shop/images/cat.png') 12 18, pointer !important;
+a,
+button,
+input[type="button"],
+.back_button {
+	cursor: url('/shared_shop/images/cat.png') 12 18, pointer !important;
 }
 
 
 
 /* 足跡（これが重要：マウスに追従する足跡のスタイル） */
 .footprint {
-    position: fixed;
-    pointer-events: none; /* クリックを邪魔しないようにする */
-    font-size: 20px;
-    z-index: 9999;
-    animation: fadeOut 1s forwards; /* 1秒で消える */
+	position: fixed;
+	pointer-events: none;
+	/* クリックを邪魔しないようにする */
+	font-size: 20px;
+	z-index: 9999;
+	animation: fadeOut 1s forwards;
+	/* 1秒で消える */
 }
 
 @keyframes fadeOut {
-    to { opacity: 0; transform: translateY(-20px); }
+	to {
+		opacity: 0;
+		transform: translateY(-20px);
+	}
 }
 
 
@@ -390,7 +398,7 @@ p {
 	background: #ffe6f2;
 	color: #ff69b4;
 	box-shadow: 0 5px 10px rgba(255, 182, 215, 0.4);
-	
+
 }
 
 /* 現在選択されている「spanタグ」のデザイン */
@@ -852,8 +860,17 @@ span.error_msg {
 	background-color: #ffffff;
 	border: 2px solid #ffccff;
 	border-radius: 30px;
-	padding: 4px 6px 4px 15px;
 	box-shadow: 0 4px 10px rgba(255, 204, 255, 0.2);
+}
+
+.search-bar.category {
+	padding: 4px 6px 4px 15px;
+}
+
+.search-bar.name{
+	flex-flow: column;
+	border-radius: 15px;
+	padding: 4px 6px 4px 10px;
 }
 
 .category_select {
@@ -876,6 +893,34 @@ span.error_msg {
 	padding: 12px;
 	font-size: 15px;
 	cursor: url('/shared_shop/images/cat.png')12 18, default !important;
+}
+
+.category_input {
+	width: 155px;
+	min-width: 0;
+	padding: 0 15px;
+	margin-right: 5px;
+	margin-bottom: 5px;
+
+	color: #5d465e;
+	background-color: rgba(255, 255, 255, 0.92);
+
+	border: 2px solid #c3afe4;
+	border-radius: 999px;
+	box-sizing: border-box;
+
+	font-size: 16px;
+	font-family: inherit;
+
+	outline: none;
+}
+
+.category_input:focus {
+	background-color: #ffffff;
+	border-color: #a986d5;
+
+	box-shadow:
+		0 0 0 4px rgba(193, 157, 225, 0.2);
 }
 
 
@@ -905,7 +950,7 @@ select {
 	padding: 2px 5px 5px;
 	color: #12526d;
 
-	
+
 }
 
 /* ---- ボタン全般 ---- */
@@ -917,8 +962,8 @@ select {
 	background: #fff;
 	box-shadow: 1px 2px 2px #eee;
 	text-shadow: 1px 1px 1px #d8d8d8;
-	
-	
+
+
 }
 
 /*[type=submit].delete {*/
@@ -963,19 +1008,39 @@ select {
 }
 
 .category_submit_button {
+	flex-shrink: 0;
 	padding: 5px 10px;
 	background-color: #FFF6CC;
-	border: none;
+	border: 2px solid #efd89c;
 	border-radius: 20px;
-	color: #4a3c00;
+	color: #604858;
+	background: linear-gradient(135deg,
+			#fff4bf,
+			#ffe4ca);
+	box-shadow:
+		0 3px 7px rgba(159, 125, 100, 0.15);
+
 	font-weight: bold;
 	transition: transform 0.1s;
 	cursor: url('/shared_shop/images/cat.png')12 18, default !important;
 }
 
 .category_submit_button:hover {
-	transform: scale(1.08);
-	background-color: #ffe680;
+	background: linear-gradient(135deg,
+			#ffedaa,
+			#ffd7d5);
+
+	transform: translateY(-2px);
+
+	box-shadow:
+		0 6px 11px rgba(159, 125, 140, 0.22);
+}
+
+.category_submit_button:active {
+	transform: translateY(1px);
+
+	box-shadow:
+		0 2px 4px rgba(159, 125, 140, 0.16);
 }
 
 
